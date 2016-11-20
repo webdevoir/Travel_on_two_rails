@@ -1,0 +1,30 @@
+<%= simple_form_for @post do |f| %>
+
+  <!-- error messages -->
+  <% if @post.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved</h2>
+
+    <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <!-- start of form for making a blog -->
+  <div class="form-group">
+    <div class="field-title">
+      <%= f.label :post_title, "What is the name of your post?" %>
+      <%= f.input :post_title, class: "form-control"%>
+    </div>
+    <div class="field-title">
+      <%= f.label :post_content, "Enter your post here!" %>
+      <%= f.text_area :post_content, class: "form-control"%>
+    </div>
+  </div>
+
+  <%= f.button :submit %>
+
+<% end %>
