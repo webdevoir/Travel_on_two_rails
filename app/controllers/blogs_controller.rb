@@ -1,11 +1,11 @@
 class BlogsController < ApplicationController
 
   def index
-    #code
+    @blogs = Blog.all
   end
 
   def show
-    #code
+    @blog = Blog.find(params[:id])
   end
 
   def create

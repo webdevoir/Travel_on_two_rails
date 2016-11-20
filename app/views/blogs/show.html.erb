@@ -1,1 +1,6 @@
-<h1>list of all blogs</h1>
+<h1>One blog page</h1>
+
+<% @blog.posts.each do |post| %>
+  <h3><%= post.post_title %></h3>
+  <p><%= post.post_content %></p>
+<% end %>
