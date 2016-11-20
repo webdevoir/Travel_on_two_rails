@@ -1,0 +1,40 @@
+<h1>Sign up page</h1>
+
+<div class="sign_form">
+  <%= form_for @user do |f| %>
+
+    <!-- start of error messages -->
+    <% if @user.errors.any? %>
+      <h2><%= pluralize(@user.errors.count, "error") %> Prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <!-- start of form field -->
+    <div class="form-group">
+      <div class="field-title">
+        <%= f.label :name, "Input Name: " %>
+        <%= f.text_field :name, :class => "form-control" %>
+      </div>
+      <div class="field-title">
+        <%= f.label :email, "Input Email: " %>
+        <%= f.email_field :email, :class => "form-control" %>
+      </div>
+      <div class="field-title">
+        <%= f.label :password, "Input Password: " %>
+        <%= f.password_field :password, :class => "form-control" %>
+      </div>
+      <div class="field-title">
+        <%= f.label :password_confirmation, "Confirm Password: " %>
+        <%= f.password_field :name, :class => "form-control" %>
+      </div>
+    </div>
+    <div class="action">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+</div>
