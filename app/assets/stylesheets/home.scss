@@ -1,3 +1,117 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+html {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(homepage.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: transparent !important;
+}
+
+nav.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+}
+
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+ul.nav a:hover {
+  border-bottom: solid #f0ad4e;
+  padding-bottom: 7px;
+}
+
+.container-table {
+  display: table;
+  height: 100%;
+  background-color: transparent;
+}
+
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.btn.btn-secondary {
+  margin-top: 3%;
+}
+
+
+h1, h2 {
+  color: white !important;
+}
+
+h1 {
+  font-size: 60px !important;
+}
+
+h2 {
+  font-size: 25px !important;
+}
+
+#wrapper {
+  text-align: center;
+  height: 90%;
+}
+
+
+/*button styles*/
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-primary {
+    background: #0099cc;
+    color: #ffffff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #33a6cc;
+}
+
+.btn-primary:active, .btn-primary.active {
+    background: #007299;
+    box-shadow: none;
+}
+
+.btn.sharp {
+  border-radius: 0;
+}
+
+.btn.outline {
+	background: none;
+	padding: 6px 18px;
+}
+
+.btn-primary.outline {
+	border: 2px solid #f0ad4e;
+	color: #f0ad4e;
+}
+
+.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+	color: #e28809;
+	border-color: #e28809;
+}
+.btn-primary.outline:active, .btn-primary.outline.active {
+	border-color: #007299;
+	color: #007299;
+	box-shadow: none;
+}
