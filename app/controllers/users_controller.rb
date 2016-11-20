@@ -7,12 +7,14 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:notice] = "You signed up successfully"
+      session[:user_id] = @user.id
+      redirect_to root_url, notice: "Signed Up!"
     else
+      render "new"
       flash[:notice] = "Form is invalid"
     end
-    render "new"
   end
+
 
   private
   def user_params
