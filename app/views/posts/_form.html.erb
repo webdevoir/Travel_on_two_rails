@@ -1,4 +1,4 @@
-<%= simple_form_for @post do |f| %>
+<%= form_for([@blog, @post]) do |f| %>
 
   <!-- error messages -->
   <% if @post.errors.any? %>
@@ -17,7 +17,7 @@
   <div class="form-group">
     <div class="field-title">
       <%= f.label :post_title, "What is the name of your post?" %>
-      <%= f.input :post_title, class: "form-control"%>
+      <%= f.text_area :post_title, class: "form-control"%>
     </div>
     <div class="field-title">
       <%= f.label :post_content, "Enter your post here!" %>
