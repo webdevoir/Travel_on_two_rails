@@ -11,6 +11,10 @@ class BlogsController < ApplicationController
   def create
     @blog = Blog.new(blog_params)
 
+    if current_user
+      @blog.user_id = current_user.id
+    end
+
     if @blog.save
       redirect_to blogs_url
     else
