@@ -4,25 +4,24 @@
     <div class="row vertical-center-row">
       <% if current_user %>
         <div class="col-sm-12">
+          <h1>CLICK HERE TO GO TO YOUR BLOG PAGE</h1>
+        </div>
+        <div class="col-sm-12">
+          <h2>Look at you, you already made an account, in the future you wouldn't see this.</h2>
+        </div>
+        <button type="button" class="btn btn-warning btn-lg btn-secondary sharp">Go To Your Page</button>
+      <% else %>
+        <div class="col-sm-12">
           <h1>START YOUR TOURING ADVENTURE NOW.</h1>
         </div>
         <div class="col-sm-12">
           <h2>We'll help you plan your trip, fund it, and share it with the world.</h2>
         </div>
         <button type="button" class="btn btn-warning btn-lg btn-secondary sharp">Sign Up Now</button>
-      <% else %>
-        <div class="col-sm-12">
-          <h1>CLICK HERE TO GO TO YOUR BLOG PAGE</h1>
-        </div>
-        <div class="col-sm-12">
-          <h2>Look at you, you already made an account, in the future you wouldn't see this.</h2>
-        </div>
-        <button type="button" class="btn btn-warning btn-lg btn-secondary sharp">Go To Your Homepage</button>
       <% end %>
     </div>
   </div>
 </div>
-
 
 
 <!-- <a href="/blogs">Link to Blogs</a><br>
