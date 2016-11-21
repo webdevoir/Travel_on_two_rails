@@ -24,7 +24,7 @@
           <ul class="nav navbar-nav navbar-right">
             <% if current_user %>
               <li><a href="#">Hi <%= current_user.name %></a></li>
-              <li><a href="/sessions/current" data-method="delete">Log out</a></li>
+              <li><a href="/sessions/current" data-method="delete"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
             <% else %>
               <li><a href="/users/new"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
               <!--start dropdown menu  -->
