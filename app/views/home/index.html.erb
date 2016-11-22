@@ -1,21 +1,21 @@
 <!--start of content -->
-<div id="wrapper">
+<div id="wrapper-home">
   <div class="container container-table">
     <div class="row vertical-center-row">
       <% if current_user %>
         <div class="col-sm-12">
-          <h1>CLICK HERE TO GO TO YOUR BLOG PAGE</h1>
+          <h1 class="home">CLICK HERE TO GO TO YOUR BLOG PAGE</h1>
         </div>
         <div class="col-sm-12">
-          <h2>Look at you, you already made an account, in the future you wouldn't see this.</h2>
+          <h2 class="home">Look at you, you already made an account, in the future you wouldn't see this.</h2>
         </div>
         <%= button_to('Go To Your Page', blog_path(@user_id), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
       <% else %>
         <div class="col-sm-12">
-          <h1>START YOUR TOURING ADVENTURE NOW.</h1>
+          <h1 class="home">START YOUR TOURING ADVENTURE NOW.</h1>
         </div>
         <div class="col-sm-12">
-          <h2>We'll help you plan your trip, fund it, and share it with the world.</h2>
+          <h2 class="home">We'll help you plan your trip, fund it, and share it with the world.</h2>
         </div>
         <%= button_to('Sign Up Now', new_user_path, :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
       <% end %>

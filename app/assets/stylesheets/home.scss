@@ -1,7 +1,7 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-html {
+html.home-index {
   background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(homepage.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -11,18 +11,18 @@ html {
   width: 100%;
 }
 
-body {
+body.home-index {
   height: 100%;
   background-color: transparent !important;
 }
 
-nav.navbar {
+nav.navbar.home-index {
    background-color: transparent;
    background: transparent;
    border-color: transparent;
 }
 
-.nav.navbar-nav.navbar-right li a {
+.nav.navbar-nav.navbar-right.home-index li a {
     color: white;
 }
 
@@ -47,19 +47,19 @@ ul.nav a:hover {
 }
 
 
-h1, h2 {
+h1.home, h2.home {
   color: white !important;
 }
 
-h1 {
+h1.home {
   font-size: 60px !important;
 }
 
-h2 {
+h2.home {
   font-size: 25px !important;
 }
 
-#wrapper {
+#wrapper-home {
   text-align: center;
   height: 90%;
 }
