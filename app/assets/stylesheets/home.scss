@@ -16,13 +16,13 @@ body.home-index {
   background-color: transparent !important;
 }
 
-nav.navbar {
+nav.navbar.home-index {
    background-color: transparent;
    background: transparent;
    border-color: transparent;
 }
 
-.nav.navbar-nav.navbar-right li a {
+.nav.navbar-nav.navbar-right.home-index li a {
     color: white;
 }
 
@@ -47,15 +47,15 @@ ul.nav a:hover {
 }
 
 
-h1, h2 {
+h1.home, h2.home {
   color: white !important;
 }
 
-h1 {
+h1.home {
   font-size: 60px !important;
 }
 
-h2 {
+h2.home {
   font-size: 25px !important;
 }
 

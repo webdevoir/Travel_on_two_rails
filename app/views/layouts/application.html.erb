@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="<%= css_slug  %>">
+<html class="<%= css_slug %>">
   <head>
     <title>TravelOnTwo</title>
     <%= csrf_meta_tags %>
@@ -8,9 +8,9 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body class="<%= css_slug  %>">
+  <body class="<%= css_slug %>">
     <!--start of navbar-->
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse <%= css_slug %>">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -21,7 +21,7 @@
           <a class="navbar-brand" href="<%= root_url %>">Travel on Two</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right <%= css_slug %>">
             <% if current_user %>
               <li><a href="#">Hi <%= current_user.name %></a></li>
               <li><a href="/sessions/current" data-method="delete"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
