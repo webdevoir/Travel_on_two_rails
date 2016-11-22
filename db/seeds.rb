@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.create(name: 'Evan', email: 'evan@co', password: '123')
+User.create(name: 'Adam', email: 'adam@co', password: '123')
+Blog.create(blog_name: 'Evan Blog', user_id: 1)
+Blog.create(blog_name: 'Adam Blog', user_id: 2)
+Post.create(post_title: 'Post!', post_content: 'what a great and marvelous post. would post again', blog_id: 1)
+Post.create(post_title: 'Post_2!', post_content: 'what a great and marvelous post. would post again', blog_id: 1)
+Post.create(post_title: 'Post_3!', post_content: 'what a great and marvelous post. would post again', blog_id: 1)
+Post.create(post_title: 'Post!', post_content: 'what a great and marvelous post. would post again', blog_id: 2)
+Post.create(post_title: 'Post_2!', post_content: 'what a great and marvelous post. would post again', blog_id: 2)
+Post.create(post_title: 'Post_3!', post_content: 'what a great and marvelous post. would post again', blog_id: 2)
