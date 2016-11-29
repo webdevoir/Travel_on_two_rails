@@ -63,7 +63,7 @@
               </li>
             <% end %>
             <li>
-              <%= form_tag(blogs_path ,method: 'get', class: 'navbar-form navbar-left') do %>
+              <%= form_tag(blogs_path, method: 'get', class: 'navbar-form navbar-left') do %>
                 <%= search_field_tag 'search', nil, class: 'form-control', placeholder: 'Search For a Blog'  %>
                 <%= submit_tag "Search", class: 'btn btn-primary btn-sm outline', :name => nil %>
               <% end %>
