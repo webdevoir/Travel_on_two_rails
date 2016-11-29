@@ -1,8 +1,15 @@
 <h1>One blog page</h1>
-<% if @blog.user_id == current_user.id %>
-  <h3><a href="<%= new_blog_post_url(@blog.id) %>">Make a post</a></h3>
+<% if (current_user != nil) %>
+  <% if (@blog.user_id == current_user.id) %>
+    <h3><a href="<%= new_blog_post_url(@blog.id) %>">Make a post</a></h3>
+  <% end %>
 <% end %>
 <% @blog.posts.each do |post| %>
   <h3><%= post.post_title %></h3>
   <p><%= post.post_content %></p>
 <% end %>
+
+
+<!-- # if current user exists and if @blog id == user id -->
+<!-- defeind?() returns nil != false so it returns true,
+when current user is defined it returns what it is. first argument always false.-->
