@@ -63,17 +63,10 @@
               </li>
             <% end %>
             <li>
-              <form class="navbar-form navbar-left" role="search">
-                <!-- <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <%= button_to('Search', blogs_path, :class => 'btn btn-primary btn-sm outline', :method => :get) %>
-                <button type="button" class="btn btn-primary btn-sm outline">Search</button> -->
-                <%= form_tag(blogs_path, method: 'get', class: 'navbar-form navbar-right') do %>
-                  <%= search_field_tag 'search', nil, class: 'form-control', placeholder: 'Search'  %>
-                  <%= submit_tag "Submit", class: 'btn btn-primary btn-sm outline', :name => nil %>
-                <% end %>
-              </form>
+              <%= form_tag(blogs_path ,method: 'get', class: 'navbar-form navbar-left') do %>
+                <%= search_field_tag 'search', nil, class: 'form-control', placeholder: 'Search For a Blog'  %>
+                <%= submit_tag "Search", class: 'btn btn-primary btn-sm outline', :name => nil %>
+              <% end %>
             </li>
           </ul>
         </div>
