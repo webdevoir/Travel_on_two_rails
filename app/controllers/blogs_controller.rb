@@ -5,7 +5,11 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @blog = Blog.find(params[:id])
+    # @blog = Blog.find(params[:id])
+    @blog = Blog.find_by(id: params[:id])
+    if @blog.blank?
+      redirect_to new_blog_url
+    end
   end
 
   def create

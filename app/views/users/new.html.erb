@@ -42,14 +42,18 @@
             <div class="form-group col-submit">
               <div class="field-title">
                 <h5 class="<%= css_slug %>">Confirm Password</h5>
-                <%= f.password_field :name, placeholder: "Confirm password", :class => "form-control" %>
+                <%= f.password_field :password, placeholder: "Confirm password", :class => "form-control" %>
               </div>
             </div>
             <div class="col-bottom">
               <div class="action">
                 <%= f.button :submit, :class => "btn btn-warning btn-lg btn-secondary sharp btn-reg"%>
               </div>
-              <p><a href="#">Already have an account?</a></p>
+              <p class="already-have-account"><a href="#">Already have an account?</a></p>
             </div>
           <% end %>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
