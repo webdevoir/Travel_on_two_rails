@@ -8,8 +8,19 @@
   <h3><%= post.post_title %></h3>
   <p><%= post.post_content %></p>
 <% end %>
-<div class="map-container">
-  <div class="map-canvas">
+<div id="map-container">
+  <div id="map-canvas">
 
   </div>
 </div>
+<script type="text/javascript">
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map-container'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&callback=initMap"
+  async defer></script>
