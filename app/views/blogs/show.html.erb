@@ -7,27 +7,30 @@
 <% @blog.posts.each do |post| %>
   <h3><%= post.post_title %></h3>
   <p><%= post.post_content %></p>
-<% end %>
-<div id="map-container">
-  <div id="map-canvas">
+  <div class="map-container">
+    <div class="map-canvas">
 
+    </div>
   </div>
-</div>
+<% end %>
+
 <script type="text/javascript">
 
   function initMap() {
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
-    var map = new google.maps.Map(document.getElementById('map-container'), {
-      center: {lat: 34.397, lng: -90.644},
-      zoom: 3
-    });
-    directionsDisplay.setMap(map);
+    var elems = document.getElementsByClassName('map-container');
+    for (var i = 0; i < elems.length; i++) {
+      var map = new google.maps.Map(elems[i], {
+        center: {lat: 34.397, lng: -90.644},
+        zoom: 3
+      });
+      directionsDisplay.setMap(map);
       calculateAndDisplayRoute(directionsService, directionsDisplay);
+    }
   }
 
   function calculateAndDisplayRoute(directionsService, directionsDisplay){
-    console.log("I made it here!");
     directionsService.route({
       origin: "chicago, il",
       destination: "st louis, mo",
