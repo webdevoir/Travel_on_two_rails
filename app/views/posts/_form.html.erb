@@ -23,6 +23,14 @@
       <%= f.label :post_content, "Enter your post here!" %>
       <%= f.text_area :post_content, class: "form-control"%>
     </div>
+    <div class="field-title">
+      <%= f.label :address1, "Enter starting point!" %>
+      <%= f.text_area :address1, class: "form-control"%>
+    </div>
+    <div class="field-title">
+      <%= f.label :address2, "Enter end point here!" %>
+      <%= f.text_area :address2, class: "form-control"%>
+    </div>
   </div>
 
   <%= f.button :submit %>

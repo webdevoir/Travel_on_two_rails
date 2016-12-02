@@ -7,4 +7,50 @@
 <% @blog.posts.each do |post| %>
   <h3><%= post.post_title %></h3>
   <p><%= post.post_content %></p>
+  <div class="map-container">
+    <div class="map-canvas">
+
+    </div>
+  </div>
 <% end %>
+  <script type="text/javascript">
+  var address = []
+  var maps = []
+  <% @blog.posts.each_with_index do |post, index| %>
+    address.push(['<%= post.address1 %>','<%= post.address2 %>'])
+  <% end %>
+    function initMap() {
+      console.log(address);
+      var elem = $('.map-container').toArray();
+      elem.forEach(function(div){
+        var map = new google.maps.Map(div, {
+          center: {lat: 34.397, lng: -90.644},
+          zoom: 3
+        });
+        maps.push(map)
+      })
+      for (var i = 0; i < maps.length; i++) {
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var directionsService = new google.maps.DirectionsService();
+        directionsDisplay.setMap(maps[i]);
+        calculateAndDisplayRoute(directionsService, directionsDisplay, i)
+      }
+
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, i){
+      directionsService.route({
+        origin: address[i][0],
+        destination: address[i][1],
+        travelMode: 'DRIVING'
+      }, function(response, status) {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+    };
+  }
+  </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&callback=initMap"
+  async defer></script>
