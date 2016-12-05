@@ -14,21 +14,27 @@
   </div>
 <% end %>
   <script type="text/javascript">
+  // Make blank arrays to store all address's and maps
   var address = []
   var maps = []
+  // Adding all address's into address array
   <% @blog.posts.each_with_index do |post, index| %>
     address.push(['<%= post.address1 %>','<%= post.address2 %>'])
   <% end %>
+
+  // Start of map making function
     function initMap() {
-      console.log(address);
       var elem = $('.map-container').toArray();
+      // Iterating through how many div's
       elem.forEach(function(div){
         var map = new google.maps.Map(div, {
           center: {lat: 34.397, lng: -90.644},
           zoom: 3
         });
+        // pushing map made to maps array
         maps.push(map)
       })
+      // Iterating through map array and calculating directions on each of them
       for (var i = 0; i < maps.length; i++) {
         var directionsDisplay = new google.maps.DirectionsRenderer();
         var directionsService = new google.maps.DirectionsService();
@@ -36,7 +42,7 @@
         calculateAndDisplayRoute(directionsService, directionsDisplay, i)
       }
 
-
+    // function to calculate directions  
     function calculateAndDisplayRoute(directionsService, directionsDisplay, i){
       directionsService.route({
         origin: address[i][0],
