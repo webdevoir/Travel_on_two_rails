@@ -10,23 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119175525) do
-
-  create_table "blogs", force: :cascade do |t|
-    t.string   "blog_name"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20170331144646) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "post_title"
     t.string   "post_content"
     t.string   "address1"
     t.string   "address2"
-    t.integer  "blog_id"
+    t.integer  "trip_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.string  "trip_name"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,6 +33,7 @@ ActiveRecord::Schema.define(version: 20161119175525) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "blog_name"
   end
 
 end

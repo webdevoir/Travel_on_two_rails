@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :blogs do
+  resources :trips do
     resources :posts
 
   end
