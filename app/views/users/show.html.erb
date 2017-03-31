@@ -4,3 +4,11 @@
 <% @trips.each do |trip| %>
   <h3><%= link_to "#{trip.trip_name}", trip_path %></h3>
 <% end %>
+
+<br><br><br><br><br>
+
+<% if @trips.any? %>
+  <h3><%= link_to "Start a new trip", new_trip_path %>
+<% else %>
+  <h3><%= link_to "Start your first trip", new_trip_path %></h3>
+<% end %>

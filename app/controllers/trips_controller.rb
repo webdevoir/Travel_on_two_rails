@@ -26,7 +26,7 @@ class TripsController < ApplicationController
   end
 
   def new
-    @btrip = Trip.new
+    @trip = Trip.new
   end
 
 

@@ -7,10 +7,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @blog.posts.build(post_params)
+    @post = @trip.posts.build(post_params)
 
     if @post.save
-      redirect_to blogs_url
+      redirect_to trip_path(@trip), notice: "Your post was posted!"
     else
       render :new
     end

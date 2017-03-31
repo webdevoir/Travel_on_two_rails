@@ -2,3 +2,5 @@
 <% @posts.each do |post| %>
   <h3><%= link_to "#{post.post_title}", trip_post_path(@trip) %></h3>
 <% end %>
+
+<h3><%= link_to "Create a new post", new_trip_post_path(@trip) %></h3>
