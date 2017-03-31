@@ -1,0 +1,27 @@
+
+  <%= simple_form_for @trip do |f| %>
+
+    <!-- error messages -->
+    <% if @trip.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@trip.errors.count, "error") %> prohibited this blog from being saved</h2>
+
+      <ul>
+        <% @trip.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <!-- start of form for making a blog -->
+    <div class="form-group">
+      <div class="field-title">
+        <%= f.label :trip_name, "What is the name of your trip?" %>
+        <%= f.input :trip_name, class: "form-control"%>
+      </div>
+    </div>
+
+    <%= f.button :submit %>
+
+  <% end %>

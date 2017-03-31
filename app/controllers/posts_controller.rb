@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :load_blog
+  before_action :load_trip
 
 
   def new
@@ -16,12 +16,16 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+    @post = Post.find_by(params[:id])
+  end
+
   private
   def post_params
     params.require(:post).permit(:post_title, :post_content, :address1, :address2)
   end
 
-  def load_blog
-    @blog = Blog.find(params[:blog_id])
+  def load_trip
+    @trip = Trip.find(params[:trip_id])
   end
 end

@@ -1,0 +1,5 @@
+<h1>List of trips</h1>
+<a href="/trips/new">create a blog</a>
+<% @trips.each do |trip|  %>
+  <h2><%= link_to "#{trip.trip_name}", trip %></h2>
+<% end %>
