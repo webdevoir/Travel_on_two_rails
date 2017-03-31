@@ -1,5 +1,9 @@
 <h1><%= @user.name %></h1>
 
+<%= form_for @user do |f| %>
+  <%= f.file_field :avatar %>
+  <%= f.file_field :cover %>
+<% end %>
 
 <% @trips.each do |trip| %>
   <h3><%= link_to "#{trip.trip_name}", trip_path %></h3>
