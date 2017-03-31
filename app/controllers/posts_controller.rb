@@ -1,6 +1,4 @@
 class PostsController < ApplicationController
-  before_action :load_blog
-
 
   def new
     @post = Post.new
@@ -14,6 +12,10 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @post = Post.find_by(params[:id])
   end
 
   private

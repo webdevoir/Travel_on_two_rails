@@ -1,0 +1,4 @@
+<h1><%= @trip.trip_name %></h1>
+<% @posts.each do |post| %>
+  <h3><%= link_to "#{post.post_title}", trip_post_path(@trip) %></h3>
+<% end %>

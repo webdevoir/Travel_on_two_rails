@@ -5,6 +5,7 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find_by(id: params[:id])
+    @posts = @trip.posts
     if @trip.blank?
       redirect_to new_trip_url
     end

@@ -2,5 +2,5 @@
 
 
 <% @trips.each do |trip| %>
-  <h3><%= trip.trip_name %></h3>
+  <h3><%= link_to "#{trip.trip_name}", trip_path %></h3>
 <% end %>
