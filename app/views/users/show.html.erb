@@ -3,6 +3,7 @@
 <%= form_for @user do |f| %>
   <%= f.file_field :avatar %>
   <%= f.file_field :cover %>
+  <%= f.submit %>
 <% end %>
 
 <% @trips.each do |trip| %>
