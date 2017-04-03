@@ -26,7 +26,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Don't care if the mailer can't send.
+  server '54.190.23.228', user: 'deploy', roles: %w{web app db}
+  # Don't care if the mailer can't send.54-190-23-228
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
