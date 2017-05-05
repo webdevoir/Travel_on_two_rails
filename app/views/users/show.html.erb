@@ -1,33 +1,32 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <%= render "profile_and_cover_photo" %>
-      <div class="user clearfix">
-        <h2><%= @user.name %></h2>
-        <div class="actions">
-          <div class="btn-group">
-            <button class="btn btn-default btn-sm tip btn-responsive" title="" data-original-title="Add to friends"><span class="glyphicon glyphicon-plus glyphicon glyphicon-white"></span> Friends</button>
-            <button class="btn btn-default btn-sm tip btn-responsive" title="" data-original-title="Send message"><span class="glyphicon glyphicon-envelope glyphicon glyphicon-white"></span> Message</button>
-            <button class="btn btn-default btn-sm tip btn-responsive" title="" data-original-title="Recommend"><span class="glyphicon glyphicon-share-alt glyphicon glyphicon-white"></span> Recommend</button>
-          </div>
-        </div>
+      <div id="profile-and-cover-photo">
+        <%= render "profile_and_cover_photo" %>
       </div>
-      <div class="info">
-        <p><span class="glyphicon glyphicon-globe"></span> <span class="title">Address:</span>  St. Revutskogo, Kiev, Ukraine</p>
-        <p><span class="glyphicon glyphicon-gift"></span> <span class="title">Date of birth:</span> 14.02.1989</p>
+      <div id="user-information">
+        <%= render "user_information" %>
+      </div>
+      <div id="trips">
+        <% @trips.each do |trip| %>
+        <a href="<%= trip_path %>">
+          <div class="trip-box">
+            <div class="hover-box">
+              <h3 class="trip-title"><%= trip.trip_name %></h3>
+            </div>
+          </div>
+        </a>
+        <% end %>
+        <a href="<%= new_trip_path %>">
+          <div class="new-trip-box">
+            <% if @trips.any? %>
+              <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start a new trip", new_trip_path, :class => "new-trip-link" %></h3>
+            <% else %>
+              <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start your first trip", new_trip_path, :class => "new-trip-link" %></h3>
+            <% end %>
+          </div>
+        </a>
       </div>
     </div>
   </div>
 </div>
-
-<% @trips.each do |trip| %>
-  <h3><%= link_to "#{trip.trip_name}", trip_path %></h3>
-<% end %>
-
-<br><br><br><br><br>
-
-<% if @trips.any? %>
-  <h3><%= link_to "Start a new trip", new_trip_path %>
-<% else %>
-  <h3><%= link_to "Start your first trip", new_trip_path %></h3>
-<% end %>
