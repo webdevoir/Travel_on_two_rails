@@ -1,12 +1,12 @@
 <div class="cover-photo">
   <a href="http://placehold.it"><img src="http://placehold.it/1140x330"></a>
-  <a href="#" data-toggle="modal" data-target="#myModal">
-    <div class="cover-photo-edit">
-      <p>Upload Cover Photo</p>
-    </div>
+  <% if current_user == @user %>
+  <a href="#" data-toggle="modal" data-target="#cover-modal">
+      <div class="cover-photo-edit">
+        <p>Upload Cover Photo</p>
+      </div>
   </a>
-
-  <div id="myModal" class="modal fade" role="dialog">
+  <div id="cover-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -28,4 +28,5 @@
       </div>
     </div>
   </div>
+  <% end %>
 </div>

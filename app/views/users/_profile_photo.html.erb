@@ -1,5 +1,6 @@
 <div class="profile-picture">
   <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+  <% if current_user == @user %>
   <a href="#" data-toggle="modal" data-target="#profile-modal">
     <div class="profile-picture-edit">
       <p>Upload Profile Picture</p>
@@ -26,4 +27,5 @@
       </div>
     </div>
   </div>
+  <% end %>
 </div>

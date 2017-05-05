@@ -17,15 +17,17 @@
           </div>
         </a>
         <% end %>
-        <a href="<%= new_trip_path %>">
-          <div class="new-trip-box">
-            <% if @trips.any? %>
-              <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start a new trip", new_trip_path, :class => "new-trip-link" %></h3>
-            <% else %>
-              <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start your first trip", new_trip_path, :class => "new-trip-link" %></h3>
-            <% end %>
-          </div>
-        </a>
+        <% if current_user == @user %>
+          <a href="<%= new_trip_path %>">
+            <div class="new-trip-box">
+              <% if @trips.any? %>
+                <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start a new trip", new_trip_path, :class => "new-trip-link" %></h3>
+              <% else %>
+                <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start your first trip", new_trip_path, :class => "new-trip-link" %></h3>
+              <% end %>
+            </div>
+          </a>
+        <% end %>
       </div>
     </div>
   </div>
