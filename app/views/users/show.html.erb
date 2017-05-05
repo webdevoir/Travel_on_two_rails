@@ -1,10 +1,24 @@
-<h1><%= @user.name %></h1>
-
-<%= form_for @user do |f| %>
-  <%= f.file_field :avatar %>
-  <%= f.file_field :cover %>
-  <%= f.submit %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <%= render "profile_and_cover_photo" %>
+      <div class="user clearfix">
+        <h2><%= @user.name %></h2>
+        <div class="actions">
+          <div class="btn-group">
+            <button class="btn btn-default btn-sm tip btn-responsive" title="" data-original-title="Add to friends"><span class="glyphicon glyphicon-plus glyphicon glyphicon-white"></span> Friends</button>
+            <button class="btn btn-default btn-sm tip btn-responsive" title="" data-original-title="Send message"><span class="glyphicon glyphicon-envelope glyphicon glyphicon-white"></span> Message</button>
+            <button class="btn btn-default btn-sm tip btn-responsive" title="" data-original-title="Recommend"><span class="glyphicon glyphicon-share-alt glyphicon glyphicon-white"></span> Recommend</button>
+          </div>
+        </div>
+      </div>
+      <div class="info">
+        <p><span class="glyphicon glyphicon-globe"></span> <span class="title">Address:</span>  St. Revutskogo, Kiev, Ukraine</p>
+        <p><span class="glyphicon glyphicon-gift"></span> <span class="title">Date of birth:</span> 14.02.1989</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% @trips.each do |trip| %>
   <h3><%= link_to "#{trip.trip_name}", trip_path %></h3>

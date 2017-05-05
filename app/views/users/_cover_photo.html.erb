@@ -1,0 +1,31 @@
+<div class="cover-photo">
+  <a href="http://placehold.it"><img src="http://placehold.it/1200x330"></a>
+  <a href="#" data-toggle="modal" data-target="#myModal">
+    <div class="cover-photo-edit">
+      <p>Upload Cover Photo</p>
+    </div>
+  </a>
+
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Upload Cover Photo</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for @user do |f| %>
+            <%= f.label 'cover', 'Upload Cover Picture' %>
+            <%= f.file_field :cover %>
+            <%= f.submit %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

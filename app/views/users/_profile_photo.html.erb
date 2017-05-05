@@ -1,0 +1,29 @@
+<div class="profile-picture">
+  <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+  <a href="#" data-toggle="modal" data-target="#profile-modal">
+    <div class="profile-picture-edit">
+      <p>Upload Profile Picture</p>
+    </div>
+  </a>
+  <div id="profile-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Upload Profile Photo</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for @user do |f| %>
+            <%= f.label 'avatar', 'Upload Profile Picture' %>
+            <%= f.file_field :avatar %>
+            <%= f.submit %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
