@@ -1,0 +1,47 @@
+<div id="wrapper-reg">
+  <div class="container container-table <%= css_slug %>">
+    <div class="row vertical-center-row <%= css_slug %>">
+      <div class="registration-wrapper">
+        <div class="col-title">
+          <h1>Join Our Community</h1>
+        </div>
+        <hr class="title-divider">
+        <div class="sign_form">
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <h5 class="sign-up-title">Your Email Address</h5>
+                <%= f.input :email, required: true, autofocus: true %>
+              </div>
+            </div>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <h5 class="sign-up-title">Your Name</h5>
+                <%= f.input :name, required: true, autofocus: true %>
+              </div>
+            </div>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <h5 class="sign-up-title">Your Password</h5>
+                <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+              </div>
+            </div>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <h5 class="sign-up-title">Confirm Password</h5>
+                <%= f.input :password_confirmation, required: true %>
+              </div>
+            </div>
+            <div class="col-bottom">
+              <div class="action">
+                <%= f.button :submit, :class => "btn btn-warning btn-lg btn-secondary sharp btn-reg"%>
+              </div>
+              <%= render "devise/shared/links" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

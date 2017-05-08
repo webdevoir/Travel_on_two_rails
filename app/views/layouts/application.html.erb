@@ -24,9 +24,9 @@
           <ul class="nav navbar-nav navbar-right <%= css_slug %>">
             <% if current_user %>
               <li><a href="#">Hi <%= current_user.name %></a></li>
-              <li><a href="/sessions/current" data-method="delete"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+              <li><a href="<%= destroy_user_session_path %>" data-method="delete"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
             <% else %>
-              <li><a href="/users/new"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="<%= new_user_registration_path %>"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
               <!--start dropdown menu  -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login <b class="caret"></b></a>
@@ -34,23 +34,22 @@
                   <li>
                     <div class="row">
                       <div class="col-md-12">
-                        <%= form_tag sessions_path, class: "form-for-popup" do %>
+                        <%= form_for(:user, :url => session_path(:user), class: "form-for-popup") do |f| %>
                           <div class="form-group">
-                            <%= label_tag :email, "Email address?", class: "sr-only" %>
+                            <%= f.label :email, "Email address?", class: "sr-only" %>
                             <!-- <label class="sr-only" for="exampleInputEmail2">Email address</label> -->
-                            <%= text_field_tag :email, params[:email], placeholder: 'Email address', class: "form-control" %>
+                            <%= f.text_field :email, placeholder: 'Email address', class: "form-control" %>
                             <!-- <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address"> -->
                           </div>
                           <div class="form-group">
-                            <%= label_tag :password, "Password?", class: "sr-only" %>
+                            <%= f.label :password, "Password?", class: "sr-only" %>
                             <!-- <label class="sr-only" for="exampleInputPassword2">Password</label> -->
-                            <%= password_field_tag :password, nil, placeholder: 'Password', class: "form-control" %>
+                            <%= f.password_field :password, placeholder: 'Password', class: "form-control" %>
                             <!-- <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password"> -->
                           </div>
                           <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> Remember me
-                            </label>
+                            <%= f.check_box :remeber_me %>
+                            <%= f.label :remeber_me %>
                           </div>
                           <div class="form-group">
                             <%= submit_tag "Log in" %>
