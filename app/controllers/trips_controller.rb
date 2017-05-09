@@ -19,7 +19,7 @@ class TripsController < ApplicationController
     end
 
     if @trip.save
-      redirect_to trips_url
+      redirect_to user_path(current_user)
     else
       render :new
     end
@@ -33,6 +33,6 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-    params.require(:trip).permit(:trip_name)
+    params.require(:trip).permit(:trip_name, :photo)
   end
 end

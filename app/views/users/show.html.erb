@@ -8,26 +8,7 @@
         <%= render "user_information" %>
       </div>
       <div id="trips">
-        <% @trips.each do |trip| %>
-        <a href="<%= trip_path %>">
-          <div class="trip-box">
-            <div class="hover-box">
-              <h3 class="trip-title"><%= trip.trip_name %></h3>
-            </div>
-          </div>
-        </a>
-        <% end %>
-        <% if current_user == @user %>
-          <a href="<%= new_trip_path %>">
-            <div class="new-trip-box">
-              <% if @trips.any? %>
-                <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start a new trip", new_trip_path, :class => "new-trip-link" %></h3>
-              <% else %>
-                <h3><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%= link_to "Start your first trip", new_trip_path, :class => "new-trip-link" %></h3>
-              <% end %>
-            </div>
-          </a>
-        <% end %>
+        <%= render "trip_boxes" %>
       </div>
     </div>
   </div>

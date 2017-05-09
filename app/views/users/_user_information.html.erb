@@ -1,3 +1,8 @@
+<% if @user == current_user %>
+  <a href="#" data-toggle="modal" data-target="#information-modal">
+    <span class="glyphicon glyphicon-pencil user-edit" aria-hidden="true"></span>
+  </a>
+<% end %>
 <div class="user clearfix">
   <h2><%= @user.name %></h2>
   <div class="actions">
@@ -7,7 +12,8 @@
 </div>
 <div class="info">
   <p>
-    This is a short description about me, I love biking and this should be added to the user model as something. A short description about the user.
+    <%= @user.description %>
   </p>
   <p><span class="glyphicon glyphicon-globe"></span> <span class="title">Address:</span>  St. Revutskogo, Kiev, Ukraine</p>
 </div>
+<%= render "user_modal" %>
