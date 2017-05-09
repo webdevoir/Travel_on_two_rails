@@ -12,4 +12,10 @@ $( document ).ready(function() {
     $(".cover-photo-edit").fadeOut(100)
   })
 
+  $("#user-information").hover(function(){
+    $(".user-edit").fadeIn(100)
+  }, function(){
+    $(".user-edit").fadeOut(100)
+  })
+
 });
