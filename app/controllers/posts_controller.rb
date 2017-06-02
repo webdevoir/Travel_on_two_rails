@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post_picture = PostPicture.new
   end
 
   def create
