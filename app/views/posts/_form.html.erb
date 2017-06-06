@@ -32,11 +32,12 @@
       <%= f.text_area :address2, class: "form-control" %>
     </div>
     <%= f.fields_for :post_pictures do |post_picture_form| %>
-    <div class="field-title">
-      <h1>Test</h1>
-      <%= post_picture_form.label :picture, "Upload an image here" %>
-      <%= post_picture_form.text_area :picture, class: "form-control" %>
-    </div>
+      <div id="post-file-container" class="field-title">
+        <div class="first-file">
+          <%= post_picture_form.label :picture, "Upload an image here" %>
+          <%= post_picture_form.file_field :picture, class: "form-control" %>
+        </div>
+      </div>
     <% end %>
   </div>
 

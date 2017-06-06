@@ -4,10 +4,11 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post_picture = PostPicture.new
+    1.times { @post.post_pictures.build}
   end
 
   def create
+    raise 'hit'
     @post = @trip.posts.build(post_params)
 
     if @post.save
