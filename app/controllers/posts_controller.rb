@@ -8,8 +8,20 @@ class PostsController < ApplicationController
   end
 
   def create
-    raise 'hit'
     @post = @trip.posts.build(post_params)
+
+    params[:post][:post_pictures_attributes].each do |number|
+      @post_picture = PostPicture.new
+      @post_picture.picture = params[:post][:post_pictures_attributes][number][:picture]
+      raise 'hit'
+      if @post_picture.save
+        raise 'hit'
+        next
+      else
+        raise 'hit'
+        raise[:error]
+      end
+    end
 
     if @post.save
       redirect_to trip_path(@trip), notice: "Your post was posted!"
