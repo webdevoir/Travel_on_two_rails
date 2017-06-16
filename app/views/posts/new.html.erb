@@ -1,3 +1,19 @@
 <h1>Make a post!</h1>
+<script async defer
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB08GRk2ZArZa6PeELdo-DIK6b4uhEypH8&libraries=placesp">
+</script>
+<script type="text/javascript">
+$(function(){
+  function initialize() {
+
+    var input1 = document.getElementById('post_address1');
+    var input2 = document.getElementById('post_address2');
+    var autocomplete1 = new google.maps.places.Autocomplete(input1);
+    var autocomplete2 = new google.maps.places.Autocomplete(input2);
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+})
+</script>
 
 <%= render 'form' %>

@@ -16,7 +16,7 @@
       <div class="modal-body">
         <%= form_for @trip do |f| %>
           <%= f.label 'Trip', 'Trip Name' %>
-          <%= f.text_field :trip_name %>
+          <%= f.text_field :trip_name, :class => "form-control" %>
           <%= f.label 'Photo', 'Upload Trip Photo' %>
           <%= f.file_field :photo %>
           <%= f.submit %>

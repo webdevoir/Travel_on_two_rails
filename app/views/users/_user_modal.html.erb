@@ -11,7 +11,13 @@
           <%= f.label 'name', 'Change Name' %>
           <%= f.text_field :name, :class => "form-control" %><br>
           <%= f.label 'description' %>
-          <%= f.text_area :description, :class => "form-control" %>
+          <%= f.text_area :description, :class => "form-control" %><br>
+          <%= f.label 'Country' %>
+          <%= f.text_field :country, :class => "form-control" %><br>
+          <%= f.label 'Prov/State' %>
+          <%= f.text_field :province, :class => "form-control" %><br>
+          <%= f.label 'City' %>
+          <%= f.text_field :city, :class => "form-control" %><br>
           <%= f.submit %>
         <% end %>
       </div>

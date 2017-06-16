@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update(user_params)
+    if @user.update_attributes(user_params)
       redirect_to user_path(@user)
     else
       flash[:error] = "Something went wrong"
@@ -33,6 +33,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :cover, :description)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :cover, :description, :country, :province, :city)
   end
 end

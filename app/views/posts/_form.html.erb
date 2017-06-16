@@ -17,7 +17,7 @@
   <div class="form-group">
     <div class="field-title">
       <%= f.label :post_title, "What is the name of your post?" %>
-      <%= f.text_area :post_title, class: "form-control" %>
+      <%= f.text_field :post_title, class: "form-control" %>
     </div>
     <div class="field-title">
       <%= f.label :post_content, "Enter your post here!" %>
@@ -25,11 +25,11 @@
     </div>
     <div class="field-title">
       <%= f.label :address1, "Enter starting point!" %>
-      <%= f.text_area :address1, class: "form-control"%>
+      <%= f.text_field :address1, class: "form-control"%>
     </div>
     <div class="field-title">
       <%= f.label :address2, "Enter end point here!" %>
-      <%= f.text_area :address2, class: "form-control" %>
+      <%= f.text_field :address2, class: "form-control" %>
     </div>
     <%= f.fields_for :post_pictures do |post_picture_form| %>
       <div id="post-file-container" class="field-title">

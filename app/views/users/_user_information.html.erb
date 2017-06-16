@@ -14,6 +14,6 @@
   <p>
     <%= @user.description %>
   </p>
-  <p><span class="glyphicon glyphicon-globe"></span> <span class="title">Address:</span>  St. Revutskogo, Kiev, Ukraine</p>
+  <p><span class="glyphicon glyphicon-globe"></span> <span class="title">Address:</span> <%= @user.city %>, <%= @user.province %>, <%= @user.country %></p>
 </div>
 <%= render "user_modal" %>
