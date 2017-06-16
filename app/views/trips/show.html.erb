@@ -4,6 +4,9 @@
       <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
       <%# image_tag(current_user.avatar_url) %>
       <h1 class="trip-title"><%= @trip.trip_name %></h1>
+      <div class="trip-edit">
+        <%= render "trip_edit" %>
+      </div>
     </div>
     <div class="col-md-10 col-md-offset-2 post-column">
       <% if @user == current_user %>

@@ -30,6 +30,16 @@ class TripsController < ApplicationController
     @trip = Trip.new
   end
 
+  def update
+    @trip = Trip.find_by(id: params[:id])
+    if @trip.update(trip_params)
+      redirect_to trip_path(@trip)
+    else
+      flash[:error] = "Something went wrong"
+      redirect_to trip_path(@trip)
+    end
+  end
+
 
 
   private

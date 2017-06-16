@@ -1,0 +1,31 @@
+<% if current_user == @user %>
+<a href="#" data-toggle="modal" data-target="#trip-modal">
+    <div class="trip-edit">
+      <p>Edit Trip</p>
+    </div>
+</a>
+<div id="trip-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Your Trip</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for @trip do |f| %>
+          <%= f.label 'Trip', 'Trip Name' %>
+          <%= f.text_field :trip_name %>
+          <%= f.label 'Photo', 'Upload Trip Photo' %>
+          <%= f.file_field :photo %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
