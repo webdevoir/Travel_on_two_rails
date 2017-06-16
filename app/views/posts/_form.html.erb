@@ -1,4 +1,4 @@
-<%= form_for([@trip, @post]) do |f| %>
+<%= form_for([@trip, @post], :html => { :multipart => true }) do |f| %>
 
   <!-- error messages -->
   <% if @post.errors.any? %>
@@ -35,7 +35,7 @@
       <div id="post-file-container" class="field-title">
         <div class="first-file">
           <%= post_picture_form.label :picture, "Upload an image here" %>
-          <%= post_picture_form.file_field :picture, class: "form-control" %>
+          <%= post_picture_form.file_field :image, :multiple => true, name: "post_pictures[image][]", class: "form-control" %>
         </div>
       </div>
     <% end %>

@@ -12,7 +12,7 @@
       <% count = 1 %>
       <% @posts.each do |post| %>
         <div class="post-box">
-          <h3><%= count.to_s %>. <span class="post-title"><%= link_to "#{post.post_title}", trip_post_path(@trip) %></span></h3>
+          <h3><%= count.to_s %>. <span class="post-title"><%= link_to "#{post.post_title}", trip_post_path(@trip, post) %></span></h3>
         </div>
         <% count += 1 %>
       <% end %>
