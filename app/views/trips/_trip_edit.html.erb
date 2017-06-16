@@ -24,6 +24,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= button_to "Delete Trip", { action: "destroy", id: @trip.id},
+                                method: :delete, data: { confirm: "Are you sure?" } %>
       </div>
     </div>
   </div>

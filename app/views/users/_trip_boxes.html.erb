@@ -1,5 +1,5 @@
 <% @trips.each do |trip| %>
-  <a href="<%= trip_path %>">
+  <a href="<%= trip_path(trip) %>">
     <div class="trip-box">
       <div class="hover-box">
         <h3 class="trip-title"><%= trip.trip_name %></h3>
