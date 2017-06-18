@@ -15,8 +15,10 @@ class PostsController < ApplicationController
     @post = @trip.posts.build(post_params)
 
     if @post.save
-      params[:post_pictures]['image'].each do |img|
-        @post_picture = @post.post_pictures.create!(:picture => img)
+      unless params[:post_pictures] == nil
+        params[:post_pictures]['image'].each do |img|
+          @post_picture = @post.post_pictures.create!(:picture => img)
+        end
       end
       redirect_to trip_path(@trip), notice: "Your post was posted!"
     else
