@@ -47,6 +47,25 @@ class PostsController < ApplicationController
     end
   end
 
+  def update
+    @post = Post.find(params[:id])
+    @trip = @post.trip
+    if @post.update(post_params)
+      redirect_to trip_post_path(@trip, @post)
+    else
+      flash[:error] = "Something went wrong"
+      redirect_to trip_post_path(@trip, @post)
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @trip = @post.trip
+    @post.destroy
+    @user = current_user
+    redirect_to trip_path(@trip)
+  end
+
   private
   def post_params
     params.require(:post).permit(:post_title, :post_content, :address1, :address2)
