@@ -30,9 +30,19 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @user = @post.trip.user
 
     respond_to do |format|
       format.html # show.html.erb
+      format.json { render json: @article }
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+    1.times { @post.post_pictures.build}
+    respond_to do |format|
+      format.html # new.html.erb
       format.json { render json: @article }
     end
   end
