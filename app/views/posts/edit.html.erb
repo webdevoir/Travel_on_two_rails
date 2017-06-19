@@ -17,6 +17,6 @@ $(function(){
 
 <%= render 'form' %>
 
-
+<br>
 <%= button_to "Delete Trip", { action: "destroy", id: @post.id},
                         method: :delete, data: { confirm: "Are you sure?" } %>

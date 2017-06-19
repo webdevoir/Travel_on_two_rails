@@ -31,14 +31,17 @@
       <%= f.label :address2, "Enter end point here!" %>
       <%= f.text_field :address2, class: "form-control" %>
     </div>
-    <%= f.fields_for :post_pictures do |post_picture_form| %>
-      <div id="post-file-container" class="field-title">
+    <div id="post-file-container" class="field-title">
+      <%= f.fields_for :post_pictures do |post_picture_form| %>
         <div class="first-file">
+          <% unless post_picture_form.object.picture_url == nil %>
+            <%= image_tag post_picture_form.object.picture_url %>
+          <% end %>
           <%= post_picture_form.label :picture, "Upload an image here" %>
-          <%= post_picture_form.file_field :image, :multiple => true, name: "post_pictures[image][]", class: "form-control" %>
+          <%= post_picture_form.file_field :image, :multiple => true, name: "post_pictures[image][]" %><br>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 
   <%= f.button :submit %>

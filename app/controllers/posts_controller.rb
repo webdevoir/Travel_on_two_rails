@@ -31,6 +31,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = @post.trip.user
+    @post_pictures = @post.post_pictures
 
     respond_to do |format|
       format.html # show.html.erb
@@ -51,6 +52,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @trip = @post.trip
     if @post.update(post_params)
+      unless params[:post_pictures] == nil
+        params[:post_pictures]['image'].each do |img|
+          @post_picture = @post.post_pictures.create!(:picture => img)
+        end
+      end
       redirect_to trip_post_path(@trip, @post)
     else
       flash[:error] = "Something went wrong"
