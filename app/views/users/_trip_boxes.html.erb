@@ -1,6 +1,10 @@
 <% @trips.each do |trip| %>
   <a href="<%= trip_path(trip) %>">
+    <% if trip.photo == nil %>
     <div class="trip-box">
+    <% else %>
+    <div class="trip-box" style="background-image:url(<%= trip.photo.cover.url %>);">
+    <% end %>
       <div class="hover-box">
         <h3 class="trip-title"><%= trip.trip_name %></h3>
       </div>

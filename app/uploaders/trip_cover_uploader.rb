@@ -32,8 +32,8 @@ class TripCoverUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   process resize_to_fit: [800, 800]
 
-  version :thumb do
-    process resize_to_fill: [200,200]
+  version :cover do
+    process resize_to_fill: [900,200]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
