@@ -24,6 +24,10 @@
       <%= f.text_area :post_content, class: "form-control" %>
     </div>
     <div class="field-title">
+      <label for="date">Chose the date of this post</label>
+      <input type="text" data-provide='datepicker' name=post[post_date] >
+    </div>
+    <div class="field-title">
       <%= f.label :address1, "Enter starting point!" %>
       <%= f.text_field :address1, class: "form-control"%>
     </div>

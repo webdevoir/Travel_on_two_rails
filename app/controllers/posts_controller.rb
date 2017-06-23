@@ -12,8 +12,24 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @trip.posts.build(post_params)
+    date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
+    year = date.year
+    day = date.day
+    month = date.strftime("%B")
+    @post_group = PostGroup.where(:year => year, :month => month)
 
+    if @post_group.length == 0
+      @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
+      if @post_group.save
+        return true
+      else
+        flash[:error] = "Something wen't wrong try again"
+      end
+    end
+
+    @post = @trip.posts.build(post_params)
+    @post.post_group_id = @post_group[0].id
+    @post.day = day.to_s
     if @post.save
       unless params[:post_pictures] == nil
         params[:post_pictures]['image'].each do |img|
