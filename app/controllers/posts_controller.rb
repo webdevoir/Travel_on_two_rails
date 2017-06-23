@@ -46,7 +46,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @user = @post.trip.user
+    @user = @trip.user
     @post_pictures = @post.post_pictures
 
     respond_to do |format|

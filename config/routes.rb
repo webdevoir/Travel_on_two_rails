@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :trips do
     resources :posts
+    resources :post_groups, only: :show
   end
 
 end

@@ -7,6 +7,7 @@ class TripsController < ApplicationController
     @trip = Trip.find_by(id: params[:id])
     @user = @trip.user
     @posts = @trip.posts
+    @post_groups = @trip.post_groups
     if @trip.blank?
       redirect_to new_trip_url
     end

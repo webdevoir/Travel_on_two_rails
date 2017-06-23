@@ -14,12 +14,15 @@
       <% if @user == current_user %>
         <h3><%= link_to "Create a new post", new_trip_post_path(@trip) %></h3>
       <% end %>
-      <% count = 1 %>
-      <% @posts.each do |post| %>
-        <div class="post-box">
-          <h3><%= count.to_s %>. <span class="post-title"><%= link_to "#{post.post_title}", trip_post_path(@trip, post) %></span></h3>
-        </div>
-        <% count += 1 %>
+      <% if @post_groups.length == 0 %>
+        <h1>This Trip has no posts! create one here <%= link_to "Create a new post", new_trip_post_path(@trip) %></h1>
+      <% else %>
+        <% @post_groups.each do |post_group| %>
+          <div class="post-box">
+            <h3><%= post_group.year %></h3>
+            <h3><%= link_to "#{post_group.month}", trip_post_group_path(@trip, post_group) %></h3>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

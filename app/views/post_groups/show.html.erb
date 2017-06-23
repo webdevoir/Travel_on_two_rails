@@ -1,0 +1,5 @@
+<% @posts.each do |post| %>
+  <div class="post-box">
+    <h3><%= link_to "#{@post_group.month} #{post.day}", trip_post_path(@trip, post) %></h3>
+  </div>
+<% end %>

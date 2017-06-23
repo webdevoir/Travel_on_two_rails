@@ -1,0 +1,2 @@
+module PostGroupsHelper
+end
