@@ -1,6 +1,7 @@
 class Trip < ApplicationRecord
   belongs_to :user
   has_many :posts
+  has_many :post_groups
   mount_uploader :photo, TripCoverUploader
 
 

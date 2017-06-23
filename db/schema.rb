@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616012409) do
+ActiveRecord::Schema.define(version: 20170623014136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "post_groups", force: :cascade do |t|
+    t.string   "month"
+    t.string   "year"
+    t.integer  "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "trip_id"
+  end
 
   create_table "post_pictures", force: :cascade do |t|
     t.integer  "post_id"
@@ -28,8 +37,10 @@ ActiveRecord::Schema.define(version: 20170616012409) do
     t.string   "address1"
     t.string   "address2"
     t.integer  "trip_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "post_group_id"
+    t.string   "day"
   end
 
   create_table "trips", force: :cascade do |t|
