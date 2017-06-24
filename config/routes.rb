@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :trips do
     resources :posts
     resources :post_groups, only: :show
+    get "fetch_post/:id", to: "post_groups#fetch_post", as: "fetch_post"
   end
 
 end

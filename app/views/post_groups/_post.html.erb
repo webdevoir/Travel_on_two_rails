@@ -1,0 +1,65 @@
+<h1><%= @post.post_title %></h1>
+
+<% if current_user == @user %>
+  <%= link_to "Edit Post", edit_trip_post_url(@post.trip, @post) %>
+<% end %>
+
+<% unless @post.post_pictures == nil %>
+  <!-- <section class="center slider"> -->
+    <% @post_pictures.each do |post_picture| %>
+      <div class="post-picture-image">
+        <%= image_tag(post_picture.picture_url, class: "post-picture") if post_picture.picture? %>
+      </div>
+    <% end %>
+  <!-- </section> -->
+<% end %>
+
+<p>
+  <%= @post.post_content %>
+</p>
+<div class="map-container">
+  <div id="map">
+
+  </div>
+  <div id="right-panel">
+
+  </div>
+</div>
+
+<script
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=places">
+</script>
+
+<script>
+$(function(){
+
+  function initMap() {
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 7,
+    });
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('right-panel'));
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    directionsService.route({
+      origin: "<%= @post.address1 %>",
+      destination: "<%= @post.address2 %>",
+      travelMode: 'DRIVING',
+      unitSystem: google.maps.UnitSystem.METRIC
+    }, function(response, status) {
+      if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+
+  initMap()
+})
+</script>
