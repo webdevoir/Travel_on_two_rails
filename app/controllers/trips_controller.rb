@@ -7,7 +7,7 @@ class TripsController < ApplicationController
     @trip = Trip.find_by(id: params[:id])
     @user = @trip.user
     @posts = @trip.posts
-    @post_groups = @trip.post_groups
+    @post_groups = post_group_arrays(@trip.post_groups)
     if @trip.blank?
       redirect_to new_trip_url
     end
@@ -53,5 +53,18 @@ class TripsController < ApplicationController
   private
   def trip_params
     params.require(:trip).permit(:trip_name, :photo)
+  end
+
+  def post_group_arrays(post_groups)
+    year_group_hash = {}
+    post_groups.each do |post_group|
+      year = post_group.year
+      if year_group_hash.key?(year)
+        year_group_hash[year] << post_group
+      else
+        year_group_hash.merge!(year => [post_group])
+      end
+    end
+    return year_group_hash
   end
 end

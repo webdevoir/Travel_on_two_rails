@@ -1,0 +1,35 @@
+<div class="col-md-12 trip-cover-column">
+  <div class="trip-display">
+    <% if @trip.photo == nil %>
+      <a href="http://placehold.it"><img src="http://placehold.it/1140x330"></a>
+    <% else %>
+      <%= image_tag @trip.photo.cover.url, :class => "user-cover-photo" %>
+    <% end %>
+    <%# image_tag(current_user.avatar_url) %>
+  </div>
+  <div class="trip-edit">
+    <%= render "trip_edit" %>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="trip-title-column">
+    <h1 class="trip-title"><%= @trip.trip_name.upcase %></h1>
+  </div>
+  <div class="row trip-title-description">
+    <div class="col-md-4">
+      <p>
+        <%= @user.name %>
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p>
+        <%= @user.country %>
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p>
+        Total Distance: 200km
+      </p>
+    </div>
+  </div>
+</div>

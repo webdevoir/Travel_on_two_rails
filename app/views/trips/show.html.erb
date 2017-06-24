@@ -1,29 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 trip-title-column">
-      <div class="trip-display">
-        <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
-        <%# image_tag(current_user.avatar_url) %>
-        <h1 class="trip-title"><%= @trip.trip_name %></h1>
-      </div>
-      <div class="trip-edit">
-        <%= render "trip_edit" %>
-      </div>
+    <div id="trip-header">
+      <%= render "trip_header" %>
     </div>
-    <div class="col-md-10 col-md-offset-2 post-column">
-      <% if @user == current_user %>
-        <h3><%= link_to "Create a new post", new_trip_post_path(@trip) %></h3>
-      <% end %>
-      <% if @post_groups.length == 0 %>
-        <h1>This Trip has no posts! create one here <%= link_to "Create a new post", new_trip_post_path(@trip) %></h1>
-      <% else %>
-        <% @post_groups.each do |post_group| %>
-          <div class="post-box">
-            <h3><%= post_group.year %></h3>
-            <h3><%= link_to "#{post_group.month}", trip_post_group_path(@trip, post_group) %></h3>
-          </div>
-        <% end %>
-      <% end %>
+    <div id="post-group-boxes">
+      <%= render "post_group_boxes" %>
     </div>
   </div>
 </div>

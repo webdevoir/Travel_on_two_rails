@@ -8,12 +8,36 @@
   height: 100%;
 }
 
-.trip-title-column {
+.trip-cover-column {
   margin-top: 5vh;
 }
 
 .trip-display {
   width: 100%;
+  text-align: center;
+}
+
+.trip-title-column {
+  text-align: center;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+}
+
+.post-group-year {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+}
+
+.post-group-box {
+  height: 200px;
+  background-color: grey;
+  margin: 16px;
+  border-radius: 16px;
+}
+
+.trip-title-description {
   text-align: center;
 }
 

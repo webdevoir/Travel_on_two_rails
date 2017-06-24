@@ -14,7 +14,11 @@
 
   <body class="<%= css_slug %>">
     <!--start of navbar-->
+    <% if css_slug == "post_groups-show" %>
+    <nav class="navbar navbar-inverse <%= css_slug %> navbar-fixed-top">
+    <% else %>
     <nav class="navbar navbar-inverse <%= css_slug %>">
+    <% end %>
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
