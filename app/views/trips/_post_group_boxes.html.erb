@@ -13,12 +13,46 @@
         <h3><%= year %></h3>
       </div>
       <div class="row">
-        <% post_groups.each do |post_group| %>
+        <% post_groups.each_with_index do |post_group, index| %>
           <div class="col-md-4 col-sm-6">
-            <div class="post-group-box">
-                <h3><%= link_to "#{post_group.month}", trip_post_group_path(@trip, post_group) %></h3>
+            <a href="<%= trip_post_group_url(@trip, post_group) %>">
+              <% if post_group.image == nil %>
+              <div class="post-group-box">
+              <% else %>
+              <div class="post-group-box" style="background-image:url(<%= post_group.image_url %>);">
+              <% end %>
+                <h3><%= post_group.month %></h3>
+                <% if current_user == @user %>
+                  <div class="post-group-picture-edit" data-value="<%= index %>">
+                    <p>Upload Profile Picture</p>
+                  </div>
+                <% end %>
+              </div>
+            </a>
+          </div>
+          <% if current_user == @user %>
+          <div id="<%= index %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Upload Thumbnail</h4>
+                </div>
+                <div class="modal-body">
+                  <%= form_for([@trip, post_group]) do |f| %>
+                    <%= f.label 'image', 'Upload Thumbnail for the Month' %>
+                    <%= f.file_field :image %>
+                    <%= f.submit %>
+                  <% end %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
             </div>
           </div>
+          <% end %>
         <% end %>
       </div>
     <% end %>

@@ -1,0 +1,15 @@
+$( document ).ready(function() {
+  $(".post-group-box").hover(function(){
+    div = $(this).children()[1]
+    $(div).fadeIn(100)
+  }, function(){
+    $(div).fadeOut(100)
+  })
+
+  $(".post-group-picture-edit").on("click", function(e){
+    e.preventDefault()
+    val = $(this).data().value
+    $("#" + val).modal()
+  })
+
+})
