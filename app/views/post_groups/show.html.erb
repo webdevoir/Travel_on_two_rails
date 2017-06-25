@@ -2,8 +2,12 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand"><a href="#"><%= @post_group.month %></a></li>
-      <% @posts.each do |post| %>
-        <li><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{@post_group.month} #{post.day}" %></a></li>
+      <% @posts.each_with_index do |post, index| %>
+        <% if index == 0 %>
+        <li class="<%= post.day %> sidebar-active-item"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{@post_group.month} #{post.day}" %></a></li>
+        <% else %>
+        <li class="<%= post.day %>"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{@post_group.month} #{post.day}" %></a></li>
+        <% end %>
       <% end %>
     </ul>
   </div>

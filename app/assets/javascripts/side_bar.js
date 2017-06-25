@@ -6,7 +6,12 @@ $( document ).ready(function() {
 
   $(".post-sidebar-item").on("click",function(e){
     e.preventDefault()
+    var val_old = $("#current_post_date").val()
+    $("."+val_old).removeClass("sidebar-active-item")
     var href = $(this).attr('href');
-    $.get(href, {}, null, "script");
+    $.get(href, {}, null, "script").done(function(){
+      var val = $("#current_post_date").val()
+      $("."+val).addClass("sidebar-active-item")
+    });
   })
 })
