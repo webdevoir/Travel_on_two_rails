@@ -6,6 +6,8 @@ class PostGroupsController < ApplicationController
     @post = @posts.first
     @post_pictures = @post.post_pictures
     @user = @trip.user
+    @max_post_group = max_post_group(@trip, @post_group)
+    @min_post_group = min_post_group(@trip, @post_group)
   end
 
   def update
@@ -33,5 +35,27 @@ class PostGroupsController < ApplicationController
 
   def post_group_params
     params.require(:post_group).permit(:month, :year, :image)
+  end
+
+  def max_post_group(trip, post_group)
+    post_groups = trip.post_groups
+    index = post_groups.find_index(post_group)
+    if index == post_groups.length
+      return nil
+    else
+      max_post_group = post_groups[index+1]
+      return max_post_group
+    end
+  end
+
+  def min_post_group(trip, post_group)
+    post_groups = trip.post_groups
+    index = post_groups.find_index(post_group)
+    if index == 0
+      return nil
+    else
+      min_post_group = post_groups[index-1]
+      return min_post_group
+    end
   end
 end
