@@ -14,11 +14,8 @@ $( document ).ready(function() {
   });
 
   $(".center").slick({
-    dots: true,
-    infinite: true,
-    centerMode: true,
-    slidesToShow: 1,
-    slidesToScroll: 3,
+    slidesToShow: 3,
+    arrows: true,
   });
 
 

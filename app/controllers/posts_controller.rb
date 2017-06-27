@@ -73,10 +73,10 @@ class PostsController < ApplicationController
           @post_picture = @post.post_pictures.create!(:picture => img)
         end
       end
-      redirect_to trip_post_path(@trip, @post)
+      redirect_to trip_post_group_path(@trip, @post.post_group)
     else
       flash[:error] = "Something went wrong"
-      redirect_to trip_post_path(@trip, @post)
+      redirect_to trip_post_group_path(@trip, @post.post_group)
     end
   end
 

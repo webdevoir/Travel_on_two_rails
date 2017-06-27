@@ -15,13 +15,12 @@
     <div class="container-fluid">
       <div class="row post-group-row">
         <div class="col-lg-12">
-          <h1>Side-bar-template</h1>
           <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
           <% unless @max_post_group == nil %>
-          <%= link_to "Back to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group) %>
+            <%= link_to "Back to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group) %>
           <% end %>
           <% unless @min_post_group == nil %>
-          <%= link_to "Next to #{@min_post_group.month}", trip_post_group_path(@trip, @min_post_group) %>
+            <%= link_to "Next to #{@min_post_group.month}", trip_post_group_path(@trip, @min_post_group) %>
           <% end %>
           <div id="post-container">
             <%= render 'post' %>

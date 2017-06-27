@@ -1,32 +1,54 @@
-<%= hidden_field_tag 'current_post_date', "#{@post.day}" %>
-
-<h1><%= @post.post_title %></h1>
-
 <% if current_user == @user %>
   <%= link_to "Edit Post", edit_trip_post_url(@post.trip, @post) %>
 <% end %>
 
+<%= hidden_field_tag 'current_post_date', "#{@post.day}" %>
+<div class="post-title">
+  <h1><%= @post.post_title.upcase %></h1>
+</div>
+<div class="post-details row">
+  <div class="col-sm-4">
+    <p>
+      <%= @post.trip.user.name %>
+    </p>
+  </div>
+  <div class="col-sm-4">
+    <p>
+      <%= @post.address1 %> to <%= @post.address2 %>
+    </p>
+  </div>
+  <div class="col-sm-4">
+    <p>
+      Distance 200km
+    </p>
+  </div>
+</div>
+<div class="row post-text-row">
+  <div class="col-sm-8">
+    <p>
+      <%= simple_format(@post.post_content) %>
+    </p>
+  </div>
+  <div class="col-sm-4">
+    <div class="map-container">
+      <div id="map">
+
+      </div>
+      <div id="right-panel">
+
+      </div>
+    </div>
+  </div>
+</div>
 <% unless @post.post_pictures == nil %>
-  <!-- <section class="center slider"> -->
+  <section class="center slider">
     <% @post_pictures.each do |post_picture| %>
       <div class="post-picture-image">
         <%= image_tag(post_picture.picture_url, class: "post-picture") if post_picture.picture? %>
       </div>
     <% end %>
-  <!-- </section> -->
+  </section>
 <% end %>
-
-<p>
-  <%= @post.post_content %>
-</p>
-<div class="map-container">
-  <div id="map">
-
-  </div>
-  <div id="right-panel">
-
-  </div>
-</div>
 
 <script
  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=places">
