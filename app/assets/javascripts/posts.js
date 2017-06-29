@@ -13,10 +13,4 @@ $( document ).ready(function() {
     )
   });
 
-  $(".center").slick({
-    slidesToShow: 3,
-    arrows: true,
-  });
-
-
 })
