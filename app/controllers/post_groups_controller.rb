@@ -2,7 +2,7 @@ class PostGroupsController < ApplicationController
   before_action :load_trip
   def show
     @post_group = PostGroup.find(params[:id])
-    @posts = @post_group.posts
+    @posts = @post_group.posts.sort_by {|obj| obj.day}
     @post = @posts.first
     @post_pictures = @post.post_pictures
     @user = @trip.user
