@@ -30,7 +30,10 @@ class PostsController < ApplicationController
     @post = @trip.posts.build(post_params)
     @post.post_group_id = @post_group[0].id
     @post.day = day.to_s
+    @post.distance = post_distance(@post)
     if @post.save
+      @trip.total_distance += @post.distance
+      @trip.save
       unless params[:post_pictures] == nil
         params[:post_pictures]['image'].each do |img|
           @post_picture = @post.post_pictures.create!(:picture => img)
@@ -67,6 +70,12 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @trip = @post.trip
+    if @post.distance != post_distance(@post)
+      @trip -= @post.distance
+      @post.distance = post_distance(@post)
+      @trip += @post.distance
+      @trip.save
+    end
     if @post.update(post_params)
       unless params[:post_pictures] == nil
         params[:post_pictures]['image'].each do |img|
@@ -95,6 +104,19 @@ class PostsController < ApplicationController
 
   def post_picture_params
     params.require("0").permit(:picture)
+  end
+
+  def post_distance(post)
+    start_point = post.address1
+    end_point = post.address2
+
+    http_response = RestClient::Request.execute(
+       :method => :get,
+       :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{start_point}&destinations=#{end_point}&key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ",
+    )
+    data = JSON.parse(http_response.body)
+    distance = data["rows"][0]["elements"][0]["distance"]["text"].to_i
+    return distance
   end
 
 

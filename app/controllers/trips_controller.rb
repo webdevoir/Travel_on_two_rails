@@ -65,6 +65,13 @@ class TripsController < ApplicationController
         year_group_hash.merge!(year => [post_group])
       end
     end
+    return sorted_months(year_group_hash)
+  end
+
+  def sorted_months(year_group_hash)
+    year_group_hash.map do |year, post_groups|
+      year_group_hash[year] = post_groups.sort_by {|obj| Date::MONTHNAMES.index(obj.month) }
+    end
     return year_group_hash
   end
 end

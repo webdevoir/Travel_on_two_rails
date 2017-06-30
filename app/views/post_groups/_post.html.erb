@@ -28,11 +28,13 @@ $( document ).ready(function() {
       <%= @post.address1 %> to <%= @post.address2 %>
     </p>
   </div>
-  <div class="col-sm-4">
-    <p>
-      Distance 200km
-    </p>
-  </div>
+  <% unless @post.distance == nil %>
+    <div class="col-sm-4">
+      <p>
+        <%= @post.distance %>
+      </p>
+    </div>
+  <% end %>
 </div>
 <div class="row post-text-row">
   <div class="col-sm-8">
@@ -60,10 +62,6 @@ $( document ).ready(function() {
     <% end %>
   </section>
 <% end %>
-
-<script
- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=places">
-</script>
 
 <script>
 $(function(){
