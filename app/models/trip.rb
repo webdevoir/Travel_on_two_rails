@@ -2,6 +2,7 @@ class Trip < ApplicationRecord
   belongs_to :user
   has_many :posts
   has_many :post_groups
+  has_one :donation_goal
   mount_uploader :photo, TripCoverUploader
 
   def self.search(search)

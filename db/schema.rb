@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701021523) do
+ActiveRecord::Schema.define(version: 20170701025047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,9 @@ ActiveRecord::Schema.define(version: 20170701021523) do
   create_table "donation_goals", force: :cascade do |t|
     t.float    "amount"
     t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.float    "current_paid"
   end
 
   create_table "post_groups", force: :cascade do |t|
@@ -53,9 +54,9 @@ ActiveRecord::Schema.define(version: 20170701021523) do
 
   create_table "purchases", force: :cascade do |t|
     t.integer  "buyer_id"
-    t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "donation_goal_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "trips", force: :cascade do |t|
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170701021523) do
     t.string   "country"
     t.string   "province"
     t.string   "city"
+    t.integer  "braintree_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

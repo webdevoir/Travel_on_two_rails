@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   before_action :load_trip
 
-
   def new
     @post = Post.new
     1.times { @post.post_pictures.build}

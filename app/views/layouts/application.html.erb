@@ -2,6 +2,8 @@
 <html class="<%= css_slug %>">
   <head>
     <title>TravelOnTwo</title>
+    <%= include_gon %>
+    <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -10,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
     <link rel="stylesheet" type="text/css" href="https://kenwheeler.github.io/slick/slick/slick-theme.css"/>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
   </head>
 
   <body class="<%= css_slug %>">

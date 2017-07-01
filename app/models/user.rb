@@ -8,4 +8,9 @@ class User < ApplicationRecord
 
   has_many :trips
   has_many :purchases, foreign_key: :buyer_id
+
+
+  def has_payment_info?
+    braintree_customer_id
+  end
 end
