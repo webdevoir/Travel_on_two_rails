@@ -66,7 +66,7 @@ class TripsController < ApplicationController
     if percent > 100
       return 100
     else
-      return percent
+      return percent*100.0
     end
   end
 

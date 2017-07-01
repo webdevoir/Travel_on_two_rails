@@ -23,11 +23,10 @@
           <%= form_for @user do |f| %>
             <%= f.label 'cover', 'Upload Cover Picture' %>
             <%= f.file_field :cover %>
-            <%= f.submit %>
-          <% end %>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Submit", :class => "btn btn-submit" %>
+        <% end %>
         </div>
       </div>
     </div>

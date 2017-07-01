@@ -18,11 +18,10 @@
           <%= f.text_field :province, :class => "form-control" %><br>
           <%= f.label 'City' %>
           <%= f.text_field :city, :class => "form-control" %><br>
-          <%= f.submit %>
-        <% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit "Submit", :class => "btn btn-submit" %>
+      <% end %>
       </div>
     </div>
   </div>

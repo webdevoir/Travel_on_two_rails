@@ -1,4 +1,3 @@
-<h1>Make a post!</h1>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=places">
 </script>
 <script type="text/javascript">
@@ -15,4 +14,18 @@ $(function(){
 })
 </script>
 
-<%= render 'form' %>
+<div id="wrapper-reg">
+  <div class="container container-table <%= css_slug %>">
+    <div class="row vertical-center-row <%= css_slug %>">
+      <div class="registration-wrapper">
+        <div class="col-title">
+          <h1>Make a post!</h1>
+        </div>
+        <hr class="title-divider">
+        <div class="sign_form">
+          <%= render 'form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,13 +34,16 @@
   </div>
 </div>
 <% unless @donation_goal == nil %>
-  <div class="col-md-4">
+  <div class="col-md-4 well">
     <h1><%= @donation_goal.title %></h1>
     <div class="progress">
       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
       aria-valuemin="0" aria-valuemax="100" style="width:<%= @percent_raised %>%">
       </div>
     </div>
+    <p>
+      <%= @donation_goal.current_paid %>$/<%= @donation_goal.amount %>$ raised.
+    </p>
     <p>
       <%= @donation_goal.description %>
     </p>

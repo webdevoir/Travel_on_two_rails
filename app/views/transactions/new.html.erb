@@ -1,10 +1,24 @@
-<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns">
-  <%# render 'customer_form' unless current_user.has_payment_info? %>
-  <%= form_tag trip_transactions_path(@trip) do%>
-    <%= label_tag 'amount', 'Enter Payment Amount' %>
-    <%= number_field_tag 'amount' %>
-    <p>Please enter your payment details:</p>
-    <div id="dropin"></div>
-    <%=submit_tag "Pay", class: "button mt1" %>
-  <%end%>
+<div id="wrapper-reg">
+  <div class="container container-table <%= css_slug %>">
+    <div class="row vertical-center-row <%= css_slug %>">
+      <div class="registration-wrapper">
+        <div class="col-title">
+          <h1>Make a Trip!</h1>
+        </div>
+        <hr class="title-divider">
+        <div class="sign_form">
+          <div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns">
+            <%# render 'customer_form' unless current_user.has_payment_info? %>
+            <%= form_tag trip_transactions_path(@trip) do%>
+              <%= label_tag 'amount', 'Enter Payment Amount' %>
+              <%= number_field_tag 'amount' %>
+              <p>Please enter your payment details:</p>
+              <div id="dropin"></div>
+              <%=submit_tag "Pay", class: "button mt1" %>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
