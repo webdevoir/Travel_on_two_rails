@@ -118,7 +118,6 @@ class PostsController < ApplicationController
     return distance
   end
 
-
   def load_trip
     @trip = Trip.find(params[:trip_id])
   end

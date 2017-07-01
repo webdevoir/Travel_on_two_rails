@@ -1,0 +1,38 @@
+<%= form_for([@trip, @donation_goal], :html => { :multipart => true }) do |f| %>
+
+  <!-- error messages -->
+  <% if @donation_goal.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@donation_goal.errors.count, "error") %> prohibited this post from being saved</h2>
+
+    <ul>
+      <% @donation_goal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <!-- start of form for making a blog -->
+  <div class="form-group">
+    <div class="field-title">
+      <%= f.label :title, "Title of your donation goal" %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+    <div class="field-title">
+      <%= f.label :description, "Write a breif description for this goal" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+    <div class="field-title">
+      <label for="date">Chose the date of this post</label>
+      <input type="text" data-provide='datepicker' name=donation_goal[end_date] >
+    </div>
+    <div class="field-title">
+      <%= f.label :amount, "Enter your donation goal (Even if this goal is not met you will still be paid)" %>
+      <%= f.number_field :amount, class: "form-control"%>
+    </div>
+  </div>
+
+  <%= f.button :submit %>
+
+<% end %>
