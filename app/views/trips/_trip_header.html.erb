@@ -1,6 +1,6 @@
 <div class="col-md-12 trip-cover-column">
   <div class="trip-display">
-    <% if @trip.photo == nil %>
+    <% if @trip.photo_url == nil %>
       <a href="http://placehold.it"><img src="http://placehold.it/1140x330"></a>
     <% else %>
       <%= image_tag @trip.photo.cover.url, :class => "user-cover-photo" %>
@@ -48,5 +48,12 @@
       <%= @donation_goal.description %>
     </p>
     <%= button_to('Donate Now!', new_trip_transaction_path(@trip), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
+  </div>
+<% end %>
+<% unless @trip.description == nil %>
+  <div class="col-md-12">
+    <p>
+      <%= @trip.description %>
+    </p>
   </div>
 <% end %>

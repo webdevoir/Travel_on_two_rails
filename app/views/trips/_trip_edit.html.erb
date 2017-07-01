@@ -22,7 +22,9 @@
         <%= form_for @trip do |f| %>
           <%= f.label 'Trip', 'Trip Name' %>
           <%= f.text_field :trip_name, :class => "form-control" %>
-          <%= f.label 'Photo', 'Upload Trip Photo' %>
+          <%= f.label :description, "Give a short description of your trip" %>
+          <%= f.text_area :description, class: "form-control" %>
+          <%= f.label :photo, "Upload a cover image for your trip" %>
           <%= f.file_field :photo %>
       </div>
       <div class="modal-footer">
@@ -34,4 +36,5 @@
     </div>
   </div>
 </div>
+<%= render "trip_gear_modal" %>
 <% end %>

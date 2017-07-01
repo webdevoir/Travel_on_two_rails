@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701043806) do
+ActiveRecord::Schema.define(version: 20170701233950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,9 @@ ActiveRecord::Schema.define(version: 20170701043806) do
     t.integer "user_id"
     t.string  "photo"
     t.integer "total_distance", default: 0
+    t.text    "description"
+    t.text    "gear_list"
+    t.string  "bike"
   end
 
   create_table "users", force: :cascade do |t|

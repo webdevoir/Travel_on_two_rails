@@ -56,7 +56,7 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-    params.require(:trip).permit(:trip_name, :photo)
+    params.require(:trip).permit(:trip_name, :photo, :description, :bike, :gear_list)
   end
 
   def percent_raised(donation_goal)
