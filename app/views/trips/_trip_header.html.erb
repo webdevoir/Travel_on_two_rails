@@ -33,3 +33,17 @@
     </div>
   </div>
 </div>
+<% unless @donation_goal == nil %>
+  <div class="col-md-4">
+    <h1><%= @donation_goal.title %></h1>
+    <div class="progress">
+      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+      aria-valuemin="0" aria-valuemax="100" style="width:<%= @percent_raised %>%">
+      </div>
+    </div>
+    <p>
+      <%= @donation_goal.description %>
+    </p>
+    <%= button_to('Donate Now!', new_trip_transaction_path(@trip), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
+  </div>
+<% end %>

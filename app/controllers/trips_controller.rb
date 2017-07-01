@@ -8,6 +8,10 @@ class TripsController < ApplicationController
     @user = @trip.user
     @posts = @trip.posts
     @post_groups = post_group_arrays(@trip.post_groups)
+    @donation_goal = @trip.donation_goal
+    unless @donation_goal == nil
+      @percent_raised = percent_raised(@donation_goal)
+    end
     if @trip.blank?
       redirect_to new_trip_url
     end
@@ -53,6 +57,17 @@ class TripsController < ApplicationController
   private
   def trip_params
     params.require(:trip).permit(:trip_name, :photo)
+  end
+
+  def percent_raised(donation_goal)
+    raised = donation_goal.current_paid
+    amount = donation_goal.amount
+    percent = raised/amount
+    if percent > 100
+      return 100
+    else
+      return percent
+    end
   end
 
   def post_group_arrays(post_groups)
