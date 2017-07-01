@@ -4,7 +4,6 @@ class Trip < ApplicationRecord
   has_many :post_groups
   mount_uploader :photo, TripCoverUploader
 
-
   def self.search(search)
     if search
       @found_trips = Blog.where('blog_name LIKE ?', "%#{search}%")

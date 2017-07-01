@@ -7,4 +7,5 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   has_many :trips
+  has_many :purchases, foreign_key: :buyer_id
 end
