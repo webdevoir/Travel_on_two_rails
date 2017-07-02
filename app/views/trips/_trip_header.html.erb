@@ -37,7 +37,7 @@
   <div class="col-md-4 well">
     <h1><%= @donation_goal.title %></h1>
     <div class="progress">
-      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= @percent_raised %>"
       aria-valuemin="0" aria-valuemax="100" style="width:<%= @percent_raised %>%">
       </div>
     </div>

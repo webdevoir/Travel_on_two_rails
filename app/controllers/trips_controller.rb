@@ -1,4 +1,6 @@
 class TripsController < ApplicationController
+  before_filter :require_permission, only: [:edit, :update, :destroy, :create, :new]
+
   def index
     @trips = Trip.all
   end
@@ -88,5 +90,11 @@ class TripsController < ApplicationController
       year_group_hash[year] = post_groups.sort_by {|obj| Date::MONTHNAMES.index(obj.month) }
     end
     return year_group_hash
+  end
+
+  def require_permission
+    if current_user != Trip.find(params[:id]).user
+      redirect_to root_path
+    end
   end
 end

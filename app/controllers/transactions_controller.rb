@@ -42,4 +42,5 @@ class TransactionsController < ApplicationController
     @donation_goal = trip.donation_goal
     return @donation_goal
   end
+
 end

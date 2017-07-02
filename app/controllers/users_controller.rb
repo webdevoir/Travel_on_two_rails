@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    before_filter :require_permission, only: :update
 
   def new
     @user = User.new
@@ -34,5 +35,11 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :cover, :description, :country, :province, :city)
+  end
+
+  def require_permission
+    if current_user != User.find(params[:id])
+      redirect_to root_path
+    end
   end
 end

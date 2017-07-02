@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :load_trip
+  before_filter :require_permission, only: [:create, :new, :edit, :update, :destroy]
 
   def new
     @post = Post.new
@@ -121,4 +122,11 @@ class PostsController < ApplicationController
   def load_trip
     @trip = Trip.find(params[:trip_id])
   end
+
+  def require_permission
+    if current_user != Trip.find(params[:trip_id]).user
+      redirect_to root_path
+    end
+  end
+  
 end

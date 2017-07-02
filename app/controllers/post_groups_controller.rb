@@ -1,5 +1,7 @@
 class PostGroupsController < ApplicationController
   before_action :load_trip
+  before_filter :require_permission, only: :update
+
 
   def show
     @post_group = PostGroup.find(params[:id])
@@ -60,4 +62,11 @@ class PostGroupsController < ApplicationController
       return min_post_group
     end
   end
+
+  def require_permission
+    if current_user != Trip.find(params[:trip_id]).user
+      redirect_to root_path
+    end
+  end
+
 end

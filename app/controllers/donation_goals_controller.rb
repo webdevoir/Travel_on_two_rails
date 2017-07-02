@@ -1,5 +1,6 @@
 class DonationGoalsController < ApplicationController
   before_action :load_trip
+    before_filter :require_permission, only: [:create, :new, :edit, :update, :destroy]
 
   def new
     @donation_goal = DonationGoal.new
@@ -39,6 +40,12 @@ class DonationGoalsController < ApplicationController
 
   def donation_goal_params
     params.require(:donation_goal).permit(:amount, :title, :description)
+  end
+
+  def require_permission
+    if current_user != Trip.find(params[:trip_id]).user
+      redirect_to root_path
+    end
   end
 
   # TODO: add method that makes sure you're current user in fact need to do this on a handful of routes

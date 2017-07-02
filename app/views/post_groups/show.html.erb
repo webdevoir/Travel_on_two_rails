@@ -25,6 +25,7 @@
           <% unless @max_post_group == nil %>
             <%= link_to "Next to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group) %>
           <% end %>
+          <%= link_to "Back to Trip", trip_path(@trip) %>
           <div id="post-container">
             <%= render 'post' %>
           </div>
