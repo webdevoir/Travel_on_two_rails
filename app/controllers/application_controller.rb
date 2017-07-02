@@ -4,4 +4,5 @@ class ApplicationController < ActionController::Base
   private
 
   helper_method :current_user
+
 end
