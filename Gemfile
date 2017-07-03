@@ -42,6 +42,9 @@ gem 'bootstrap-sass', '~> 3.3'
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
 gem 'dropzonejs-rails'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
 
 gem 'rest-client'
 

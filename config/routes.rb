@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :users
 
+  get 'search', to: 'search#search'
+
   resources :trips do
     resources :posts
     resources :transactions, only: [:new, :create]
