@@ -1,5 +1,5 @@
 <div class="cover-photo">
-  <% if @user.cover == nil %>
+  <% if @user.cover_url == nil %>
     <a href="http://placehold.it"><img src="http://placehold.it/1140x330"></a>
   <% else %>
     <%= image_tag @user.cover.cover.url, :class => "user-cover-photo" %>
