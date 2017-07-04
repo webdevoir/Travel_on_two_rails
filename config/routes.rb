@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get 'search', to: 'search#search'
 
   resources :trips do
-    resources :posts
+    resources :posts do
+      resources :post_pictures, only: [:new, :create, :destroy]
+    end
     resources :transactions, only: [:new, :create]
     resources :donation_goals, only: [:new, :create, :update, :edit]
     resources :post_groups, only: [:show, :update]

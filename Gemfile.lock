@@ -81,8 +81,6 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
-    dropzonejs-rails (0.8.0)
-      rails (> 3.1)
     elasticsearch (5.0.4)
       elasticsearch-api (= 5.0.4)
       elasticsearch-transport (= 5.0.4)
@@ -251,7 +249,6 @@ DEPENDENCIES
   carrierwave (~> 1.0)
   coffee-rails (~> 4.2)
   devise
-  dropzonejs-rails
   elasticsearch-model
   elasticsearch-rails
   figaro

@@ -1,0 +1,12 @@
+<%= hidden_field_tag :post, @post.id %>
+<%= hidden_field_tag :trip, @trip.id %>
+
+
+<%= form_for(@post_picture, :url => trip_post_post_pictures_url(@trip, @post), html: { multipart: true, class: "dropzone" }) do |f|  %>
+  <div class="fallback">
+    <%= f.file_field :picture %><br>
+    <%= f.submit "Upload" %>
+  </div>
+<% end %>
+
+<br>

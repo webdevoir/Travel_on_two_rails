@@ -34,17 +34,16 @@ class PostsController < ApplicationController
     if @post.save
       @trip.total_distance += @post.distance
       @trip.save
-      unless params[:post_pictures] == nil
-        params[:post_pictures]['image'].each do |img|
-          @post_picture = @post.post_pictures.create!(:picture => img)
-        end
-      end
-      redirect_to trip_path(@trip), notice: "Your post was posted!"
+      # unless params[:post_pictures] == nil
+      #   params[:post_pictures]['image'].each do |img|
+      #     @post_picture = @post.post_pictures.create!(:picture => img)
+      #   end
+      # end
+      redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
     else
       raise[:error]
       render :new
     end
-
   end
 
   def show
@@ -128,5 +127,5 @@ class PostsController < ApplicationController
       redirect_to root_path
     end
   end
-  
+
 end
