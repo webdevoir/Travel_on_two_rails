@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :trips do
     resources :posts do
       resources :post_pictures, only: [:new, :create, :destroy]
+      get "fetch_images", to: "post_pictures#fetch_images", as: "fetch_images"
     end
     resources :transactions, only: [:new, :create]
     resources :donation_goals, only: [:new, :create, :update, :edit]

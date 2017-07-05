@@ -12,6 +12,32 @@ $(document).ready(function(){
 		paramName: "upload[picture]",
 		// show remove links on each image upload
 		addRemoveLinks: true,
+
+		init: function () {
+			var myDropzone = this;
+			var post_id = $("#post").val()
+			var trip_id = $("#trip").val()
+
+			// make a DELETE ajax request to delete the file
+			$.ajax({
+				type: 'GET',
+				url: '/trips/' + trip_id + '/posts/' + post_id + '/fetch_images',
+				success: function(data){
+					image_url_array = data.image_url
+					for (var i = 0; i < image_url_array.length; i++) {
+						var file = {
+							url: image_url_array[i]
+						}
+						// Call the default addedfile event handler
+						myDropzone.emit("addedfile", file);
+						myDropzone.emit("thumbnail", file, image_url_array[i]);
+						myDropzone.emit("complete", file);
+						myDropzone.files.push(file);
+						$(file.previewTemplate).find('.dz-remove').attr('id', data.post_picture_ids[i]);
+					}
+				}
+			});
+		},
 		// if the upload was successful
 		success: function(file, response){
 			// find the remove button link of the uploaded file and give it an id
@@ -26,6 +52,7 @@ $(document).ready(function(){
 			var id = $(file.previewTemplate).find('.dz-remove').attr('id');
 			var post_id = $("#post").val()
 			var trip_id = $("#trip").val()
+			var file_jquery = $(file.previewTemplate).remove()
 
 			// make a DELETE ajax request to delete the file
 			$.ajax({

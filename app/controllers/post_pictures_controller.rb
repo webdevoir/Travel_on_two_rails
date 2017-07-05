@@ -3,7 +3,22 @@ class PostPicturesController < ApplicationController
   def new
     @post = Post.find(params[:post_id])
     @trip = Trip.find(params[:trip_id])
+    @post_group = @post.post_group
     @post_picture = PostPicture.new
+  end
+
+  def fetch_images
+    @post = Post.find(params[:post_id])
+    @trip = Trip.find(params[:trip_id])
+    @image_url = []
+    @post_picture_ids = []
+    @post_pictures = @post.post_pictures
+    @post_pictures.each do |post_picture|
+      @image_url << post_picture.picture.thumb.url
+      @post_picture_ids << post_picture.id
+    end
+
+    render json: { message: "success", image_url: @image_url, post_picture_ids: @post_picture_ids }
   end
 
   def create
