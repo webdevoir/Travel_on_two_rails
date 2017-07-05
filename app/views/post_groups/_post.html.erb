@@ -10,7 +10,7 @@ $( document ).ready(function() {
 </script>
 
 <% if current_user == @user %>
-  <%= link_to "Edit Post", edit_trip_post_url(@post.trip, @post) %>
+  <%= button_to "Edit Post", edit_trip_post_url(@post.trip, @post), :class => "btn btn-warning sharp", :method => 'get' %>
 <% end %>
 
 <%= hidden_field_tag 'current_post_date', "#{@post.day}" %>

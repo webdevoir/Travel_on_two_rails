@@ -4,7 +4,7 @@
 <div id="wrapper">
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
-      <li class="sidebar-brand"><a href="#"><%= @post_group.month %></a></li>
+      <li class="sidebar-brand"><a href="<%= trip_path(@trip) %>">Back to trip</a></li>
       <% @posts.each_with_index do |post, index| %>
         <% if index == 0 %>
         <li class="<%= post.day %> sidebar-active-item"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{@post_group.month} #{post.day}" %></a></li>
@@ -18,13 +18,17 @@
     <div class="container-fluid">
       <div class="row post-group-row">
         <div class="col-lg-12">
-          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-          <% unless @min_post_group == nil %>
-            <%= link_to "Back to #{@min_post_group.month}", trip_post_group_path(@trip, @min_post_group) %>
-          <% end %>
-          <% unless @max_post_group == nil %>
-            <%= link_to "Next to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group) %>
-          <% end %>
+          <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
+          <div class="align-left-button">
+            <% unless @min_post_group == nil %>
+              <%= button_to "Back to #{@min_post_group.month}", trip_post_group_path(@trip, @min_post_group), :class => "btn btn-warning sharp", :method => :get %>
+            <% end %>
+          </div>
+          <div class="align-right-button">
+            <% unless @max_post_group == nil %>
+              <%= button_to "Next to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group), :class => "btn btn-warning sharp", :method => :get %>
+            <% end %>
+          </div>
           <%= link_to "Back to Trip", trip_path(@trip) %>
           <div id="post-container">
             <%= render 'post' %>
