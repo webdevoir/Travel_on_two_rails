@@ -4,11 +4,6 @@
       <p>Edit Trip</p>
     </div>
 </a>
-<% if @trip.donation_goal == nil %>
-  <%= link_to 'create a donation goal', new_trip_donation_goal_url(@trip) %>
-<% else %>
-  <%= link_to 'Edit donation goal', edit_trip_donation_goal_url(@trip, @trip.donation_goal) %>
-<% end %>
 <div id="trip-modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -36,5 +31,4 @@
     </div>
   </div>
 </div>
-<%= render "trip_gear_modal" %>
 <% end %>

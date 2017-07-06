@@ -7,9 +7,6 @@
     <% end %>
     <%# image_tag(current_user.avatar_url) %>
   </div>
-  <div class="trip-edit">
-    <%= render "trip_edit" %>
-  </div>
 </div>
 <div class="col-md-12">
   <div class="trip-title-column">
@@ -33,8 +30,16 @@
     </div>
   </div>
 </div>
+<% if @trip.donation_goal == nil && current_user == @user %>
+  <div class="col-md-4 well">
+    <%= button_to 'create a donation goal', new_trip_donation_goal_url(@trip), :class => "btn btn-warning btn-lg btn-secondary sharp", :method => "get" %>
+  </div
+<% end %>
 <% unless @donation_goal == nil %>
   <div class="col-md-4 well">
+    <% if current_user == @user %>
+      <%= link_to 'Edit donation goal', edit_trip_donation_goal_url(@trip, @trip.donation_goal) %>
+    <% end %>
     <h1><%= @donation_goal.title %></h1>
     <div class="progress">
       <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= @percent_raised %>"
@@ -50,10 +55,25 @@
     <%= button_to('Donate Now!', new_trip_transaction_path(@trip), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
   </div>
 <% end %>
-<% unless @trip.description == nil %>
-  <div class="col-md-12">
-    <p>
-      <%= @trip.description %>
-    </p>
+<% unless @trip.description == nil && @trip.gear_list == nil %>
+  <div class="col-md-7 col-md-offset-1">
+    <% unless @trip.description == nil %>
+      <div class="trip-description">
+        <h1>Trip Description</h1>
+        <p>
+          <%= @trip.description %>
+        </p>
+        <%= render "trip_edit" %>
+      </div>
+    <% end %>
+    <% unless @trip.gear_list == nil %>
+      <div class="trip-description">
+        <h1>Gear List</h1>
+        <p>
+          <%= @trip.gear_list %>
+        </p>
+        <%= render "trip_gear_modal" %>
+      </div>
+    <% end %>
   </div>
 <% end %>
