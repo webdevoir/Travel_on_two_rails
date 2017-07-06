@@ -33,7 +33,7 @@
 <% if @trip.donation_goal == nil && current_user == @user %>
   <div class="col-md-4 well">
     <%= button_to 'create a donation goal', new_trip_donation_goal_url(@trip), :class => "btn btn-warning btn-lg btn-secondary sharp", :method => "get" %>
-  </div
+  </div>
 <% end %>
 <% unless @donation_goal == nil %>
   <div class="col-md-4 well">
