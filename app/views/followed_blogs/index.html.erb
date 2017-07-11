@@ -1,0 +1,6 @@
+<h1>Hi Ryan!</h1>
+<ul>
+  <% @followed_blogs.each do |followed_blog| %>
+    <li><%= followed_blog.blog_owner.name %></li>
+  <% end %>
+</ul>

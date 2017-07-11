@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :purchases, foreign_key: :buyer_id
   has_many :sent_conversations, class_name: "Conversation", foreign_key: :sender_id
   has_many :recieved_conversations, class_name: "Conversation", foreign_key: :recipient_id
+  has_many :followed_blogs
+  has_many :blogs_followed, class_name: "FollowedBlog", foreign_key: :blog_owner_id
 
 
   def has_payment_info?
@@ -24,5 +26,5 @@ class User < ApplicationRecord
   def conversations
     Conversation.where("sender_id = ? OR recipient_id = ?", self.id, self.id)
   end
-  
+
 end
