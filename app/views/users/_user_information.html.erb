@@ -15,5 +15,8 @@
     <%= @user.description %>
   </p>
   <p><span class="glyphicon glyphicon-globe"></span> <span class="title">Address:</span> <%= @user.city %>, <%= @user.province %>, <%= @user.country %></p>
+  <% if current_user != @user %>
+    <%= button_to 'Message me!', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class: "btn btn-warning sharp"  %>
+  <% end %>
 </div>
 <%= render "user_modal" %>

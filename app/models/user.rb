@@ -13,9 +13,16 @@ class User < ApplicationRecord
 
   has_many :trips
   has_many :purchases, foreign_key: :buyer_id
+  has_many :sent_conversations, class_name: "Conversation", foreign_key: :sender_id
+  has_many :recieved_conversations, class_name: "Conversation", foreign_key: :recipient_id
 
 
   def has_payment_info?
     braintree_customer_id
   end
+
+  def conversations
+    Conversation.where("sender_id = ? OR recipient_id = ?", self.id, self.id)
+  end
+  
 end
