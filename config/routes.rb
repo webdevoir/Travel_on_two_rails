@@ -19,4 +19,8 @@ Rails.application.routes.draw do
     get "fetch_post/:id", to: "post_groups#fetch_post", as: "fetch_post"
   end
 
+  resources :conversations do
+    resources :messages
+  end
+
 end
