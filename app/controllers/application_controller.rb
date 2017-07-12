@@ -13,4 +13,17 @@ class ApplicationController < ActionController::Base
     user_path(current_user)
   end
 
+  def follows(current_user, user)
+    if current_user == user
+      return false
+    else
+       followed_blog = FollowedBlog.where(user_id: current_user.id, blog_owner_id: user.id)
+       if followed_blog.length == nil
+         return false
+       else
+         return true
+       end
+    end
+  end
+
 end

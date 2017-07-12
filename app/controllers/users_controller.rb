@@ -29,6 +29,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @trips = @user.trips
+    @follows = follows(current_user, @user)
+    if @follows == true
+      @followed_blog = FollowedBlog.find_by(user_id: current_user.id, blog_owner_id: @user.id)
+    end
   end
 
 
@@ -42,4 +46,5 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
+
 end

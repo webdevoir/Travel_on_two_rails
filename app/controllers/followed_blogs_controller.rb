@@ -15,4 +15,13 @@ class FollowedBlogsController < ApplicationController
     end
   end
 
+  def destroy
+    @followed_blog = FollowedBlog.find(params[:id])
+    if @followed_blog.destroy
+      redirect_to user_followed_blogs_path(current_user)
+    else
+      flash[:error] = "Something went wrong"
+    end
+  end
+
 end
