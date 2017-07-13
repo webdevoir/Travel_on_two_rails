@@ -1,20 +1,41 @@
-<div class=”ui segment”>
-  <h3>Mailbox</h3>
-  <div class=”ui list”>
-    <div class=”item”>
-      <% @conversations.each do |conversation| %>
-          <% if conversation.sender_id == current_user.id %>
-            <% recipient = User.find(conversation.recipient_id) %>
-          <% else %>
-            <% recipient = User.find(conversation.sender_id) %>
-          <% end %>
-          <% if conversation.read?(conversation, current_user) %>
-            <p>
-              Unread Messages
-            </p>
-          <% end %>
-          <%= link_to recipient.name,   conversation_messages_path(conversation)%>
-        <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Mailbox</h3>
     </div>
+    <% @conversations.each do |conversation| %>
+      <% if conversation.sender_id == current_user.id %>
+        <% recipient = User.find(conversation.recipient_id) %>
+      <% else %>
+        <% recipient = User.find(conversation.sender_id) %>
+      <% end %>
+      <div class="col-sm-12 user-search-column">
+        <div class="row">
+          <div class="col-sm-3">
+            <% if recipient.avatar_url == nil %>
+                <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+            <% else %>
+                <%= image_tag recipient.avatar.thumb.url, :class => "user-cover-photo img-rounded" %>
+            <% end %>
+          </div>
+          <div class="col-sm-3">
+            <h1><%= link_to recipient.name,   conversation_messages_path(conversation) %></h1>
+          </div>
+          <div class="col-sm-5 col-sm-offset-1">
+            <% last_message = conversation.messages.last %>
+            <% unless last_message == nil %>
+              <p>
+                <%= last_message.body %>
+              </p>
+            <% end %>
+            <% if conversation.read?(conversation, current_user) %>
+              <p>
+                Unread Messages
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
