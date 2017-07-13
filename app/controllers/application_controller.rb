@@ -1,12 +1,26 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_action :read_nav_check
+
   private
 
   helper_method :current_user
 
   def after_sign_in_path_for(resource)
     user_path(current_user)
+  end
+
+  def read_nav_check
+    if current_user
+      @conversations = current_user.conversations
+      @read = false
+      @conversations.each do |conversation|
+        if conversation.read?(conversation, current_user)
+          @read = true
+        end
+      end
+    end
   end
 
   def after_sign_up_path_for(resource)
