@@ -13,11 +13,15 @@
         <h4 class="modal-title">Edit Your Trip</h4>
       </div>
       <div class="modal-body">
-        <%= form_for @trip do |f| %>
+        <%= form_for ([@trip, @gear_list]) do |f| %>
           <%= f.label :bike, 'Enter The bike you used on this trip' %>
           <%= f.text_field :bike, :class => "form-control" %>
-          <%= f.label :gear_list, "Enter any other gear you used" %>
-          <%= f.text_area :gear_list, class: "form-control" %>
+          <%= f.label :tent, 'Enter The tent you used on this tent' %>
+          <%= f.text_field :tent, :class => "form-control" %>
+          <%= f.label :pannier, 'Enter The panniers or bags you used on this trip' %>
+          <%= f.text_field :pannier, :class => "form-control" %>
+          <%= f.label :other, "Enter any other gear you used" %>
+          <%= f.text_area :other, class: "form-control" %>
       </div>
       <div class="modal-footer">
           <%= f.submit "Submit", :class => "btn btn-submit" %>

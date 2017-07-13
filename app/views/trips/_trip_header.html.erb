@@ -57,7 +57,11 @@
 <% end %>
 <% unless @trip.description == nil && @trip.gear_list == nil %>
   <div class="col-md-7 col-md-offset-1">
-    <% unless @trip.description == nil %>
+    <% if @trip.description == nil %>
+      <div class="trip-description">
+        <%= render "trip_edit" %>
+      </div>
+    <% else %>
       <div class="trip-description">
         <h1>Trip Description</h1>
         <p>
@@ -66,11 +70,15 @@
         <%= render "trip_edit" %>
       </div>
     <% end %>
-    <% unless @trip.gear_list == nil %>
+    <% if @trip.gear_list == nil %>
+      <div class="trip-description">
+        <%= render "trip_gear_modal" %>
+      </div>
+    <% else %>
       <div class="trip-description">
         <h1>Gear List</h1>
         <p>
-          <%= @trip.gear_list %>
+          Bike: <%= @gear_list.bike %>, Pannier <%= @gear_list.pannier %>, Tent <%= @gear_list.tent %>, Other <%= @gear_list.other %>
         </p>
         <%= render "trip_gear_modal" %>
       </div>

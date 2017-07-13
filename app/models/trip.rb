@@ -7,6 +7,7 @@ class Trip < ApplicationRecord
   has_many :posts
   has_many :post_groups
   has_one :donation_goal
+  has_one :gear_list
   mount_uploader :photo, TripCoverUploader
 
 end

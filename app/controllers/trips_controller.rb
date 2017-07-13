@@ -7,6 +7,11 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find_by(id: params[:id])
+    if @trip.gear_list == nil
+      @gear_list = GearList.new
+    else
+      @gear_list = @trip.gear_list
+    end
     @user = @trip.user
     @posts = @trip.posts
     @post_groups = post_group_arrays(@trip.post_groups)
@@ -58,7 +63,7 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-    params.require(:trip).permit(:trip_name, :photo, :description, :bike, :gear_list)
+    params.require(:trip).permit(:trip_name, :photo, :description)
   end
 
   def percent_raised(donation_goal)
