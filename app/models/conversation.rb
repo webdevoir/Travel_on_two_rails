@@ -9,4 +9,14 @@ class Conversation < ActiveRecord::Base
   scope :between, -> (sender_id,recipient_id) do
    where("(conversations.sender_id = ? AND conversations.recipient_id =?) OR (conversations.sender_id = ? AND conversations.recipient_id =?)", sender_id,recipient_id, recipient_id, sender_id)
    end
+
+  def read?(conversation, current_user)
+    value = false
+    conversation.messages.each do |message|
+      if message.read == false && message.user_id != current_user.id
+        value = true
+      end
+    end
+    return value
+  end
 end

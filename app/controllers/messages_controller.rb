@@ -19,6 +19,15 @@ class MessagesController < ApplicationController
         @messages.last.read = true;
       end
     end
+    unread_messages = Message.where(:read => false, :conversation_id => @conversation.id)
+    if unread_messages.length > 0
+      unread_messages.each do |message|
+        if message.user_id != current_user.id
+          message.read = true
+          message.save
+        end
+      end
+    end
     @message = @conversation.messages.new
   end
 

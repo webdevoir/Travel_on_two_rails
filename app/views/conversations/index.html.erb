@@ -8,6 +8,11 @@
           <% else %>
             <% recipient = User.find(conversation.sender_id) %>
           <% end %>
+          <% if conversation.read?(conversation, current_user) %>
+            <p>
+              Unread Messages
+            </p>
+          <% end %>
           <%= link_to recipient.name,   conversation_messages_path(conversation)%>
         <% end %>
     </div>
