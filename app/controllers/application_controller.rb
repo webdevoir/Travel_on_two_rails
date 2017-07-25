@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  before_action :read_nav_check
+  after_action :read_nav_check
 
   private
 
@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
       @read = false
       @conversations.each do |conversation|
         if conversation.read?(conversation, current_user)
+          raise 'hit'
           @read = true
         end
       end
