@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
 
+  skip_before_action :read_nav_check, only: [:index]
+
   before_action do
     @conversation = Conversation.find(params[:conversation_id])
   end
@@ -28,6 +30,7 @@ class MessagesController < ApplicationController
         end
       end
     end
+    read_nav_check
     @message = @conversation.messages.new
   end
 
