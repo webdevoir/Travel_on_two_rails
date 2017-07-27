@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_filter :require_permission, only: [:edit, :update, :destroy, :create, :new]
+  before_filter :require_permission, only: [:edit, :update, :destroy]
 
   def index
     @trips = Trip.all
@@ -59,11 +59,15 @@ class TripsController < ApplicationController
     redirect_to user_path(@user)
   end
 
-
+  def fetch_posts
+    @trip = Trip.find(params[:trip_id])
+    @posts = @trip.posts
+    render(json: { "posts" => @posts, "trip" => @trip }.to_json)
+  end
 
   private
   def trip_params
-    params.require(:trip).permit(:trip_name, :photo, :description)
+    params.require(:trip).permit(:trip_name, :photo, :description, :start, :end)
   end
 
   def percent_raised(donation_goal)

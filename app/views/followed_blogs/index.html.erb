@@ -1,6 +1,29 @@
-<h1>Hi Ryan!</h1>
-<ul>
-  <% @followed_blogs.each do |followed_blog| %>
-    <li><%= followed_blog.blog_owner.name %></li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Followed Blogs</h3>
+    </div>
+      <% @followed_blogs.each do |followed_blog| %>
+      <% blog_owner = followed_blog.blog_owner %>
+      <div class="col-sm-12 user-search-column">
+        <div class="row">
+          <div class="col-sm-3">
+            <% if blog_owner.avatar_url == nil %>
+                <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+            <% else %>
+                <%= image_tag blog_owner.avatar.thumb.url, :class => "user-cover-photo img-rounded" %>
+            <% end %>
+          </div>
+          <div class="col-sm-3">
+            <h1><%= link_to blog_owner.name,   user_path(blog_owner) %></h1>
+          </div>
+          <div class="col-sm-5 col-sm-offset-1">
+            <p>
+              some blog stuff it would be cool if this gave a bit on the very last post the user made
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

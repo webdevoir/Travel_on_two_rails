@@ -15,12 +15,15 @@ Rails.application.routes.draw do
       resources :post_pictures, only: [:new, :create, :destroy]
       get "fetch_images", to: "post_pictures#fetch_images", as: "fetch_images"
     end
+    get :fetch_posts
     resources :transactions, only: [:new, :create]
     resources :donation_goals, only: [:new, :create, :update, :edit]
     resources :post_groups, only: [:show, :update]
     resources :gear_lists, only: [:create, :update]
     get "fetch_post/:id", to: "post_groups#fetch_post", as: "fetch_post"
   end
+
+  resources :trip_planner
 
   resources :conversations do
     resources :messages

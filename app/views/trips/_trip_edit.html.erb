@@ -19,6 +19,13 @@
           <%= f.text_field :trip_name, :class => "form-control" %>
           <%= f.label :description, "Give a short description of your trip" %>
           <%= f.text_area :description, class: "form-control" %>
+          <%= f.label :start, "Starting location of your trip" %>
+          <%= f.text_field :start, class: "form-control" %>
+          <%= f.label :end, "Ending location of your trip" %>
+          <%= f.text_field :end, class: "form-control" %>
+          <p>
+            (Note please try and keep start and end location as accurate as possible. It helps other users plan their trips better.)
+          </p>
           <%= f.label :photo, "Upload a cover image for your trip" %>
           <%= f.file_field :photo %>
       </div>
