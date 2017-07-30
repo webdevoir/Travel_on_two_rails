@@ -1,5 +1,5 @@
 <script
- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=places">
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=geometry">
 </script>
 <div id="wrapper">
   <div id="sidebar-wrapper">
@@ -7,9 +7,9 @@
       <li class="sidebar-brand"><a href="<%= trip_path(@trip) %>">Back to trip</a></li>
       <% @posts.each_with_index do |post, index| %>
         <% if index == 0 %>
-        <li class="<%= post.day %> sidebar-active-item"><a href="<%= trip_fetch_post_planer_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{post.day}" %></a></li>
+        <li class="<%="#{post.id}" %> sidebar-active-item"><a href="<%= trip_fetch_post_planer_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
         <% else %>
-        <li class="<%= post.day %>"><a href="<%= trip_fetch_post_planer_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{post.day}" %></a></li>
+        <li class="<%= post.id %>"><a href="<%= trip_fetch_post_planer_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
         <% end %>
       <% end %>
     </ul>

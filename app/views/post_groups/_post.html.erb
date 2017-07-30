@@ -13,7 +13,7 @@ $( document ).ready(function() {
   <%= button_to "Edit Post", edit_trip_post_url(@post.trip, @post), :class => "btn btn-warning sharp", :method => 'get' %>
 <% end %>
 
-<%= hidden_field_tag 'current_post_date', "#{@post.day}" %>
+<%= hidden_field_tag 'current_post_date', "#{@post.id}" %>
 <div class="post-title">
   <h1><%= @post.post_title.upcase %></h1>
 </div>

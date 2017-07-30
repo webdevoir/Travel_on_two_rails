@@ -50,6 +50,8 @@ $(function(){
           for (var i = 0; i < response.routes[0].legs.length; i++) {
             infowindow[i] = new google.maps.InfoWindow();
             var legs = response.routes[0].legs[i]
+            var distance = google.maps.geometry.spherical.interpolate(legs.start_location, legs.end_location, 0.5);
+            createMarker(map, distance, "label", "html")
             // infowindow[i].setContent(legs.steps[0].distance.text + "<br>" + legs.steps[0].duration.text + " ");
             // infowindow[i].setPosition(legs.steps[0].path[0]);
             // infowindow[i].open(map);
@@ -59,6 +61,23 @@ $(function(){
         }
       });
     })
+  }
+
+  function createMarker(map, latlng, label, html) {
+    var contentString = '<b>'+label+'</b><br>'+html;
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        title: label,
+        zIndex: Math.round(latlng.lat()*-100000)<<5
+        });
+        marker.myname = label;
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6));
+        infowindow.open(map,marker);
+        });
+    return marker;
   }
 
   initMap()
