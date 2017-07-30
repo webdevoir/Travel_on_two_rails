@@ -80,5 +80,12 @@ $(function(){
     return marker;
   }
 
+  function newLocation(newLat,newLng) {
+  	map.setCenter({
+  		lat : newLat,
+  		lng : newLng
+  	});
+  }
+
   initMap()
 })
