@@ -26,6 +26,10 @@ nav.navbar.home-index {
     color: white;
 }
 
+ul.dropdown-menu li a {
+  color: black !important;
+}
+
 ul.nav a:hover {
   border-bottom: solid #f0ad4e;
   padding-bottom: 7px;

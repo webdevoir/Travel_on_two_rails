@@ -1,10 +1,31 @@
 <script
  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=places">
 </script>
+<div id="wrapper">
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand"><a href="<%= trip_path(@trip) %>">Back to trip</a></li>
+      <% @posts.each_with_index do |post, index| %>
+        <% if index == 0 %>
+        <li class="<%= post.day %> sidebar-active-item"><a href="<%= trip_fetch_post_planer_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{post.day}" %></a></li>
+        <% else %>
+        <li class="<%= post.day %>"><a href="<%= trip_fetch_post_planer_url(@trip, post) %>" class="post-sidebar-item" data-value="<%= post.id %>"><%= "#{post.day}" %></a></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  <div id="page-content-wrapper trip-planer">
+    <div class="container-fluid trip-planer">
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="map-trip-planner">
 
-<h1>Trip planer Index</h1>
-
-
-<div id="map-trip-planner">
-
+          </div>
+          <div id="post-container">
+            <%= render 'post' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

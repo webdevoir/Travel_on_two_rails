@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :post_groups, only: [:show, :update]
     resources :gear_lists, only: [:create, :update]
     get "fetch_post/:id", to: "post_groups#fetch_post", as: "fetch_post"
+    get "fetch_post_planer/:id", to: "trip_planner#fetch_post", as: "fetch_post_planer"
   end
 
   resources :trip_planner
