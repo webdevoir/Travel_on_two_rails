@@ -35,6 +35,8 @@
       <%= f.label :address2, "Enter end point here!" %>
       <%= f.text_field :address2, class: "form-control" %>
     </div>
+    <%= f.hidden_field :center_lng %>
+    <%= f.hidden_field :center_lat %>
   </div>
 
   <%= f.button :submit, :class => "btn btn-submit" %>

@@ -12,5 +12,7 @@ $( document ).ready(function() {
       "</div>"
     )
   });
+    //           var distance = google.maps.geometry.spherical.interpolate(legs.start_location, legs.end_location, 0.5);
+    //           createMarker(map, distance, "label", "html")
 
 })

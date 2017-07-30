@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726234008) do
+ActiveRecord::Schema.define(version: 20170730210029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20170726234008) do
     t.integer  "post_group_id"
     t.string   "day"
     t.integer  "distance"
+    t.string   "center_lat"
+    t.string   "center_lng"
   end
 
   create_table "purchases", force: :cascade do |t|
