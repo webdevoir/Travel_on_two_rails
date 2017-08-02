@@ -1,7 +1,7 @@
 class TripPlannerController < ApplicationController
 
   def index
-    @trip = Trip.find(3)
+    @trip = Trip.find(9)
     @posts = @trip.posts.sort_by {|obj| obj.day}
     @post = @posts.first
     @user = @trip.user

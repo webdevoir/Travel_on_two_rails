@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     year = date.year
     day = date.day
     month = date.strftime("%B")
-    @post_group = PostGroup.where(:year => year, :month => month)
+    @post_group = PostGroup.where(:year => year, :month => month, :trip_id => @trip.id)
 
     if @post_group.length == 0
       @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
@@ -30,19 +30,25 @@ class PostsController < ApplicationController
     @post = @trip.posts.build(post_params)
     @post.post_group_id = @post_group[0].id
     @post.day = day.to_s
-    @post.distance = post_distance(@post)
-    if @post.save
-      @trip.total_distance += @post.distance
-      @trip.save
-      # unless params[:post_pictures] == nil
-      #   params[:post_pictures]['image'].each do |img|
-      #     @post_picture = @post.post_pictures.create!(:picture => img)
-      #   end
-      # end
-      redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
-    else
-      raise[:error]
+    distance = post_distance(@post)
+    @post.distance = distance
+    if distance == false
+      flash[:error]
       render :new
+    else
+      if @post.save
+        @trip.total_distance += @post.distance
+        @trip.save
+        # unless params[:post_pictures] == nil
+        #   params[:post_pictures]['image'].each do |img|
+        #     @post_picture = @post.post_pictures.create!(:picture => img)
+        #   end
+        # end
+        redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
+        else
+          flash[:error]
+          render :new
+        end
     end
   end
 
@@ -116,8 +122,12 @@ class PostsController < ApplicationController
        :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{start_point}&destinations=#{end_point}&key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ",
     )
     data = JSON.parse(http_response.body)
-    distance = data["rows"][0]["elements"][0]["distance"]["text"].to_i
-    return distance
+    if data["rows"][0]["elements"][0]["distance"] == nil
+      return false
+    else
+      distance = data["rows"][0]["elements"][0]["distance"]["text"].to_i
+      return distance
+    end
   end
 
   def load_trip

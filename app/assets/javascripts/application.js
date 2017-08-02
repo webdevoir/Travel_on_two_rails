@@ -15,4 +15,9 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require dropzone
-//= require_tree .
+//= require cable
+//= require post_pictures
+//= require profile_cover
+//= require side_bar
+//= require transactions
+//= require trips
