@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   resources :trip_planner
+  get :trip_planner_search, to: "trip_planner#search"
 
   resources :conversations do
     resources :messages
