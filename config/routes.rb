@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  apipie
+  namespace :api do
+    namespace :v1 do
+      resources :users
+      resources :conversations
+      resources :trips do
+        resources :post_groups, only: [:show, :update]
+      end
+    end
+  end
   devise_for :users, :controllers => { :registrations => 'registrations' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'

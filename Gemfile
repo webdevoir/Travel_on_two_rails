@@ -37,6 +37,7 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'simple_form', '~> 3.2'
 gem 'bootstrap-sass', '~> 3.3'
+gem 'active_model_serializers'
 
 # Carrier wave for image uploading
 gem 'carrierwave', '~> 1.0'
@@ -72,3 +73,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'apipie-rails'
