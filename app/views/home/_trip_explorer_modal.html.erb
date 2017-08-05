@@ -1,0 +1,22 @@
+<div id="trip_explorer_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Your Trip</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_tag trip_planner_search_path, method: "get" %>
+          <%= label_tag :start, 'Starting Place' %>
+          <%= text_field_tag :start, "", :class => "form-control" %>
+          <%= label_tag :end, 'Ending Place' %>
+          <%= text_field_tag :end, "", :class => "form-control" %>
+      </div>
+      <div class="modal-footer">
+          <%= submit_tag "Submit", :class => "btn btn-submit" %>
+      </div>
+    </div>
+  </div>
+</div>

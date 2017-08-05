@@ -24,10 +24,11 @@ class TripPlannerController < ApplicationController
       end
       start_points_string = start_points_string[0..start_points_string.length - 2]
       end_points_string = end_points_string[0..end_points_string.length - 2]
-      search_start = "Richmond Hill, ON, Canada"
-      search_end = "Brossard, QC, Canada"
-      # search_start = param[:start]
-      # search_end = param[:end]
+
+      # search_start = "Richmond Hill, ON, Canada"
+      # search_end = "Brossard, QC, Canada"
+      search_start = params[:start]
+      search_end = params[:end]
 
       # first check if start search is close to one of the starting points
       http_response = RestClient::Request.execute(
