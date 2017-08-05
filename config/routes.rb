@@ -3,10 +3,21 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     namespace :v1 do
-      resources :users
-      resources :conversations
+      get 'search', to: 'search#search'
+      get 'location_search', to: 'search#location_search'
+      resources :users do
+        resources :followed_blogs only: [:create, :destroy]
+      end
+      resources :conversations do
+        resources :messages
+      end
       resources :trips do
+        resources :posts do
+          resources :post_pictures, only: [:create, :destroy]
+        end
+        resources :donation_goals, only: [:create, :edit]
         resources :post_groups, only: [:show, :update]
+        resources :gear_lists, only: [:create, :update]
       end
     end
   end
@@ -15,7 +26,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :users do
-    resources :followed_blogs
+    resources :followed_blogs, only: [:index, :create, :destroy]
   end
 
   get 'search', to: 'search#search'

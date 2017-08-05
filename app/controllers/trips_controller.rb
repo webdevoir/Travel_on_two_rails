@@ -86,7 +86,7 @@ class TripsController < ApplicationController
     post_groups.each do |post_group|
       year = post_group.year
       if year_group_hash.key?(year)
-        year_group_hash[year] << post_group
+        year_group_hash[year] << post_group 
       else
         year_group_hash.merge!(year => [post_group])
       end

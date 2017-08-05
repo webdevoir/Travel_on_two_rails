@@ -20,4 +20,17 @@ class Api::V1::BaseController < ApplicationController
   #     ApiKey.exists?(access_token: token)
   #   end
   # end
+
+  def read_nav_check
+    if current_user
+      @conversations = current_user.conversations
+      @read = false
+      @conversations.each do |conversation|
+        if conversation.read?(conversation, current_user)
+          @read = true
+        end
+      end
+    end
+  end
+  
 end
