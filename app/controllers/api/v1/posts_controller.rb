@@ -33,14 +33,14 @@ class Api::V1::PostsController < Api::V1::BaseController
     distance = post_distance(@post)
     @post.distance = distance
     if distance == false
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     else
       if @post.save
         @trip.total_distance += @post.distance
         @trip.save
-        render (json: {:success => "success"}.to_json)
+        render(json: {:success => "success"}.to_json)
       else
-        render (json: {:success => "error"}.to_json)
+        render(json: {:success => "error"}.to_json)
       end
     end
   end
@@ -73,9 +73,9 @@ class Api::V1::PostsController < Api::V1::BaseController
           @trip.save
         end
       end
-      render (json: {:success => "success"}.to_json)
+      render(json: {:success => "success"}.to_json)
     else
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     end
   end
 
@@ -83,9 +83,9 @@ class Api::V1::PostsController < Api::V1::BaseController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
-      render (json: {:success => "success"}.to_json)
+      render(json: {:success => "success"}.to_json)
     else
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     end
   end
 

@@ -20,8 +20,9 @@ $(function(){
   }
 
   function calculateAndDisplayRoute(directionsService, directionsDisplay, map) {
+    var id = $("#trip_id").val()
     $.ajax({
-      url: "/trips/9/fetch_posts",
+      url: "/trips/"+id+"/fetch_posts",
     }).done(function(result){
       var posts = result.posts
       var trip = result.trip

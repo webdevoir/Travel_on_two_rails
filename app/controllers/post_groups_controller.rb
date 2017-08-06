@@ -4,6 +4,7 @@ class PostGroupsController < ApplicationController
 
 
   def show
+    @trip = Trip.find(params[:trip_id])
     @post_group = PostGroup.find(params[:id])
     @posts = @post_group.posts.sort_by {|obj| obj.day}
     @post = @posts.first

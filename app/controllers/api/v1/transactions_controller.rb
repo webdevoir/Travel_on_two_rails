@@ -1,4 +1,4 @@
-class TransactionsController < ApplicationController
+class Api::V1::TransactionsController < Api::V1::BaseController
   before_action :load_donation_goal
 
   def create
@@ -14,12 +14,12 @@ class TransactionsController < ApplicationController
       if @donation_goal.save
         render(json: {:success => "success"}.to_json)
       else
-        render (json: {:success => "error"}.to_json)
+        render(json: {:success => "error"}.to_json)
       end
     else
       flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
       gon.client_token = generate_client_token
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     end
   end
 
