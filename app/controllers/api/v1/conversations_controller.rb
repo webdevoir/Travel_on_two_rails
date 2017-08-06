@@ -23,4 +23,9 @@ class Api::V1::ConversationsController < Api::V1::BaseController
     render(json: {:success => "success"}.to_json)
   end
 
+  private
+  def conversation_params
+    params.permit(:sender_id, :recipient_id)
+  end
+
 end

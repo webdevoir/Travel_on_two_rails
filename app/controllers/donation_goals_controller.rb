@@ -50,6 +50,4 @@ class DonationGoalsController < ApplicationController
     end
   end
 
-  # TODO: add method that makes sure you're current user in fact need to do this on a handful of routes
-
 end

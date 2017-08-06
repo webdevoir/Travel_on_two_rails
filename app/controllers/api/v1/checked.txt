@@ -1,0 +1,10 @@
+ConversationsController
+MessagesController
+Followed Blogs Controller
+TripController
+GearListsController
+PostGroupController
+SearchController
+
+
+todo figure out how current user works for api

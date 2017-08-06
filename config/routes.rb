@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get 'search', to: 'search#search'
       get 'location_search', to: 'search#location_search'
       resources :users do
-        resources :followed_blogs only: [:create, :destroy]
+        resources :followed_blogs, only: [:create, :destroy]
       end
       resources :conversations do
         resources :messages, only: [:index, :create]

@@ -13,9 +13,9 @@ class Api::V1::DonationGoalsController < Api::V1::BaseController
     @donation_goal.trip_id = @trip.id
     @donation_goal.end_date = Date.strptime(params[:donation_goal][:end_date], "%m/%d/%Y")
     if @donation_goal.save
-      render (json: {:success => "success"}.to_json)
+      render(json: {:success => "success"}.to_json)
     else
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     end
   end
 
@@ -30,9 +30,9 @@ class Api::V1::DonationGoalsController < Api::V1::BaseController
     @donation_goal.update(donation_goal_params)
     @donation_goal.end_date = Date.strptime(params[:donation_goal][:end_date], "%m/%d/%Y")
     if @donation_goal.save
-      redirect_to trip_path(@trip)
+      render(json: {:success => "success"}.to_json)
     else
-      render :new, notice: "Somethint went wrong please try again"
+      render(json: {:success => "error"}.to_json)
     end
   end
 

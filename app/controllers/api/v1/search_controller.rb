@@ -8,7 +8,7 @@ class Api::V1::SearchController < Api::V1::BaseController
     else
       @trips_and_users = Elasticsearch::Model.search(params[:q], [Trip, User]).records.to_a
       @users = seperate_trips_and_users(@trips_and_users)
-      result = UserSerializer.new(@user)
+      result = ActiveModel::Serializer::ArraySerializer.new(@users, each_serializer: UserSerializer)
       render(json: result.to_json)
     end
   end

@@ -17,13 +17,14 @@ class Api::V1::TripsController < Api::V1::BaseController
     param :end, String, :desc => "end point of trip (should be google address)"
   end
   def create
-    @user = User.find(params[:user_id])
+    current_user = User.find(1)
+    @user = current_user
     @trip = Trip.new(trip_params)
     @trip.user_id = @user.id
     if @trip.save
       render(json: {:success => "success"}.to_json)
     else
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     end
   end
 
@@ -40,7 +41,7 @@ class Api::V1::TripsController < Api::V1::BaseController
     if @trip.update(trip_params)
       render(json: {:success => "success"}.to_json)
     else
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     end
   end
 
@@ -50,7 +51,7 @@ class Api::V1::TripsController < Api::V1::BaseController
     if @trip.destroy
       render(json: {:success => "success"}.to_json)
     else
-      render (json: {:success => "error"}.to_json)
+      render(json: {:success => "error"}.to_json)
     end
   end
 

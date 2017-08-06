@@ -8,6 +8,8 @@ class Api::V1::MessagesController < Api::V1::BaseController
 
   api :get, "conversations/:id/messages"
   def index
+    # temp
+    current_user = User.find(1)
     unread_messages = Message.where(:read => false, :conversation_id => @conversation.id)
     if unread_messages.length > 0
       unread_messages.each do |message|
@@ -31,7 +33,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
   def create
     @message = @conversation.messages.new(message_params)
     if @message.save
-      render (json: {:success => "success"}.to_json)
+      render(json: {:success => "success"}.to_json)
     end
   end
 
