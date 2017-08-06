@@ -1,6 +1,7 @@
 class Api::V1::SearchController < Api::V1::BaseController
 
   api :get, "search"
+  param :q, String, :desc => "Search term can be either Trip name or a User name"
   def search
     if params[:q].nil?
       @trips = []

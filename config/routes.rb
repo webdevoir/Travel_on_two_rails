@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         resources :followed_blogs only: [:create, :destroy]
       end
       resources :conversations do
-        resources :messages
+        resources :messages, only: [:index, :create]
       end
       resources :trips do
         resources :posts do
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         resources :donation_goals, only: [:create, :edit]
         resources :post_groups, only: [:show, :update]
         resources :gear_lists, only: [:create, :update]
+        resources :transactions, only: [:create]
       end
     end
   end
