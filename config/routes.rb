@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  
   devise_for :users, :controllers => { :registrations => 'registrations' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   get 'search', to: 'search#search'
+  get :trip_planner_search, to: "search#location_search"
 
   resources :trips do
     resources :posts do
@@ -45,9 +47,6 @@ Rails.application.routes.draw do
     get "fetch_post/:id", to: "post_groups#fetch_post", as: "fetch_post"
     get "fetch_post_planer/:id", to: "trip_planner#fetch_post", as: "fetch_post_planer"
   end
-
-  resources :trip_planner
-  get :trip_planner_search, to: "search#location_search"
 
   resources :conversations do
     resources :messages
