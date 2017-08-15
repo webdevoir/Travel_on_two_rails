@@ -104,7 +104,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     http_response = RestClient::Request.execute(
        :method => :get,
-       :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{start_point}&destinations=#{end_point}&key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ",
+       :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{start_point}&destinations=#{end_point}&key=#{ENV['GOOGLE_MAPS_API']}",
     )
     data = JSON.parse(http_response.body)
     if data["rows"][0]["elements"][0]["distance"] == nil

@@ -34,14 +34,14 @@ class SearchController < ApplicationController
       first check if start search is close to one of the starting points
       http_response = RestClient::Request.execute(
          :method => :get,
-         :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{search_start}&destinations=#{start_points_string}&key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ",
+         :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{search_start}&destinations=#{start_points_string}&key=#{ENV['GOOGLE_MAPS_API']}",
       )
       data = JSON.parse(http_response.body)
       data["rows"][0]["elements"].each do |distance|
         if distance["distance"]["value"] <= 100000
           http_response_second = RestClient::Request.execute(
              :method => :get,
-             :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{search_end}&destinations=#{end_points_string}&key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ",
+             :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{search_end}&destinations=#{end_points_string}&key=#{ENV['GOOGLE_MAPS_API']}",
           )
           data_second = JSON.parse(http_response_second.body)
           data["rows"][0]["elements"].each_with_index do |distance, index|

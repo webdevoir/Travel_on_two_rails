@@ -1,6 +1,6 @@
 <%= javascript_include_tag "trip_planner" %>
 <script
- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOPUyGan2qsdAXBODCGHa2TN6myWIxZFQ&libraries=geometry">
+ src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=geometry">
 </script>
 <div id="wrapper">
   <div id="sidebar-wrapper">
