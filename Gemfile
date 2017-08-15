@@ -44,6 +44,7 @@ gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem "passenger", "~> 5.0.18"
 
 
 gem 'rest-client'
