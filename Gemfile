@@ -45,7 +45,7 @@ gem "mini_magick"
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem "passenger", "~> 5.0.18"
-gem "fog-aws"
+gem 'fog'
 
 gem 'rest-client'
 
