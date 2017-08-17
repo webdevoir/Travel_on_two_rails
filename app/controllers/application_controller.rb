@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       return false
     else
        followed_blog = FollowedBlog.where(user_id: current_user.id, blog_owner_id: user.id)
-       if followed_blog.length == nil
+       if followed_blog.length == 0
          return false
        else
          return true
