@@ -31,7 +31,7 @@
               <%= button_to "Next to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group), :class => "btn btn-warning sharp", :method => :get %>
             <% end %>
           </div>
-          <%= link_to "Back to Trip", trip_path(@trip) %>
+          <%= link_to "Back to Trip", trip_path(@trip), :class => "back-to-trip-link" %>
           <div id="map-trip-planner">
 
           </div>
