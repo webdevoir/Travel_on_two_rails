@@ -11,6 +11,7 @@ class TripsController < ApplicationController
       @gear_list = GearList.new
     else
       @gear_list = @trip.gear_list
+      @gear_list_string = gear_list_string(@trip.gear_list)
     end
     @user = @trip.user
     @posts = @trip.posts
@@ -70,6 +71,26 @@ class TripsController < ApplicationController
     params.require(:trip).permit(:trip_name, :photo, :description, :start, :end)
   end
 
+  def gear_list_string(gear_list)
+    string = ""
+    if gear_list.bike != ""
+      string << "Bike: #{gear_list.bike}, "
+    end
+    if gear_list.pannier != ""
+      string << "Pannier: #{gear_list.pannier}, "
+    end
+    if gear_list.tent != ""
+      string << "Tent: #{gear_list.tent}, "
+    end
+    if gear_list.pannier != ""
+      string << "Pannier: #{gear_list.pannier}, "
+    end
+    if gear_list.other != ""
+      string << "Other: #{gear_list.other}, "
+    end
+    return string
+  end
+
   def percent_raised(donation_goal)
     raised = donation_goal.current_paid
     amount = donation_goal.amount
@@ -86,7 +107,7 @@ class TripsController < ApplicationController
     post_groups.each do |post_group|
       year = post_group.year
       if year_group_hash.key?(year)
-        year_group_hash[year] << post_group 
+        year_group_hash[year] << post_group
       else
         year_group_hash.merge!(year => [post_group])
       end
