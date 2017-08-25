@@ -1,18 +1,26 @@
 <%= hidden_field_tag :post, @post.id %>
 <%= hidden_field_tag :trip, @trip.id %>
 
+<div id="wrapper-reg">
+  <div class="container container-table <%= css_slug %>">
+    <div class="row vertical-center-row <%= css_slug %>">
+      <div class="registration-wrapper">
+        <h1>Upload images</h1>
+        <%= form_for(@post_picture, :url => trip_post_post_pictures_url(@trip, @post), html: { multipart: true, class: "dropzone" }) do |f|  %>
+          <div class="fallback">
+            <%= f.file_field :picture %><br>
+            <%= f.submit "Upload" %>
+          </div>
+        <% end %>
 
-<%= form_for(@post_picture, :url => trip_post_post_pictures_url(@trip, @post), html: { multipart: true, class: "dropzone" }) do |f|  %>
-  <div class="fallback">
-    <%= f.file_field :picture %><br>
-    <%= f.submit "Upload" %>
+        <br>
+
+        <p>
+          Done adding images?
+        </p>
+
+        <%= button_to('Create Post', trip_post_group_path(@trip, @post_group), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
+      </div>
+    </div>
   </div>
-<% end %>
-
-<br>
-
-<p>
-  Done adding images?
-</p>
-
-<%= button_to('Create Post', trip_post_group_path(@trip, @post_group), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
+</div>

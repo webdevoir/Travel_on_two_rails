@@ -11,31 +11,27 @@
             <%= f.error_notification %>
             <div class="form-group col-submit">
               <div class="field-title">
-                <h5 class="sign-up-title">Your Email Address</h5>
                 <%= f.input :email, required: true, autofocus: true %>
               </div>
             </div>
             <div class="form-group col-submit">
               <div class="field-title">
-                <h5 class="sign-up-title">Your Name</h5>
                 <%= f.input :name, required: true, autofocus: true %>
               </div>
             </div>
             <div class="form-group col-submit">
               <div class="field-title">
-                <h5 class="sign-up-title">Your Password</h5>
                 <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
               </div>
             </div>
             <div class="form-group col-submit">
               <div class="field-title">
-                <h5 class="sign-up-title">Confirm Password</h5>
                 <%= f.input :password_confirmation, required: true %>
               </div>
             </div>
             <div class="col-bottom">
               <div class="action">
-                <%= f.button :submit, :class => "btn btn-warning btn-lg btn-secondary sharp btn-reg"%>
+                <%= f.button :submit, :class => "btn btn-warning btn-lg sharp btn-reg"%>
               </div>
               <%= render "devise/shared/links" %>
             </div>

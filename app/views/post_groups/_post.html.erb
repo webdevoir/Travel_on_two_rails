@@ -13,6 +13,9 @@ $( document ).ready(function() {
 <div class="post-title">
   <h1><%= @post.post_title.upcase %></h1>
 </div>
+<% if current_user == @user %>
+  <%= link_to "Edit Post", edit_trip_post_url(@post.trip, @post) %>
+<% end %>
 <div class="post-details row">
   <div class="col-sm-4">
     <p>
