@@ -1,9 +1,11 @@
-<% if @over_ten %>
- <%= link_to 'Show Previous', '?m=all' %>
-<% end %>
 <div class="container">
   <div class="row">
     <div class="ui segment">
+      <div class="col-sm-12 view-all-messages-col">
+        <% if @over_ten %>
+         <%= link_to 'View all messages', '?m=all', :class => "show-all-messages" %>
+        <% end %>
+      </div>
      <% @messages.each do |message| %>
       <% if message.body %>
        <% user = User.find(message.user_id) %>
