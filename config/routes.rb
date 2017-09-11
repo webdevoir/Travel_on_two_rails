@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     namespace :v1 do
+      devise_for :users
       get 'search', to: 'search#search'
       get 'location_search', to: 'search#location_search'
       resources :users do
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   devise_for :users, :controllers => { :registrations => 'registrations' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
