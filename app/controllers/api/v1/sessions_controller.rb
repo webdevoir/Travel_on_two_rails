@@ -5,6 +5,11 @@ class Api::V1::SessionsController < Api::V1::BaseController
 
   respond_to :json
 
+  api :post, "sign_in"
+  param :user_login, Hash do
+    param :email, String
+    param :password, String
+  end
   def create
     # build_resource
     resource = User.find_for_database_authentication(:email=>params[:user_login][:login])
@@ -19,6 +24,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
     invalid_login_attempt
   end
 
+  api :delete, "sign_out"
   def destroy
     sign_out(resource_name)
   end
