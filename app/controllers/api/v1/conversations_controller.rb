@@ -1,5 +1,19 @@
 class Api::V1::ConversationsController < Api::V1::BaseController
 
+  api :get, "conversations"
+  def index
+    conversations = User.find(params[:user_id]).conversations
+
+    results = []
+
+    conversations.each do |conversation|
+      result = ConversationSerializer.new(conversation)
+      results << result
+    end
+
+    render(json: results.to_json)
+  end
+
   api :get, "conversations/:id"
   def show
     conversation = Conversation.find(params[:id])
