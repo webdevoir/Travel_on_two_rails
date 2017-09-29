@@ -45,6 +45,14 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
   end
 
+  def show
+    post = Post.find(params[:id])
+
+    result = PostSerializer.new(post)
+
+    render(json: result.to_json)
+  end
+
   api :put, "/trips/:trip_id/posts/:id"
   param :post, Hash, :desc => "Params for details of a post" do
     param :post_title, String, :desc => "Name of trip"
