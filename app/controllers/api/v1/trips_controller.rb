@@ -22,7 +22,7 @@ class Api::V1::TripsController < Api::V1::BaseController
     @trip = Trip.new(trip_params)
     @trip.user_id = @user.id
     if @trip.save
-      render(json: {:success => "success"}.to_json)
+      render(json: {:success => "success", :trip => @trip}.to_json)
     else
       render(json: {:success => "error"}.to_json)
     end
@@ -39,7 +39,7 @@ class Api::V1::TripsController < Api::V1::BaseController
   def update
     @trip = Trip.find(params[:id])
     if @trip.update(trip_params)
-      render(json: {:success => "success"}.to_json)
+      render(json: {:success => "success", :trip => @trip}.to_json)
     else
       render(json: {:success => "error"}.to_json)
     end
