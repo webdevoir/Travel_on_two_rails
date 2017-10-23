@@ -31,6 +31,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 
 gem 'bootstrap-datepicker-rails'
+gem 'jquery-easing-rails'
+gem 'magnific-popup-rails', '~> 1.1.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -38,7 +38,7 @@ class Api::V1::PostsController < Api::V1::BaseController
       if @post.save
         @trip.total_distance += @post.distance
         @trip.save
-        render(json: {:success => "success"}.to_json)
+        render(json: {:success => "success", :post => @post}.to_json)
       else
         render(json: {:success => "error"}.to_json)
       end

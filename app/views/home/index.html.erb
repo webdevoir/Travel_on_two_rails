@@ -1,5 +1,5 @@
 <!--start of content -->
-<div id="wrapper-home">
+<!-- <div id="wrapper-home">
   <div class="container container-table">
     <div class="row vertical-center-row">
       <% if current_user %>
@@ -23,4 +23,152 @@
       <% end %>
     </div>
   </div>
+</div> -->
+<%= render "trip_explorer_modal" %>
+<div id="<%= css_slug %>">
+  <header class="masthead">
+    <div class="header-content">
+      <div class="header-content-inner">
+        <% if current_user %>
+          <h1 id="homeHeading">Welcome to our community</h1>
+          <hr>
+          <p>We'll help you plan your trip, fund it, and share it with the world.</p>
+          <!-- <%# button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %> -->
+          <div class="button-group">
+            <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-primary btn-xl ', :method => :get) %>
+            <button type="button" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Trip explorer</button>
+          </div>
+        <% else %>
+          <h1 id="homeHeading">START YOUR TOURING ADVENTURE NOW</h1>
+          <hr>
+          <p>We'll help you plan your trip, fund it, and share it with the world.</p>
+          <!-- <%# button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %> -->
+          <div class="button-group">
+            <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-primary btn-xl', :method => :get) %>
+            <button type="button" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Trip explorer</button>
+          </div>
+          <%= render "trip_explorer_modal" %>
+        <% end %>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-primary" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 mx-auto text-center">
+          <h2 class="section-heading text-white">A Growing Community</h2>
+          <hr class="light">
+          <p class="text-faded">Travel on Two links you to a large community of like minded bicycle tourists that will allow you to plan your next trip. Weather you're a seasoned pro, or eager to start your first long distance trip, Travel on Two is the place to be.</p>
+          <% if current_user %>
+            <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-default btn-xl', :method => :get) %>
+          <% else %>
+            <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-default btn-xl', :method => :get) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">We Support You.</h2>
+          <hr class="primary">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-bicycle text-primary sr-icons"></i>
+            <h3>Built for Cyclists</h3>
+            <p class="text-muted">Built by cyclists for cyclists, Travel on Two strides to help you get from planning to sharing faster.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-usd text-primary sr-icons"></i>
+            <h3>Raising Money?</h3>
+            <p class="text-muted">Travel on Two gives you the tools to raise money for your trip, for charity or for personal reasons.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-map-marker text-primary sr-icons"></i>
+            <h3>Chart Your Route Accuratly</h3>
+            <p class="text-muted">Download our app to chart your daily ride to get the most accurate distance measurments, time on bike, elevation and more.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="service-box">
+            <i class="fa fa-4x fa-envelope text-primary sr-icons"></i>
+            <h3>Connect With Others</h3>
+            <p class="text-muted">Message other users to ask questions about there trip and expeirence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="p-0" id="portfolio">
+    <div class="container-fluid">
+      <div class="row no-gutter popup-gallery">
+        <% @featured_trips.each do |trip| %>
+          <div class="col-lg-4 col-sm-6">
+            <% if trip.photo.url == nil %>
+            <a class="portfolio-box" href="<%= trip_path(trip) %>">
+              <%= image_tag "1.jpg", :class => "img-fluid" %>
+            <% else %>
+            <a class="portfolio-box" href="<%= trip_path(trip) %>">
+              <%= image_tag "1.jpg", :class => "img-fluid" %>
+              <!-- <img class="img-fluid" src="<%= trip.photo.url %>" alt=""> -->
+            <% end %>
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-name">
+                    <%= trip.trip_name %>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <div class="call-to-action bg-dark">
+    <div class="container text-center">
+      <% if current_user %>
+        <h2>Go To Your Page</h2>
+        <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-primary btn-xl', :method => :get) %>
+      <% else %>
+        <h2>Sign Up Now!</h2>
+        <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-default btn-xl sr-button', :method => :get) %>
+      <% end %>
+    </div>
+  </div>
+
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 mx-auto text-center">
+          <h2 class="section-heading">Let's Get In Touch!</h2>
+          <hr class="primary">
+          <p>I need feedback! I want to make this website with the community in mind. Please reach out to me and let me know what you hate/love.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 mr-auto text-center">
+          <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+          <p>
+            <a href="mailto:evan.shabsove@gmail.com">evan.shabsove@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
