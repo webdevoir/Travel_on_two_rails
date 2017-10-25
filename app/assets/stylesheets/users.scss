@@ -65,6 +65,10 @@ div.container-table.users-new {
   width: 50%;
 }
 
+.user-cover-photo {
+  pointer-events: none;
+}
+
 div.col-submit, div.col-title, div.col-bottom{
   padding-top: 10px;
   padding-bottom: 10px;

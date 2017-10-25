@@ -1,4 +1,17 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
+</script>
+<script type="text/javascript">
+$(function(){
+  function initialize() {
 
+    var input1 = document.getElementById('trip_start');
+    var input2 = document.getElementById('trip_end');
+    var autocomplete1 = new google.maps.places.Autocomplete(input1);
+    var autocomplete2 = new google.maps.places.Autocomplete(input2);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+})
+</script>
   <%= simple_form_for @trip do |f| %>
 
     <!-- error messages -->

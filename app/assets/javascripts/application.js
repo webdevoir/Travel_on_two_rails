@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.easing
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
-//= require magnific-popup
 //= require scrollreveal
 //= require dropzone
 //= require cable

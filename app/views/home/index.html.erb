@@ -2,29 +2,28 @@
 <!-- <div id="wrapper-home">
   <div class="container container-table">
     <div class="row vertical-center-row">
-      <% if current_user %>
+      <%# if current_user %>
         <div class="col-sm-12">
           <h1 class="home">CLICK HERE TO GO TO YOUR BLOG PAGE</h1>
         </div>
         <div class="col-sm-12">
           <h2 class="home">Look at you, you already made an account, in the future you wouldn't see this.</h2>
         </div>
-        <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
+        <%# button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
         <button type="button" name="button" class="btn btn-warning btn-lg btn-secondary sharp" data-toggle="modal" data-target="#trip_explorer_modal">Trip explorer</button>
-        <%= render "trip_explorer_modal" %>
-      <% else %>
+        <%# render "trip_explorer_modal" %>
+      <%# else %>
         <div class="col-sm-12">
           <h1 class="home">START YOUR TOURING ADVENTURE NOW.</h1>
         </div>
         <div class="col-sm-12">
           <h2 class="home">We'll help you plan your trip, fund it, and share it with the world.</h2>
         </div>
-        <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
-      <% end %>
+        <%# button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
+      <%# end %>
     </div>
   </div>
 </div> -->
-<%= render "trip_explorer_modal" %>
 <div id="<%= css_slug %>">
   <header class="masthead">
     <div class="header-content">
@@ -47,19 +46,19 @@
             <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-primary btn-xl', :method => :get) %>
             <button type="button" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Trip explorer</button>
           </div>
-          <%= render "trip_explorer_modal" %>
         <% end %>
       </div>
     </div>
   </header>
+  <%= render "trip_explorer_modal" %>
 
   <section class="bg-primary" id="about">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 mx-auto text-center">
+        <div class="col-lg-12 text-center">
           <h2 class="section-heading text-white">A Growing Community</h2>
           <hr class="light">
-          <p class="text-faded">Travel on Two links you to a large community of like minded bicycle tourists that will allow you to plan your next trip. Weather you're a seasoned pro, or eager to start your first long distance trip, Travel on Two is the place to be.</p>
+          <p class="text-faded">Travel on Two links you to a large community of like minded bicycle tourists that will allow you to plan your next trip. Whether you're a seasoned pro, or eager to start your first long distance trip, Travel on Two is the place to be.</p>
           <% if current_user %>
             <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-default btn-xl', :method => :get) %>
           <% else %>
@@ -85,13 +84,13 @@
           <div class="service-box">
             <i class="fa fa-4x fa-bicycle text-primary sr-icons"></i>
             <h3>Built for Cyclists</h3>
-            <p class="text-muted">Built by cyclists for cyclists, Travel on Two strides to help you get from planning to sharing faster.</p>
+            <p class="text-muted">Built by cyclists for cyclists, Travel on Two strives to help you get from planning to sharing faster.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-usd text-primary sr-icons"></i>
-            <h3>Raising Money?</h3>
+            <h3>Raising Money</h3>
             <p class="text-muted">Travel on Two gives you the tools to raise money for your trip, for charity or for personal reasons.</p>
           </div>
         </div>
@@ -106,7 +105,7 @@
           <div class="service-box">
             <i class="fa fa-4x fa-envelope text-primary sr-icons"></i>
             <h3>Connect With Others</h3>
-            <p class="text-muted">Message other users to ask questions about there trip and expeirence.</p>
+            <p class="text-muted">Message other users to ask questions about their trip and expeirence.</p>
           </div>
         </div>
       </div>
@@ -155,7 +154,7 @@
   <section id="contact">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 mx-auto text-center">
+        <div class="col-lg-12 text-center">
           <h2 class="section-heading">Let's Get In Touch!</h2>
           <hr class="primary">
           <p>I need feedback! I want to make this website with the community in mind. Please reach out to me and let me know what you hate/love.</p>

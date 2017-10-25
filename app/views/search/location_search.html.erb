@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Found Blogs</h3>
+    </div>
+      <% @found_trips.each do |found_trip| %>
+      <div class="col-sm-12 user-search-column">
+        <div class="row">
+          <div class="col-sm-3">
+            <% if found_trip.photo.url == nil %>
+                <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+            <% else %>
+                <%= image_tag found_trip.photo.url, :class => "user-cover-photo img-rounded" %>
+            <% end %>
+          </div>
+          <div class="col-sm-3">
+            <h1><%= link_to found_trip.trip_name, trip_path(found_trip) %></h1>
+          </div>
+          <div class="col-sm-5 col-sm-offset-1">
+            <p>
+              <%= found_trip.description %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

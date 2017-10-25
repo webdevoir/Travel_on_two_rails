@@ -1,3 +1,6 @@
+<div class="col-md-12 back-column">
+  <%= link_to "Back to Profile", user_path(@user), :class => "btn btn-warning sharp" %>
+</div>
 <div class="col-md-12 trip-cover-column">
   <div class="trip-display">
     <% if @trip.photo_url == nil %>
@@ -25,7 +28,7 @@
     </div>
     <div class="col-md-4">
       <p>
-        <%= @trip.total_distance %> km
+        Total Distance: <%= @trip.total_distance %> km
       </p>
     </div>
   </div>

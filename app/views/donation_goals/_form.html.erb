@@ -3,7 +3,7 @@
   <!-- error messages -->
   <% if @donation_goal.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@donation_goal.errors.count, "error") %> prohibited this post from being saved</h2>
+    <h2><%= pluralize(@donation_goal.errors.count, "error") %> prohibited this donation goal from being saved</h2>
 
     <ul>
       <% @donation_goal.errors.full_messages.each do |msg| %>
@@ -24,12 +24,12 @@
       <%= f.text_area :description, class: "form-control" %>
     </div>
     <div class="field-title">
-      <label for="date">Chose the date of this post</label>
+      <label for="date">Chose the end date of this goal.</label>
       <input type="text" data-provide='datepicker' name=donation_goal[end_date] >
     </div>
     <div class="field-title">
-      <%= f.label :amount, "Enter your donation goal (Even if this goal is not met you will still be paid)" %>
-      <%= f.number_field :amount, class: "form-control"%>
+      <%= f.label :amount, "Enter your donation goal amount (Even if this goal is not met you will still be paid)" %>
+      <%= f.number_field :amount, class: "form-control", :min => 0, :placeholder => "e.g. 100"%>
     </div>
   </div>
 
