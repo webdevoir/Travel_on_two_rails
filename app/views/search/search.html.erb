@@ -1,46 +1,68 @@
-<div class="container">
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
+</script>
+<script type="text/javascript">
+$(function(){
+  function initialize() {
+
+    var input1 = document.getElementById('start');
+    var input2 = document.getElementById('end');
+    var autocomplete1 = new google.maps.places.Autocomplete(input1);
+    var autocomplete2 = new google.maps.places.Autocomplete(input2);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+})
+</script>
+<div class="container search-container">
   <div class="row">
+    <%= form_for search_path, method: :get do |f| %>
     <div class="col-xs-12 search-column">
-      <%= form_for search_path, method: :get do |f| %>
         <p>
           <%= text_field_tag :q, params[:q], :class => "form-control search-text-input", placeholder: 'Search' %>
           <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp" %>
         </p>
-      <% end %>
     </div>
-    <% if @users.length == 0 %>
-    <div class="col-xs-12 user-search-column">
+    <div class="col-sm-3 advance-search">
+      <h3>Advance Search</h3>
+        <p>
+          <%= text_field_tag :start, params[:start], :class => "form-control", placeholder: 'Start' %>
+        </p>
+        <p>
+          <%= text_field_tag :end, params[:end], :class => "form-control", placeholder: 'End' %>
+        </p>
+        <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp" %>
+    </div>
+    <% end %>
+    <% if @trips.length == 0 %>
+    <div class="col-sm-9 user-search-column no-float no-float">
       <h1>There are no search resutls for that query, plase try again</h1>
     </div>
     <% else %>
-      <% @users.each do |user| %>
-        <div class="col-xs-12 user-search-column">
+      <% @trips.each do |trip| %>
+        <div class="col-sm-9 user-search-column">
           <div class="row">
             <div class="col-sm-4">
-              <% if user.cover.cover.url == nil %>
-                <a href="<%= user_path(user) %>" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000" class="img-thumbnail"></a>
+              <% if trip.photo.url == nil %>
+                <a href="<%= trip_path(trip) %>" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000" class="img-thumbnail"></a>
               <% else %>
                 <div class="user-thumb-image">
-                  <a href="<%= user_path(user) %>">
-                    <%= image_tag user.cover.cover.url, :class => "user-cover-photo img-thumbnail" %>
+                  <a href="<%= trip_path(trip) %>">
+                    <%= image_tag trip.photo.url, :class => "user-cover-photo img-thumbnail" %>
                   </a>
                 </div>
               <% end %>
             </div>
             <div class="col-sm-7 col-sm-offset-1">
               <h3>
-                <%= link_to user.name, controller: "users", action: "show", id: user.id %>
+                <%= link_to trip.trip_name, controller: "trips", action: "show", id: trip.id %>
               </h3>
-              <% unless user.description == nil  %>
+              <% unless trip.description == nil  %>
                 <div class="user-description">
-                  <p><%= user.description %></p>
+                  <p><%= trip.description %></p>
                 </div>
               <% end %>
-              <% unless user.city == nil && user.country == nil %>
-                <div class="user-description">
-                  <p><%= user.city %>, <%= user.country %></p>
-                </div>
-              <% end %>
+              <div class="user-description">
+                <p><%= trip.start %>, <%= trip.end %></p>
+              </div>
             </div>
           </div>
         </div>

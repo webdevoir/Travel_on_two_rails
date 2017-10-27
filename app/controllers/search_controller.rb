@@ -4,12 +4,36 @@ class SearchController < ApplicationController
       @trips = []
     else
       @trips_and_users = Elasticsearch::Model.search(params[:q], [Trip, User]).records.to_a
-      @users = seperate_trips_and_users(@trips_and_users)
+      @trips = seperate_trips_and_users(@trips_and_users)
+      if exists(params[:start]) && !(exists(params[:end]))
+        @trips.each do |trip|
+          if trip.start != params[:start]
+            @trips.delete(trip)
+          end
+        end
+      elsif !(exists(params[:start])) && exists(params[:end])
+        @trips.each do |trip|
+          if trip.end != params[:end]
+            @trips.delete(trip)
+          end
+        end
+      elsif exists(params[:start]) && exists(params[:end])
+        @trips = distance_from_points(@trips, params[:start], params[:end])
+      else
+        true
+      end
     end
   end
 
   def location_search
     @trips = Trip.all
+    @found_trips = distance_from_points(@trips, params[:start], params[:end])
+  end
+
+
+  private
+
+  def distance_from_points(trips, start, end_location)
     @found_trips = []
     @trips.in_groups_of(24, false) do |group|
       trip_id_array = []
@@ -28,8 +52,8 @@ class SearchController < ApplicationController
 
       # search_start = "Richmond Hill, ON, Canada"
       # search_end = "Brossard, QC, Canada"
-      search_start = params[:start]
-      search_end = params[:end]
+      search_start = start
+      search_end = end_location
 
       # first check if start search is close to one of the starting points
       http_response = RestClient::Request.execute(
@@ -44,8 +68,12 @@ class SearchController < ApplicationController
       )
       data_second = JSON.parse(http_response_second.body)
       data["rows"][0]["elements"].each_with_index do |distance, index|
-        if distance["distance"]["value"] <= 100000
-          if data_second["rows"][0]["elements"][index]["distance"]["value"] <= 100000
+        if distance["status"] == "ZERO_RESULTS"
+          next
+        elsif distance["distance"]["value"] <= 100000
+          if data_second["rows"][0]["elements"][index]["status"] == "ZERO_RESULTS"
+            next
+          elsif data_second["rows"][0]["elements"][index]["distance"]["value"] <= 100000
             good_trips_id << trip_id_array[index]
           end
         end
@@ -54,26 +82,34 @@ class SearchController < ApplicationController
         @found_trips << Trip.find(id)
       end
     end
+    return @found_trips
   end
 
-
-  private
-
   def seperate_trips_and_users(trips_and_users)
-    users = []
+    trips = []
     trips_and_users.each do |trip_or_user|
       if trip_or_user.class.name == "Trip"
         # for whatever reason include? was not working here so this was next best thing
-        unless users.any? {|h| h.id == trip_or_user.user.id }
-          users << trip_or_user.user
+        unless trips.include? trip_or_user
+          trips << trip_or_user
         end
       else
-        unless users.include? trip_or_user
-          users << trip_or_user
+        trip_or_user.trips.each do |trip|
+          unless trips.any? {|h| h.id == trip.id }
+            trips << trip
+          end
         end
       end
     end
-    return users
+    return trips
+  end
+
+  def exists(param)
+    if param == nil || param == ""
+      return false
+    else
+      return true
+    end
   end
 
 end
