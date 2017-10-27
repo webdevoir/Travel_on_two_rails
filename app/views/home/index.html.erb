@@ -55,14 +55,22 @@
   <section class="bg-primary" id="about">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-white">A Growing Community</h2>
-          <hr class="light">
-          <p class="text-faded">Travel on Two links you to a large community of like minded bicycle tourists that will allow you to plan your next trip. Whether you're a seasoned pro, or eager to start your first long distance trip, Travel on Two is the place to be.</p>
-          <% if current_user %>
-            <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-default btn-xl', :method => :get) %>
-          <% else %>
-            <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-default btn-xl', :method => :get) %>
+        <div class="col-lg-12 text-center trip-carousel">
+          <% @featured_trips.each do |trip| %>
+            <div class="trip-slider">
+              <% if trip.photo.url == nil %>
+                <style media="screen">
+                </style>
+              <% else %>
+                <style media="screen">
+                  .trip-slider {
+                    background-image: url(<%= trip.photo.url %>)
+                  }
+                </style>
+              <% end %>
+              <h3><%= trip.user.name %></h3>
+              <h3><%= trip.trip_name %></h3>
+            </div>
           <% end %>
         </div>
       </div>

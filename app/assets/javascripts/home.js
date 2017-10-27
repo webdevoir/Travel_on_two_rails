@@ -17,4 +17,12 @@ $( document ).ready(function() {
     distance: '0px'
   }, 300);
 
+  $('.trip-carousel').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000,
+  });
+
+
 })
