@@ -445,4 +445,28 @@ h2.home {
   .btn-xl {
     padding: 15px 30px; }
 
+  .trip-slider {
+    background-size: cover;
+    background-position: center center;
+  }
+
+  #about {
+    padding: 10px 0;
+  }
+  
+  .new-trips-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    .row {
+      width: 100%;
+      margin: 0;
+    }
+    .slick-list {
+      width: 100%;
+    }
+    .slick-track {
+      height: 40vh;
+    }
+  }
 }

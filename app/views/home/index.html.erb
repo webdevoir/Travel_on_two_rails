@@ -53,25 +53,31 @@
   <%= render "trip_explorer_modal" %>
 
   <section class="bg-primary" id="about">
-    <div class="container">
+    <div class="container new-trips-container">
       <div class="row">
-        <div class="col-lg-12 text-center trip-carousel">
-          <% @featured_trips.each do |trip| %>
-            <div class="trip-slider">
-              <% if trip.photo.url == nil %>
+        <div class="col-lg-12 text-center">
+          <h1>Current Trips</h1>
+          <div class="trip-carousel">
+            <% @featured_trips.each do |trip| %>
+              <div class="trip-slider-<%= trip.id %> trip-slider" data-trip-id=<%= trip.id %>>
+                <% if trip.photo.url != nil %>
+                  <style media="screen">
+                    .trip-slider-<%= trip.id %> {
+                      background-image: url(<%= trip.photo.url %>)
+                    }
+                  </style>
+                <% else %>
                 <style media="screen">
-                </style>
-              <% else %>
-                <style media="screen">
-                  .trip-slider {
-                    background-image: url(<%= trip.photo.url %>)
+                  .trip-slider-<%= trip.id %> {
+                    background-image: url(<%= asset_url("1.jpg") %>)
                   }
                 </style>
-              <% end %>
-              <h3><%= trip.user.name %></h3>
-              <h3><%= trip.trip_name %></h3>
-            </div>
-          <% end %>
+                <% end %>
+                <h3><%= trip.user.name %></h3>
+                <h3><%= trip.trip_name %></h3>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
@@ -120,32 +126,32 @@
     </div>
   </section>
 
-  <section class="p-0" id="portfolio">
+  <!-- <section class="p-0" id="portfolio">
     <div class="container-fluid">
       <div class="row no-gutter popup-gallery">
-        <% @featured_trips.each do |trip| %>
+        <%# @featured_trips.each do |trip| %>
           <div class="col-lg-4 col-sm-6">
-            <% if trip.photo.url == nil %>
-            <a class="portfolio-box" href="<%= trip_path(trip) %>">
-              <%= image_tag "1.jpg", :class => "img-fluid" %>
-            <% else %>
-            <a class="portfolio-box" href="<%= trip_path(trip) %>">
-              <%= image_tag "1.jpg", :class => "img-fluid" %>
-              <!-- <img class="img-fluid" src="<%= trip.photo.url %>" alt=""> -->
-            <% end %>
+            <%# if trip.photo.url == nil %>
+            <a class="portfolio-box" href="<%# trip_path(trip) %>">
+              <%# image_tag "1.jpg", :class => "img-fluid" %>
+            <%# else %>
+            <a class="portfolio-box" href="<%# trip_path(trip) %>">
+              <%# image_tag "1.jpg", :class => "img-fluid" %>
+              <img class="img-fluid" src="<%# trip.photo.url %>" alt="">
+            <%# end %>
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-name">
-                    <%= trip.trip_name %>
+                    <%# trip.trip_name %>
                   </div>
                 </div>
               </div>
             </a>
           </div>
-        <% end %>
+        <%# end %>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <div class="call-to-action bg-dark">
     <div class="container text-center">

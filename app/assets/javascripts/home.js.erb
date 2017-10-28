@@ -22,7 +22,14 @@ $( document ).ready(function() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 6000,
+    arrows : false,
   });
+
+  $(".trip-slider").on("click", function(){
+    var id = $(this).data("trip-id")
+    var url = window.location.href
+    window.location.href = url + "trips/" + id
+  })
 
 
 })
