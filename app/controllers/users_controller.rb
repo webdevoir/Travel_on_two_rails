@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @trips = @user.trips
+    @trips = @user.trips.sort_by {|obj| obj.updated_at}.reverse
     @follows = follows(current_user, @user)
     if @follows == true
       @followed_blog = FollowedBlog.find_by(user_id: current_user.id, blog_owner_id: @user.id)
