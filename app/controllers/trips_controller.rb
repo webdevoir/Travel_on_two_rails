@@ -62,7 +62,7 @@ class TripsController < ApplicationController
 
   def fetch_posts
     @trip = Trip.find(params[:trip_id])
-    @posts = @trip.posts
+    @posts = sort_posts(@trip)
     render(json: { "posts" => @posts, "trip" => @trip }.to_json)
   end
 
@@ -102,6 +102,20 @@ class TripsController < ApplicationController
     end
   end
 
+  def sort_posts(trip)
+    posts_array = []
+    post_groups = post_group_arrays(trip.post_groups)
+    post_groups.each do |year, post_group|
+      post_group.each do |post_group|
+        posts = post_group.posts.sort_by {|obj| obj.day}
+        posts.each do |post|
+          posts_array << post
+        end
+      end
+    end
+    return posts_array
+  end
+
   def post_group_arrays(post_groups)
     year_group_hash = {}
     post_groups.each do |post_group|
@@ -112,7 +126,7 @@ class TripsController < ApplicationController
         year_group_hash.merge!(year => [post_group])
       end
     end
-    return sorted_months(year_group_hash)
+    return sorted_months(year_group_hash).sort.to_h
   end
 
   def sorted_months(year_group_hash)

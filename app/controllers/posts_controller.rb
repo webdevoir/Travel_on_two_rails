@@ -117,9 +117,11 @@ class PostsController < ApplicationController
     start_point = post.address1
     end_point = post.address2
 
+    encoded_url = URI.encode("https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{start_point}&destinations=#{end_point}&key=#{ENV['GOOGLE_MAPS_API']}")
+
     http_response = RestClient::Request.execute(
        :method => :get,
-       :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{start_point}&destinations=#{end_point}&key=#{ENV['GOOGLE_MAPS_API']}",
+       :url => encoded_url,
     )
     data = JSON.parse(http_response.body)
     if data["rows"][0]["elements"][0]["distance"] == nil

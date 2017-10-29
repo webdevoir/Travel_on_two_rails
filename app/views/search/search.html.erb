@@ -21,52 +21,61 @@ $(function(){
           <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp" %>
         </p>
     </div>
+  </div>
+  <div class="row search-body-row">
     <div class="col-sm-3 advance-search">
-      <h3>Advance Search</h3>
-        <p>
-          <%= text_field_tag :start, params[:start], :class => "form-control", placeholder: 'Start' %>
-        </p>
-        <p>
-          <%= text_field_tag :end, params[:end], :class => "form-control", placeholder: 'End' %>
-        </p>
-        <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp" %>
+      <div class="advance-search-box">
+        <h3>Advance Search</h3>
+          <p>
+            <%= text_field_tag :start, params[:start], :class => "form-control", placeholder: 'Start' %>
+          </p>
+          <p>
+            <%= text_field_tag :end, params[:end], :class => "form-control", placeholder: 'End' %>
+          </p>
+          <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp" %>
+      </div>
     </div>
     <% end %>
-    <% if @trips.length == 0 %>
-    <div class="col-sm-9 user-search-column no-float no-float">
-      <h1>There are no search resutls for that query, plase try again</h1>
-    </div>
-    <% else %>
-      <% @trips.each do |trip| %>
-        <div class="col-sm-9 user-search-column">
-          <div class="row">
-            <div class="col-sm-4">
-              <% if trip.photo.url == nil %>
-                <a href="<%= trip_path(trip) %>" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000" class="img-thumbnail"></a>
-              <% else %>
-                <div class="user-thumb-image">
-                  <a href="<%= trip_path(trip) %>">
-                    <%= image_tag trip.photo.url, :class => "user-cover-photo img-thumbnail" %>
-                  </a>
-                </div>
-              <% end %>
-            </div>
-            <div class="col-sm-7 col-sm-offset-1">
-              <h3>
-                <%= link_to trip.trip_name, controller: "trips", action: "show", id: trip.id %>
-              </h3>
-              <% unless trip.description == nil  %>
+    <div class="search-results">
+      <% if @trips.length == 0 %>
+      <div class="col-sm-9 user-search-column no-float no-float">
+        <h1>There are no search resutls for that query, plase try again</h1>
+      </div>
+      <% else %>
+        <% @trips.each do |trip| %>
+          <div class="col-sm-9 user-search-column">
+            <div class="row">
+              <div class="col-sm-4">
+                <% if trip.photo.url == nil %>
+                  <a href="<%= trip_path(trip) %>" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000" class="img-thumbnail"></a>
+                <% else %>
+                  <div class="user-thumb-image">
+                    <a href="<%= trip_path(trip) %>">
+                      <%= image_tag trip.photo.url, :class => "user-cover-photo img-thumbnail" %>
+                    </a>
+                  </div>
+                <% end %>
+              </div>
+              <div class="col-sm-7 col-sm-offset-1">
+                <h3>
+                  <%= link_to trip.trip_name, controller: "trips", action: "show", id: trip.id %>
+                </h3>
                 <div class="user-description">
-                  <p><%= trip.description %></p>
+                  <p><%= trip.user.name %></p>
                 </div>
-              <% end %>
-              <div class="user-description">
-                <p><%= trip.start %>, <%= trip.end %></p>
+                <% unless trip.description == nil  %>
+                  <div class="user-description">
+                    <p><%= trip.description %></p>
+                  </div>
+                <% end %>
+                <div class="user-description">
+                  <p><%= trip.start %>, <%= trip.end %></p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>

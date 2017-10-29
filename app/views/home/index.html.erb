@@ -35,7 +35,7 @@
           <!-- <%# button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %> -->
           <div class="button-group">
             <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-primary btn-xl ', :method => :get) %>
-            <button type="button" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Trip explorer</button>
+            <button type="button" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Search Trips</button>
           </div>
         <% else %>
           <h1 id="homeHeading">START YOUR TOURING ADVENTURE NOW</h1>
@@ -44,7 +44,7 @@
           <!-- <%# button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %> -->
           <div class="button-group">
             <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-primary btn-xl', :method => :get) %>
-            <button type="button" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Trip explorer</button>
+            <button type="button" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Search Trips</button>
           </div>
         <% end %>
       </div>

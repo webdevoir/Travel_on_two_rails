@@ -16,3 +16,41 @@ input.search-text-input {
   width: 80%;
   display: inline-block;
 }
+
+.search-body-row {
+  display: table;
+
+  .advance-search {
+    float: none;
+    display: table-cell;
+    position: relative;
+  }
+  .search-results {
+    display: table-cell;
+    float: none;
+  }
+  .advance-search-box {
+    position: absolute;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-body-row {
+    display: block;
+
+    .advance-search {
+      float: left;
+      display: block;
+      position: relative;
+      width: 100%;
+    }
+    .search-results {
+      display: block;
+      float: none;
+    }
+    .advance-search-box {
+      position: relative;
+    }
+  }
+}

@@ -23,7 +23,9 @@ $(function(){
         <h4 class="modal-title">Chose Two Points</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag trip_planner_search_path, method: "get" %>
+        <%= form_tag search_path, method: "get" %>
+          <%= label_tag :q, 'Name' %>
+          <%= text_field_tag :q, "", :class => "form-control" %>
           <%= label_tag :start, 'Starting Place' %>
           <%= text_field_tag :start, "", :class => "form-control" %>
           <%= label_tag :end, 'Ending Place' %>
