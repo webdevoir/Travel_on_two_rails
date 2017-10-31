@@ -58,7 +58,7 @@
         <div class="col-lg-12 text-center">
           <h1>Current Trips</h1>
           <div class="trip-carousel">
-            <% @featured_trips.each do |trip| %>
+            <% @featured_trips.each_with_index do |trip, index| %>
               <div class="trip-slider-<%= trip.id %> trip-slider" data-trip-id=<%= trip.id %>>
                 <% if trip.photo.url != nil %>
                   <style media="screen">
@@ -69,12 +69,11 @@
                 <% else %>
                 <style media="screen">
                   .trip-slider-<%= trip.id %> {
-                    background-image: url(<%= asset_url("1.jpg") %>)
+                    background-image: url(<%= asset_url("#{(index + 1).to_s}.jpg") %>)
                   }
                 </style>
                 <% end %>
-                <h3><%= trip.user.name %></h3>
-                <h3><%= trip.trip_name %></h3>
+                <h2><a href="<%= trip_path(trip) %>" class="trip-link">View <%= trip.user.name %>'s Trip</a></h2>
               </div>
             <% end %>
           </div>

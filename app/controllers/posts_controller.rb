@@ -75,21 +75,18 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @trip = @post.trip
-    @post.distance = post_distance(@post)
+    old_distance = @post.distance
     if @post.update(post_params)
-      if @post.distance != post_distance(@post) && @post.distance != nil
-        if @post.distance > post_distance(@post)
-          diff = @post.distance - post_distance(@post)
-          @trip.total_distance -= diff
-          @trip.save
-        elsif @post.distance == nil
-        else
-          diff = post_distance(@post) - @post.distance
-          @trip.total_distance += diff
-          @trip.save
-        end
+      @post.distance = post_distance(@post)
+      @post.save
+      @trip.total_distance -= old_distance
+      @trip.total_distance += @post.distance
+      if @trip.save
+        redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
+      else
+        flash[:error] = "Something went wrong"
+        redirect_to trip_post_group_path(@trip, @post.post_group)
       end
-      redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
     else
       flash[:error] = "Something went wrong"
       redirect_to trip_post_group_path(@trip, @post.post_group)
