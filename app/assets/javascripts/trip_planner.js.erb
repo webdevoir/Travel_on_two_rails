@@ -37,28 +37,33 @@ $(function(){
     var all_posts = []
     var array = []
     var last_point = ""
-    for (var i = 0; i < posts.length; i++) {
-      var last_point_boolean = last_point === posts[i].address1
-      last_point = posts[i].address2
-      if ( (i + 1) % 23 === 0 ) {
-        all_posts.push(array)
-        array = []
-        if (i === posts.length - 1 ) {
-          array.push(posts[i])
+    if (posts.length === 1) {
+      array.push(posts[0])
+      all_posts.push(array)
+    } else {
+      for (var i = 0; i < posts.length; i++) {
+        var last_point_boolean = last_point === posts[i].address1
+        last_point = posts[i].address2
+        if ( (i + 1) % 23 === 0 ) {
           all_posts.push(array)
+          array = []
+          if (i === posts.length - 1 ) {
+            array.push(posts[i])
+            all_posts.push(array)
+          } else {
+            array.push(posts[i])
+          }
+        } else if (last_point_boolean || i === 0) {
+          array.push(posts[i])
         } else {
-          array.push(posts[i])
-        }
-      } else if (last_point_boolean || i === 0) {
-        array.push(posts[i])
-      } else {
-        all_posts.push(array)
-        array = []
-        if (i === posts.length - 1 ) {
-          array.push(posts[i])
           all_posts.push(array)
-        } else {
-          array.push(posts[i])
+          array = []
+          if (i === posts.length - 1 ) {
+            array.push(posts[i])
+            all_posts.push(array)
+          } else {
+            array.push(posts[i])
+          }
         }
       }
     }

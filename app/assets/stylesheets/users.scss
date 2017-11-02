@@ -99,3 +99,44 @@ button.btn-reg {
   margin-left: 10%;
   margin-right: 10%;
 }
+
+@media (max-width: 990px) {
+  .profile-picture {
+    .user-cover-photo {
+      width: 150px;
+    }
+  }
+  .profile-picture-edit {
+    display: block;
+  }
+}
+
+@media (max-width: 694px) {
+  .profile-picture-edit {
+    width: 50%;
+  }
+  .profile-picture {
+    text-align: center;
+    position: relative;
+    left: 0px;
+    bottom: 40px;
+    .user-cover-photo {
+      width: 100px;
+      margin: auto;
+      position: relative;
+    }
+  }
+  .trip-box {
+    h3.trip-title {
+      font-size: 2.5rem;
+      left: 0px;
+      bottom: 10px;
+      margin-left: 10px;
+    }
+  }
+  .new-trip-box {
+    h3 {
+      font-size: 26px;
+    }
+  }
+}

@@ -6,14 +6,19 @@
   margin-top: 10vh;
 }
 
-.back-to-trip-link {
-  position: absolute;
-  top: -40px;
-}
-
 .post-group-box {
   h3 {
     padding-left: 22px;
     padding-top: 12px
+  }
+}
+
+#menu-toggle {
+  display: none;
+}
+
+@media (max-width: 764px) {
+  #menu-toggle {
+    display: block;
   }
 }
