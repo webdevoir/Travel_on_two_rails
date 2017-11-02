@@ -52,6 +52,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def track_route
+    #code
+  end
+
   def show
     @post = Post.find(params[:id])
     @user = @trip.user

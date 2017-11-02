@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get :trip_planner_search, to: "search#location_search"
 
   resources :trips do
+    get "track_route", to: "posts#track_route", as: "track_route"
     resources :posts do
       resources :post_pictures, only: [:new, :create, :destroy]
       get "fetch_images", to: "post_pictures#fetch_images", as: "fetch_images"
