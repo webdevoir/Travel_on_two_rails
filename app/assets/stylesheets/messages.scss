@@ -20,7 +20,7 @@
 }
 
 .message-photo {
-  max-width: 6%
+  width: 70px;
 }
 
 #new_message {
@@ -32,6 +32,25 @@
   height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
+}
+
+.image-left {
+  position: absolute;
+  left: 25px;
+}
+
+.ui.segment {
+  .col-sm-12 {
+    padding-bottom: 60px;
+  }
+  .view-all-messages-col {
+    padding-bottom: 0px;
+  }
+}
+
+.image-right {
+  position: absolute;
+  right: 25px;
 }
 
 .triangle-current {
