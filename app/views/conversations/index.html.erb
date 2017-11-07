@@ -11,7 +11,7 @@
       <% end %>
       <div class="col-sm-12 user-search-column">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <% if recipient.avatar_url == nil %>
                 <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
             <% else %>
@@ -21,7 +21,7 @@
           <div class="col-sm-3">
             <h1><%= link_to recipient.name,   conversation_messages_path(conversation) %></h1>
           </div>
-          <div class="col-sm-5 col-sm-offset-1">
+          <div class="col-sm-5 col-sm-offset-2">
             <% last_message = conversation.messages.last %>
             <% unless last_message == nil %>
               <p>

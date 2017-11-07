@@ -7,136 +7,88 @@ $(function(){
   })
 
   function initMap() {
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
+    // var directionsService = new google.maps.DirectionsService;
+    // var directionsDisplay = new google.maps.DirectionsRenderer;
     // setting as global scope which might be bad
+    var uluru = {lat: -25.363, lng: 131.044};
     map = new google.maps.Map(document.getElementById('map-trip-planner'), {
-      zoom: 7,
+      zoom: 7
     });
     // directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById('right-panel'));
+    // directionsDisplay.setPanel(document.getElementById('right-panel'));
 
-    calculateAndDisplayRoute(directionsService, directionsDisplay, map);
+    calculateAndDisplayRoute(map);
   }
 
-  function calculateAndDisplayRoute(directionsService, directionsDisplay, map) {
+  function calculateAndDisplayRoute(map) {
     var id = $("#trip_id").val()
     $.ajax({
       url: "/trips/"+id+"/fetch_posts",
     }).done(function(result){
       var posts_unsorted = result.posts
       var trip = result.trip
-      var posts = sortPosts(posts_unsorted)
-      for (var i = 0; i < posts.length; i++) {
-        createDirections(posts[i], directionsService, directionsDisplay, map)
-      }
+      var posts = posts_unsorted
+      createDirections(posts, map)
     })
   }
 
-  function sortPosts(posts){
-    var all_posts = []
-    var array = []
-    var last_point = ""
-    if (posts.length === 1) {
-      array.push(posts[0])
-      all_posts.push(array)
-    } else {
-      for (var i = 0; i < posts.length; i++) {
-        var last_point_boolean = last_point === posts[i].address1
-        last_point = posts[i].address2
-        if ( (i + 1) % 23 === 0 ) {
-          all_posts.push(array)
-          array = []
-          if (i === posts.length - 1 ) {
-            array.push(posts[i])
-            all_posts.push(array)
-          } else {
-            array.push(posts[i])
-          }
-        } else if (last_point_boolean || i === 0) {
-          array.push(posts[i])
-        } else {
-          all_posts.push(array)
-          array = []
-          if (i === posts.length - 1 ) {
-            array.push(posts[i])
-            all_posts.push(array)
-          } else {
-            array.push(posts[i])
-          }
-        }
-      }
-    }
-    return all_posts
-  }
-
-  function createDirections(posts, directionsService, directionsDisplay, map) {
+  function createDirections(posts, map) {
     var waypts = []
     var last_point = ""
     for (var i = 0; i < posts.length; i++) {
+      var center_point = {lat: parseFloat(posts[i].center_lat), lng: parseFloat(posts[i].center_lng)}
+      var address1_point = {lat: parseFloat(posts[i].address1_lat), lng: parseFloat(posts[i].address1_lng)}
+      var address2_point = {lat: parseFloat(posts[i].address2_lat), lng: parseFloat(posts[i].address2_lng)}
+      if (posts[i].poly_line != null) {
+        createPolyline(posts[i])
+        createMarker(map, center_point, "label", "html")
+      }
+      if (posts.length/2 === (i + 1) || posts.length === 1) {
+        setCenter(center_point)
+      }
       var last_point_boolean = last_point === posts[i].address1
       last_point = posts[i].address2
       if (i === 0 ) {
-        if (posts.length === 1) {
-          var start = posts[i].address1
-          var end = posts[i].address2
-        } else {
-          var start = posts[i].address1
-          waypts.push({
-            location: posts[i].address2,
-            stopover: true
-          });
-        }
+        createMarker(map, address1_point, "label", "html")
+        createMarker(map, address2_point, "label", "html")
       } else if ( i === posts.length - 1 ) {
-        var end = posts[i].address2
+        createMarker(map, address2_point, "label", "html")
         if (!last_point_boolean) {
-          waypts.push({
-            location: posts[i].address1,
-            stopover: true
-          });
+          createMarker(map, address1_point, "label", "html")
         }
       } else {
         if (last_point_boolean) {
-          waypts.push({
-            location: posts[i].address2,
-            stopover: true
-          });
+          createMarker(map, address2_point, "label", "html")
         } else {
-          waypts.push({
-            location: posts[i].address1,
-            stopover: true
-          });
-          waypts.push({
-            location: posts[i].address2,
-            stopover: true
-          });
+          createMarker(map, address1_point, "label", "html")
+          createMarker(map, address2_point, "label", "html")
         }
       }
     }
-    directionsService.route({
-      origin: start,
-      destination: end,
-      waypoints: waypts,
-      optimizeWaypoints: true,
-      travelMode: 'DRIVING',
-      unitSystem: google.maps.UnitSystem.METRIC
-    }, function(response, status) {
-      if (status === 'OK') {
-        renderDirections(response, map);
-        var infowindow = []
-        for (var i = 0; i < response.routes[0].legs.length; i++) {
-          infowindow[i] = new google.maps.InfoWindow();
-          var legs = response.routes[0].legs[i]
-          var distance = google.maps.geometry.spherical.interpolate(legs.start_location, legs.end_location, 0.5);
-          createMarker(map, distance, "label", "html")
-          // infowindow[i].setContent(legs.steps[0].distance.text + "<br>" + legs.steps[0].duration.text + " ");
-          // infowindow[i].setPosition(legs.steps[0].path[0]);
-          // infowindow[i].open(map);
-        }
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
+    // directionsService.route({
+    //   origin: start,
+    //   destination: end,
+    //   waypoints: waypts,
+    //   optimizeWaypoints: true,
+    //   travelMode: 'DRIVING',
+    //   unitSystem: google.maps.UnitSystem.METRIC
+    // }, function(response, status) {
+    //   if (status === 'OK') {
+    //     renderDirections(response, map);
+    //     var infowindow = []
+    //     for (var i = 0; i < response.routes[0].legs.length; i++) {
+    //       infowindow[i] = new google.maps.InfoWindow();
+    //       var legs = response.routes[0].legs[i]
+    //       var distance = google.maps.geometry.spherical.interpolate(legs.start_location, legs.end_location, 0.5);
+    //       createMarker(map, distance, "label", "html")
+    //       // infowindow[i].setContent(legs.steps[0].distance.text + "<br>" + legs.steps[0].duration.text + " ");
+    //       // infowindow[i].setPosition(legs.steps[0].path[0]);
+    //       // infowindow[i].open(map);
+    //     }
+    //   } else {
+    //     window.alert('Directions request failed due to ' + status);
+    //   }
+    // });
   }
 
   function renderDirections(result, map) {
@@ -145,13 +97,26 @@ $(function(){
     directionsRenderer.setDirections(result);
   }
 
+  function createPolyline(post) {
+    var lat_lng_path = google.maps.geometry.encoding.decodePath(post.poly_line)
+    var path = new google.maps.Polyline({
+      path: lat_lng_path,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+
+    path.setMap(map)
+  }
+
   function createMarker(map, latlng, label, html) {
     var contentString = '<b>'+label+'</b><br>'+html;
     var marker = new google.maps.Marker({
         position: latlng,
         map: map,
         title: label,
-        zIndex: Math.round(latlng.lat()*-100000)<<5
+        zIndex: Math.round(latlng.lat*-100000)<<5
         });
         marker.myname = label;
 
@@ -160,6 +125,13 @@ $(function(){
         infowindow.open(map,marker);
         });
     return marker;
+  }
+
+  function setCenter(latlng) {
+    map.setCenter({
+      lat : latlng.lat,
+      lng : latlng.lng
+    });
   }
 
   function newLocation(newLat,newLng) {

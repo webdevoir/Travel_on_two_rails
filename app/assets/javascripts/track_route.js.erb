@@ -12,21 +12,37 @@ $( document ).ready(function() {
       var array = []
       var trackRoute = setInterval(function() {
         getLocation(function(pos){
-          array.push(pos)
+          array.push(pos.lat.toString() + "," + pos.lng.toString())
         })
       }, 1 * 1000); // 60 * 1000 milsec
       $("#stop-track-route").on("click", function(){
         clearInterval(trackRoute);
-        drawPolyLine(array)
-        console.log(array);
+        getRoadsPoints(array)
       })
     })
 
   }
 
+  function getRoadsPoints(array) {
+    $.get('https://roads.googleapis.com/v1/snapToRoads', {
+      interpolate: true,
+      key: "<%= ENV['GOOGLE_MAPS_API'] %>",
+      path: array.join('|')
+    }, function(data) {
+      drawPolyLine(data);
+    });
+  }
+
   function drawPolyLine(array) {
+    var snappedCoordinates = [];
+    for (var i = 0; i < array.snappedPoints.length; i++) {
+      var latlng = new google.maps.LatLng(
+          array.snappedPoints[i].location.latitude,
+          array.snappedPoints[i].location.longitude);
+      snappedCoordinates.push(latlng);
+    }
     var path = new google.maps.Polyline({
-      path: array,
+      path: snappedCoordinates,
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
@@ -34,8 +50,13 @@ $( document ).ready(function() {
     });
 
     path.setMap(map)
-    var array_mid_value = array[parseInt(array.length/2)]
-    newLocation(array_mid_value.lat, array_mid_value.lng)
+    savePolyLineString(google.maps.geometry.encoding.encodePath(snappedCoordinates))
+    var array_mid_value = array.snappedPoints[parseInt(array.snappedPoints.length/2)].location
+    newLocation(array_mid_value.latitude, array_mid_value.longitude)
+  }
+
+  function savePolyLineString(string) {
+    console.log(string);
   }
 
   function newLocation(newLat,newLng) {
@@ -67,5 +88,5 @@ $( document ).ready(function() {
     alert("Some stuff went wrong")
   }
 
-  initMap()
+  // initMap()
 })

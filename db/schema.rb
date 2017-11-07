@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029180844) do
+ActiveRecord::Schema.define(version: 20171107044132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,11 @@ ActiveRecord::Schema.define(version: 20171029180844) do
     t.integer  "distance"
     t.string   "center_lat"
     t.string   "center_lng"
+    t.text     "poly_line"
+    t.string   "address1_lat"
+    t.string   "address1_lng"
+    t.string   "address2_lat"
+    t.string   "address2_lng"
   end
 
   create_table "purchases", force: :cascade do |t|

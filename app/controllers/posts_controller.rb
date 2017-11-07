@@ -30,8 +30,9 @@ class PostsController < ApplicationController
     @post = @trip.posts.build(post_params)
     @post.post_group_id = @post_group[0].id
     @post.day = day.to_s
-    distance = post_distance(@post)
+    distance, polyline = post_distance(@post)
     @post.distance = distance
+    @post.poly_line = polyline
     if distance == false
       flash[:error]
       render :new
@@ -81,7 +82,9 @@ class PostsController < ApplicationController
     @trip = @post.trip
     old_distance = @post.distance
     if @post.update(post_params)
-      @post.distance = post_distance(@post)
+      distance, polyline = post_distance(@post)
+      @post.distance = distance
+      @post.poly_line = polyline
       @post.save
       @trip.total_distance -= old_distance
       @trip.total_distance += @post.distance
@@ -107,7 +110,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:post_title, :post_content, :address1, :address2, :center_lng, :center_lat)
+    params.require(:post).permit(:post_title, :post_content, :address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address2_lng)
   end
 
   def post_picture_params
@@ -118,18 +121,19 @@ class PostsController < ApplicationController
     start_point = post.address1
     end_point = post.address2
 
-    encoded_url = URI.encode("https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{start_point}&destinations=#{end_point}&key=#{ENV['GOOGLE_MAPS_API']}")
+    encoded_url = URI.encode("https://maps.googleapis.com/maps/api/directions/json?origin=#{start_point}&destination=#{end_point}&key=#{ENV['GOOGLE_MAPS_API']}")
 
     http_response = RestClient::Request.execute(
        :method => :get,
        :url => encoded_url,
     )
     data = JSON.parse(http_response.body)
-    if data["rows"][0]["elements"][0]["distance"] == nil
-      return false
+    if data["status"] == "ZERO_RESULTS"
+      return false, false
     else
-      distance = data["rows"][0]["elements"][0]["distance"]["text"].to_i
-      return distance
+      distance = data["routes"][0]["legs"][0]["distance"]["text"].to_i
+      polyline = data["routes"][0]["overview_polyline"]["points"]
+      return distance, polyline
     end
   end
 
