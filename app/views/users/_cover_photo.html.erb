@@ -1,6 +1,12 @@
 <div class="cover-photo">
   <% if @user.cover_url == nil %>
-    <a href="http://placehold.it" class="user-cover-photo"><img src="http://placehold.it/1140x330"></a>
+  <style media="screen">
+    .cover-photo {
+      height: 260px;
+      background: grey;
+      border-radius: 4px;
+    }
+  </style>
   <% else %>
     <%= image_tag @user.cover.cover.url, :class => "user-cover-photo" %>
   <% end %>

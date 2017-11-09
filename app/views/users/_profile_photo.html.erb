@@ -1,6 +1,6 @@
 <div class="profile-picture">
   <% if @user.avatar_url == nil %>
-      <a href="http://placehold.it" class="user-cover-photo"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+      <a href="#" class="user-cover-photo"><%= image_tag "missing.png", :class=> "img-responsive img-rounded" %></a>
   <% else %>
       <%= image_tag @user.avatar.thumb.url, :class => "user-cover-photo img-rounded" %>
   <% end %>

@@ -1,8 +1,36 @@
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>">
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
+</script>
+<script type="text/javascript">
+  $( document ).ready(function() {
+
+    $("#post_address1").val(getParameterByName('address1'))
+    $("#post_address1_lat").val(getParameterByName('address1_lat'))
+    $("#post_address1_lng").val(getParameterByName('address1_lng'))
+    $("#post_address2").val(getParameterByName('address2'))
+    $("#post_address2_lat").val(getParameterByName('address2_lat'))
+    $("#post_address2_lng").val(getParameterByName('address2_lng'))
+    $("#post_center_lng").val(getParameterByName('center_lng'))
+    $("#post_center_lat").val(getParameterByName('center_lat'))
+    $("#post_date").val(getParameterByName('date'))
+    $("#post_post_content").val(getParameterByName('post_content'))
+    $("#post_post_title").val(getParameterByName('post_title'))
+
+
+
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+  })
 </script>
 <h1>Track route</h1>
 <button id="track-route" type="button" name="button" class="btn btn-primary">Start Tracking</button>
 <button id="stop-track-route" type="button" name="button" class="btn btn-danger">Stop Tracking</button>
-
 <div id="map-track-route">
 </div>
+<%= render "check_post_modal" %>

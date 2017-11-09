@@ -4,10 +4,23 @@
 
 
 .conversations-index {
-  .col-sm-12 {
-    padding-bottom: 20px;
-  }
   .user-search-column {
-    padding-top: 20px;
+    padding: 20px;
+  }
+  .row-unread {
+    background-color: lightgrey;
+  }
+  .unread-messages {
+
+  }
+  .person-name {
+    margin-top: 2px;
+  }
+  .row-message {
+    padding: 16px;
+    border-radius: 6px;
+  }
+  .last-message {
+    margin-top: 2px;
   }
 }

@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-  function initMap() {
+  function initMapTrack() {
     // setting as global scope which might be bad
     var uluru = {lat: -25.363, lng: 131.044};
     map = new google.maps.Map(document.getElementById('map-track-route'), {
@@ -9,28 +9,43 @@ $( document ).ready(function() {
     });
 
     $("#track-route").on("click", function(){
+      var array_of_arrays = []
       var array = []
       var trackRoute = setInterval(function() {
         getLocation(function(pos){
           array.push(pos.lat.toString() + "," + pos.lng.toString())
+          if (array.length === 99) {
+            array_of_arrays.push(array)
+            array = []
+          }
         })
       }, 1 * 1000); // 60 * 1000 milsec
       $("#stop-track-route").on("click", function(){
         clearInterval(trackRoute);
-        getRoadsPoints(array)
+        array_of_arrays.push(array)
+        getRoadsPoints(array_of_arrays)
       })
     })
 
   }
 
-  function getRoadsPoints(array) {
-    $.get('https://roads.googleapis.com/v1/snapToRoads', {
-      interpolate: true,
-      key: "<%= ENV['GOOGLE_MAPS_API'] %>",
-      path: array.join('|')
-    }, function(data) {
-      drawPolyLine(data);
-    });
+  function getRoadsPoints(array_of_arrays) {
+    var hash = { snappedPoints: [] }
+    var count = 0
+    for (var i = 0; i < array_of_arrays.length; i++) {
+      count++;
+      $.get('https://roads.googleapis.com/v1/snapToRoads', {
+        interpolate: true,
+        key: "<%= ENV['GOOGLE_MAPS_API'] %>",
+        path: array_of_arrays[i].join('|')
+      }, function(data) {
+        hash.snappedPoints = hash.snappedPoints.concat(data.snappedPoints)
+        if (count === array_of_arrays.length) {
+          drawPolyLine(hash);
+        }
+      });
+    }
+    // this is getting run before loop is finished cause it's an async call but shouldn't do that
   }
 
   function drawPolyLine(array) {
@@ -50,13 +65,14 @@ $( document ).ready(function() {
     });
 
     path.setMap(map)
-    savePolyLineString(google.maps.geometry.encoding.encodePath(snappedCoordinates))
+    savePolyLineString(google.maps.geometry.encoding.encodePath(snappedCoordinates), google.maps.geometry.spherical.computeLength(path.getPath().getArray()))
     var array_mid_value = array.snappedPoints[parseInt(array.snappedPoints.length/2)].location
     newLocation(array_mid_value.latitude, array_mid_value.longitude)
   }
 
-  function savePolyLineString(string) {
-    console.log(string);
+  function savePolyLineString(string, distance) {
+    $("#post_poly_line").val(string)
+    $("#distance").val(distance)
   }
 
   function newLocation(newLat,newLng) {
@@ -65,6 +81,7 @@ $( document ).ready(function() {
       lng : newLng
     });
     map.setZoom(11)
+    $("#check-post-modal").modal()
   }
 
   function getLocation(callback) {
@@ -88,5 +105,5 @@ $( document ).ready(function() {
     alert("Some stuff went wrong")
   }
 
-  // initMap()
+  initMapTrack()
 })

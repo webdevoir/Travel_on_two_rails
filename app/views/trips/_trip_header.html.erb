@@ -4,9 +4,22 @@
 <div class="col-md-12 trip-cover-column">
   <div class="trip-display">
     <% if @trip.photo_url == nil %>
-      <a href="http://placehold.it"><img src="http://placehold.it/1140x330"></a>
+      <style media="screen">
+        .trip-display {
+          height: 200px;
+          background: grey;
+          border-radius: 4px;
+        }
+      </style>
     <% else %>
       <%= image_tag @trip.photo.cover.url, :class => "user-cover-photo" %>
+    <% end %>
+    <% if current_user == @user %>
+    <a href="#" data-toggle="modal" data-target="#trip-modal">
+        <div class="trip-photo-edit">
+          <p>Upload Cover Photo</p>
+        </div>
+    </a>
     <% end %>
     <%# image_tag(current_user.avatar_url) %>
   </div>

@@ -47,7 +47,7 @@ $(function(){
             <div class="row">
               <div class="col-sm-4">
                 <% if trip.photo.url == nil %>
-                  <a href="<%= trip_path(trip) %>" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000" class="img-thumbnail"></a>
+                  <a href="<%= trip_path(trip) %>" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
                 <% else %>
                   <div class="user-thumb-image">
                     <a href="<%= trip_path(trip) %>">

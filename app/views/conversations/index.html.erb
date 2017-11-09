@@ -10,27 +10,31 @@
         <% recipient = User.find(conversation.sender_id) %>
       <% end %>
       <div class="col-sm-12 user-search-column">
-        <div class="row">
+        <% if conversation.read?(conversation, current_user) %>
+        <div class="row row-unread row-message">
+        <% else %>
+        <div class="row row-message">
+        <% end %>
           <div class="col-sm-2">
             <% if recipient.avatar_url == nil %>
-                <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+                <a href="#" class="profile-image"><%= image_tag "missing.png", :class=> "user-cover-photo img-rounded" %></a>
             <% else %>
                 <%= image_tag recipient.avatar.thumb.url, :class => "user-cover-photo img-rounded" %>
             <% end %>
           </div>
           <div class="col-sm-3">
-            <h1><%= link_to recipient.name,   conversation_messages_path(conversation) %></h1>
+            <h1 class="person-name"><%= link_to recipient.name,   conversation_messages_path(conversation) %></h1>
+            <% if conversation.read?(conversation, current_user) %>
+              <p class="unread-messages">
+                Unread Messages
+              </p>
+            <% end %>
           </div>
           <div class="col-sm-5 col-sm-offset-2">
             <% last_message = conversation.messages.last %>
             <% unless last_message == nil %>
-              <p>
+              <p class="last-message">
                 <%= last_message.body %>
-              </p>
-            <% end %>
-            <% if conversation.read?(conversation, current_user) %>
-              <p>
-                Unread Messages
               </p>
             <% end %>
           </div>

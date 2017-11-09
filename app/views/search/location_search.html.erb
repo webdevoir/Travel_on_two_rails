@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-sm-3">
             <% if found_trip.photo.url == nil %>
-                <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+                <a href="http://placehold.it" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
             <% else %>
                 <%= image_tag found_trip.photo.url, :class => "user-cover-photo img-rounded" %>
             <% end %>

@@ -1,0 +1,68 @@
+<a href="#" data-toggle="modal" data-target="#check-post-modal">
+    <div class="trip-edit">
+      <p>Enter Gear Details</p>
+    </div>
+</a>
+<div id="check-post-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Everything look okay?</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for([@trip, @post], :html => { :multipart => true }) do |f| %>
+        <%= hidden_field_tag :distance %>
+        <!-- error messages -->
+        <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved</h2>
+
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+
+        <!-- start of form for making a blog -->
+        <div class="form-group">
+          <div class="field-title">
+            <%= f.label :post_title, "What is the name of your post?" %>
+            <%= f.text_field :post_title, class: "form-control" %>
+          </div>
+          <div class="field-title">
+            <%= f.label :post_content, "Enter your post here!" %>
+            <%= f.text_area :post_content, class: "form-control" %>
+          </div>
+          <div class="field-title">
+            <label for="date">Chose the date of this post</label>
+            <input type="text" data-provide='datepicker' name=post[post_date] id="post_date" >
+          </div>
+          <div class="field-title">
+            <%= f.label :address1, "Enter starting point!" %>
+            <%= f.text_field :address1, class: "form-control"%>
+          </div>
+          <div class="field-title">
+            <%= f.label :address2, "Enter end point here!" %>
+            <%= f.text_field :address2, class: "form-control" %>
+          </div>
+          <%= f.hidden_field :center_lng %>
+          <%= f.hidden_field :center_lat %>
+          <%= f.hidden_field :address1_lng %>
+          <%= f.hidden_field :address1_lat %>
+          <%= f.hidden_field :address2_lng %>
+          <%= f.hidden_field :address2_lat %>
+          <%= f.hidden_field :poly_line %>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <%= f.submit "Submit", :class => "btn btn-submit" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

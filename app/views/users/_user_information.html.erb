@@ -18,9 +18,9 @@
   <% if current_user != @user %>
     <%= button_to 'Message me!', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class: "btn btn-warning sharp"  %>
     <% if @follows == true %>
-      <%= button_to 'Unfollow Blog', user_followed_blog_path(@user, @followed_blog), method: 'delete', class: 'btn btn-warning sharp'  %>
+      <%= button_to 'Unfollow Blog', user_followed_blog_path(@user, @followed_blog), method: 'delete', class: 'btn btn-warning sharp follow-blog-button'  %>
     <% else %>
-      <%= button_to 'Follow Blog', user_followed_blogs_path(@user), method: 'post', class: 'btn btn-warning sharp'  %>
+      <%= button_to 'Follow Blog', user_followed_blogs_path(@user), method: 'post', class: 'btn btn-warning sharp follow-blog-button'  %>
     <% end %>
   <% end %>
 </div>

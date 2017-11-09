@@ -41,6 +41,10 @@
     <%= f.hidden_field :address1_lat %>
     <%= f.hidden_field :address2_lng %>
     <%= f.hidden_field :address2_lat %>
+    <div class="field-title">
+      <%= label_tag :track_gps, "Click to track route via gps" %>
+      <%= check_box_tag :track_gps, true, class: "form-control" %>
+    </div>
   </div>
 
   <%= f.button :submit, :class => "btn btn-submit" %>

@@ -9,16 +9,16 @@
         <div class="row">
           <div class="col-sm-3">
             <% if blog_owner.avatar_url == nil %>
-                <a href="http://placehold.it" class="profile-image"><img src="http://placehold.it/150x150/FFC0CB/000000"></a>
+                <a href="http://placehold.it" class="profile-image"><%= image_tag "missing.png", :class=> "user-cover-photo img-rounded" %></a>
             <% else %>
                 <%= image_tag blog_owner.avatar.thumb.url, :class => "user-cover-photo img-rounded" %>
             <% end %>
           </div>
           <div class="col-sm-3">
-            <h1><%= link_to blog_owner.name,   user_path(blog_owner) %></h1>
+            <h1 class="blog-title"><%= link_to blog_owner.name,   user_path(blog_owner) %></h1>
           </div>
           <div class="col-sm-5 col-sm-offset-1">
-            <p>
+            <p class="blog-text">
               some blog stuff it would be cool if this gave a bit on the very last post the user made
             </p>
           </div>
