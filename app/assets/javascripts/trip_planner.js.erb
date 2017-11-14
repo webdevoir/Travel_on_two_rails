@@ -37,15 +37,16 @@ $(function(){
     var last_point = ""
     for (var i = 0; i < posts.length; i++) {
       var center_point = {lat: parseFloat(posts[i].center_lat), lng: parseFloat(posts[i].center_lng)}
-      var address1_point = {lat: parseFloat(posts[i].address1_lat), lng: parseFloat(posts[i].address1_lng)}
-      var address2_point = {lat: parseFloat(posts[i].address2_lat), lng: parseFloat(posts[i].address2_lng)}
       if (posts[i].poly_line != null) {
-        createPolyline(posts[i])
+        var lat_lng_path = google.maps.geometry.encoding.decodePath(posts[i].poly_line)
+        createPolyline(lat_lng_path)
         createMarker(map, center_point, "label", "html")
       }
       if (posts.length/2 === (i + 1) || posts.length === 1) {
         setCenter(center_point)
       }
+      var address1_point = lat_lng_path[0]
+      var address2_point = lat_lng_path[lat_lng_path.length -1]
       var last_point_boolean = last_point === posts[i].address1
       last_point = posts[i].address2
       if (i === 0 ) {
@@ -97,8 +98,7 @@ $(function(){
     directionsRenderer.setDirections(result);
   }
 
-  function createPolyline(post) {
-    var lat_lng_path = google.maps.geometry.encoding.decodePath(post.poly_line)
+  function createPolyline(lat_lng_path) {
     var path = new google.maps.Polyline({
       path: lat_lng_path,
       geodesic: true,

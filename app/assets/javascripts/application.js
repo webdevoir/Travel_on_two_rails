@@ -24,3 +24,4 @@
 //= require trips
 //= require home
 //= require track_route
+//= require gpx_upload

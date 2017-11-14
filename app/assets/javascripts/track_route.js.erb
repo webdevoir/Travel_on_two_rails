@@ -1,5 +1,55 @@
 $( document ).ready(function() {
 
+  $("#gpx-upload").on("change", function(){
+    var xml = $(this)[0].files[0]
+
+    var reader = new FileReader()
+
+    reader.onload = function(e) {
+      try {
+        var gpxDoc = $($.parseXML(reader.result));
+        readGpxPoints(gpxDoc);
+      } catch (err) {
+        $("#processing-overlay").hide();
+        alert("Uh oh. Looks like there's something wrong with the GPX file...\n\n" + err);
+      }
+    };
+
+
+    reader.readAsText(xml)
+    // $(xml).find("trkpt").each(function () {
+    //    var lat = $(this).attr("lat");
+    //    var lon = $(this).attr("lon");
+    //    var p = new google.maps.LatLng(lat, lon);
+    //    points.push(p);
+    //    bounds.extend(p);
+    // });
+  })
+
+  function readGpxPoints(gpxDoc) {
+    var array_of_lat_lng = []
+    var array = []
+    $("gpx:root>trk>trkseg", gpxDoc).each(function(i, e) {
+      var length = $(e).children("trkpt").length
+      $(e).children("trkpt").each(function(i, e) {
+        var lat = parseFloat($(e).attr("lat"));
+        var lon = parseFloat($(e).attr("lon"));
+        var ll = lat.toString() + "," + lon.toString()
+        if (i % 98 === 0 && i != 0) {
+          array.push(ll)
+          array_of_lat_lng.push(array)
+          array = []
+        } else if (i === length - 1) {
+          array.push(ll)
+          array_of_lat_lng.push(array)
+        } else {
+          array.push(ll)
+        }
+      })
+    })
+    getRoadsPoints(array_of_lat_lng)
+  }
+
   function initMapTrack() {
     // setting as global scope which might be bad
     var uluru = {lat: -25.363, lng: 131.044};
@@ -33,12 +83,12 @@ $( document ).ready(function() {
     var hash = { snappedPoints: [] }
     var count = 0
     for (var i = 0; i < array_of_arrays.length; i++) {
-      count++;
       $.get('https://roads.googleapis.com/v1/snapToRoads', {
         interpolate: true,
         key: "<%= ENV['GOOGLE_MAPS_API'] %>",
         path: array_of_arrays[i].join('|')
       }, function(data) {
+        count++;
         hash.snappedPoints = hash.snappedPoints.concat(data.snappedPoints)
         if (count === array_of_arrays.length) {
           drawPolyLine(hash);
