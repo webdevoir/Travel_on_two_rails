@@ -94,14 +94,14 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @trip = @post.trip
-    old_distance = @post.distance
+    # old_distance = @post.distance
     if @post.update(post_params)
-      distance, polyline = post_distance(@post)
-      @post.distance = distance
-      @post.poly_line = polyline
-      @post.save
-      @trip.total_distance -= old_distance
-      @trip.total_distance += @post.distance
+      # distance, polyline = post_distance(@post)
+      # @post.distance = distance
+      # @post.poly_line = polyline
+      # @post.save
+      # @trip.total_distance -= old_distance
+      # @trip.total_distance += @post.distance
       if @trip.save
         redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
       else

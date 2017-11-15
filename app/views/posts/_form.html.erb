@@ -27,6 +27,11 @@
       <label for="date">Chose the date of this post</label>
       <input type="text" data-provide='datepicker' name=post[post_date] >
     </div>
+    <% if params[:action] == "edit" %>
+      <div class="field-title">
+        <p>Note changing the start and end location will not change the route as it is displayed on google maps. The only way to change this is to upload a new gps file.</p>
+      </div>
+    <% end %>
     <div class="field-title">
       <%= f.label :address1, "Enter starting point!" %>
       <%= f.text_field :address1, class: "form-control"%>
@@ -41,10 +46,12 @@
     <%= f.hidden_field :address1_lat %>
     <%= f.hidden_field :address2_lng %>
     <%= f.hidden_field :address2_lat %>
-    <div class="field-title">
-      <%= label_tag :track_gps, "Click to track route via gps" %>
-      <%= check_box_tag :track_gps, true, class: "form-control" %>
-    </div>
+    <% if params[:action] != "edit" %>
+      <div class="field-title">
+        <%= label_tag :track_gps, "Click to track route via gps" %>
+        <%= check_box_tag :track_gps, true, class: "form-control" %>
+      </div>
+    <% end %>
   </div>
 
   <%= f.button :submit, :class => "btn btn-submit" %>

@@ -30,24 +30,14 @@ $( document ).ready(function() {
     var array_of_lat_lng = []
     var array = []
     $("gpx:root>trk>trkseg", gpxDoc).each(function(i, e) {
-      var length = $(e).children("trkpt").length
       $(e).children("trkpt").each(function(i, e) {
         var lat = parseFloat($(e).attr("lat"));
         var lon = parseFloat($(e).attr("lon"));
-        var ll = lat.toString() + "," + lon.toString()
-        if (i % 98 === 0 && i != 0) {
-          array.push(ll)
-          array_of_lat_lng.push(array)
-          array = []
-        } else if (i === length - 1) {
-          array.push(ll)
-          array_of_lat_lng.push(array)
-        } else {
-          array.push(ll)
-        }
+        var ll = new google.maps.LatLng(lat, lon)
+        array_of_lat_lng.push(ll)
       })
     })
-    getRoadsPoints(array_of_lat_lng)
+    drawPolyLine(array_of_lat_lng)
   }
 
   function initMapTrack() {
@@ -99,12 +89,16 @@ $( document ).ready(function() {
   }
 
   function drawPolyLine(array) {
-    var snappedCoordinates = [];
-    for (var i = 0; i < array.snappedPoints.length; i++) {
-      var latlng = new google.maps.LatLng(
-          array.snappedPoints[i].location.latitude,
-          array.snappedPoints[i].location.longitude);
-      snappedCoordinates.push(latlng);
+    if (typeof array[0] === "object") {
+      var snappedCoordinates = array
+    } else {
+      var snappedCoordinates = [];
+      for (var i = 0; i < array.snappedPoints.length; i++) {
+        var latlng = new google.maps.LatLng(
+            array.snappedPoints[i].location.latitude,
+            array.snappedPoints[i].location.longitude);
+        snappedCoordinates.push(latlng);
+      }
     }
     var path = new google.maps.Polyline({
       path: snappedCoordinates,
@@ -116,8 +110,13 @@ $( document ).ready(function() {
 
     path.setMap(map)
     savePolyLineString(google.maps.geometry.encoding.encodePath(snappedCoordinates), google.maps.geometry.spherical.computeLength(path.getPath().getArray()))
-    var array_mid_value = array.snappedPoints[parseInt(array.snappedPoints.length/2)].location
-    newLocation(array_mid_value.latitude, array_mid_value.longitude)
+    if (array.snappedPoints == null) {
+      var array_mid_value = array[parseInt(array.length/2)]
+      newLocation(array_mid_value.lat(), array_mid_value.lng())
+    } else {
+      var array_mid_value = array.snappedPoints[parseInt(array.length/2)].location
+      newLocation(array_mid_value.latitude, array_mid_value.longitude)
+    }
   }
 
   function savePolyLineString(string, distance) {
@@ -156,4 +155,5 @@ $( document ).ready(function() {
   }
 
   initMapTrack()
+  
 })

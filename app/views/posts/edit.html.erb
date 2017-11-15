@@ -48,7 +48,7 @@ $(function(){
         </div>
         <hr class="title-divider">
         <div class="sign_form">
-          <%= render 'form' %>
+          <%= render 'form', {:edit => true} %>
           <%= button_to "Delete Trip", { action: "destroy", id: @post.id},
                                   method: :delete, :class => "btn btn-danger", data: { confirm: "Are you sure?" } %>
         </div>

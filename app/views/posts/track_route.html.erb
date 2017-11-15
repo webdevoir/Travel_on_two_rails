@@ -1,5 +1,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
 </script>
+<%= javascript_include_tag "track_route" %>
 <script type="text/javascript">
   $( document ).ready(function() {
 
