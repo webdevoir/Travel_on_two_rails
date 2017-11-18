@@ -20,8 +20,13 @@ class PostsController < ApplicationController
     year = date.year
     day = date.day
     month = date.strftime("%B")
-    if params["track_gps"] == "true"
-      redirect_to trip_track_route_path(@trip, date: params[:post][:post_date], post_title: post_params[:post_title], post_content: post_params[:post_content], address1: post_params[:address1], address2: post_params[:address2], center_lng: post_params[:center_lng], center_lat: post_params[:center_lat], address1_lat: post_params[:address1_lat], address1_lng: post_params[:address1_lng], address2_lat: post_params[:address2_lat], address2_lng: post_params[:address2_lng])
+    if params["track_gps"] == "true" || params["upload_gps"] == "true"
+      if params["upload_gps"] == "true"
+        track_or_upload = "upload"
+      else
+        track_or_upload = "track"
+      end
+      redirect_to trip_track_route_path(@trip, track_or_upload: track_or_upload, date: params[:post][:post_date], post_title: post_params[:post_title], post_content: post_params[:post_content], address1: post_params[:address1], address2: post_params[:address2], center_lng: post_params[:center_lng], center_lat: post_params[:center_lat], address1_lat: post_params[:address1_lat], address1_lng: post_params[:address1_lng], address2_lat: post_params[:address2_lat], address2_lng: post_params[:address2_lng])
     else
       @post_group = PostGroup.where(:year => year, :month => month, :trip_id => @trip.id)
 
@@ -68,6 +73,7 @@ class PostsController < ApplicationController
 
   def track_route
     @post = Post.new
+    @track_or_upload = params[:track_or_upload]
     1.times { @post.post_pictures.build}
   end
 

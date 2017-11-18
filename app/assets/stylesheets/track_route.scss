@@ -1,6 +1,7 @@
 #map-track-route {
   height: 400px;
   width: 100%;
+  margin: 10px 0;
 }
 
 .btn-file {
@@ -21,4 +22,9 @@
     background: white;
     cursor: inherit;
     display: block;
+}
+
+#submit-map-button {
+  cursor: not-allowed;
+  opacity: 0.65;
 }

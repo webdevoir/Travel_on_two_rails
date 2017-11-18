@@ -26,6 +26,8 @@ $( document ).ready(function() {
     // });
   })
 
+  $('#submit-map-button').prop('disabled', true);
+
   function readGpxPoints(gpxDoc) {
     var array_of_lat_lng = []
     var array = []
@@ -111,10 +113,10 @@ $( document ).ready(function() {
     path.setMap(map)
     savePolyLineString(google.maps.geometry.encoding.encodePath(snappedCoordinates), google.maps.geometry.spherical.computeLength(path.getPath().getArray()))
     if (array.snappedPoints == null) {
-      var array_mid_value = array[parseInt(array.length/2)]
+      var array_mid_value = array[parseInt(array.snappedPoints.length/2)]
       newLocation(array_mid_value.lat(), array_mid_value.lng())
     } else {
-      var array_mid_value = array.snappedPoints[parseInt(array.length/2)].location
+      var array_mid_value = array.snappedPoints[parseInt(array.snappedPoints.length/2)].location
       newLocation(array_mid_value.latitude, array_mid_value.longitude)
     }
   }
@@ -130,7 +132,11 @@ $( document ).ready(function() {
       lng : newLng
     });
     map.setZoom(11)
-    $("#check-post-modal").modal()
+    $('#submit-map-button').css({
+      cursor: "inherit",
+      opacity: "1"
+    })
+    $('#submit-map-button').prop('disabled', false);
   }
 
   function getLocation(callback) {
@@ -155,5 +161,5 @@ $( document ).ready(function() {
   }
 
   initMapTrack()
-  
+
 })

@@ -52,6 +52,10 @@
         <%= check_box_tag :track_gps, true, class: "form-control" %>
       </div>
     <% end %>
+    <div class="field-title">
+      <%= label_tag :upload_gps, "Click to upload a gps file instead" %>
+      <%= check_box_tag :upload_gps, true, class: "form-control" %>
+    </div>
   </div>
 
   <%= f.button :submit, :class => "btn btn-submit" %>

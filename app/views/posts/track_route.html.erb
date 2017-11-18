@@ -29,12 +29,32 @@
     }
   })
 </script>
-<h1>Track route</h1>
-<button id="track-route" type="button" name="button" class="btn btn-primary">Start Tracking</button>
-<button id="stop-track-route" type="button" name="button" class="btn btn-danger">Stop Tracking</button>
-<span class="btn btn-default btn-file">
-    Browse <input type="file" id="gpx-upload">
-</span>
-<div id="map-track-route">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <% if @track_or_upload == "upload" %>
+        <h1>Upload GPS File</h1>
+      <% else %>
+        <h1>Track Route</h1>
+      <% end %>
+    </div>
+    <div class="col-sm-12">
+      <% if @track_or_upload == "upload" %>
+        <%= render "upload_gps" %>
+      <% else %>
+        <%= render "track_route_map" %>
+      <% end %>
+    </div>
+    <div class="col-sm-12">
+      <div id="map-track-route">
+      </div>
+      <a id="submit-map-button" href="#" data-toggle="modal" data-target="#check-post-modal" class="btn btn-primary" disabled>
+          <div class="trip-edit">
+            Submit Route
+          </div>
+      </a>
+    </div>
+  </div>
 </div>
 <%= render "check_post_modal" %>
