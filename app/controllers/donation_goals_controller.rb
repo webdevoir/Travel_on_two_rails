@@ -4,6 +4,7 @@ class DonationGoalsController < ApplicationController
 
   def new
     @donation_goal = DonationGoal.new
+    @stripe_account = @current_user.stripe_account
   end
 
   def create

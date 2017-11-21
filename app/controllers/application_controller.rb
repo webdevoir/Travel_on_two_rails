@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  before_action :read_nav_check
+  before_action :read_nav_check, :assign_env_variable
 
   private
 
@@ -38,6 +38,10 @@ class ApplicationController < ActionController::Base
          return true
        end
     end
+  end
+
+  def assign_env_variable
+    gon.stripe_key = ENV['STRIPE_PUBLISHABLE_KEY']
   end
 
 end

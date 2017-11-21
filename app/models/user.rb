@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:stripe_connect]
   mount_uploader :cover, UserCoverUploader
   mount_uploader :avatar, AvatarUploader
 
@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :recieved_conversations, class_name: "Conversation", foreign_key: :recipient_id
   has_many :followed_blogs
   has_many :blogs_followed, class_name: "FollowedBlog", foreign_key: :blog_owner_id
+  has_one :stripe_account
 
 
   def has_payment_info?

@@ -3,17 +3,70 @@
     <div class="row vertical-center-row <%= css_slug %>">
       <div class="registration-wrapper">
         <div class="col-title">
-          <h1>Make a Trip!</h1>
+          <h1>Support (insert user's name) trip</h1>
         </div>
         <hr class="title-divider">
         <div class="sign_form">
           <div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns">
             <%# render 'customer_form' unless current_user.has_payment_info? %>
-            <%= form_tag trip_transactions_path(@trip) do%>
+            <%= form_tag trip_transactions_path(@trip), class: 'add-card' do %>
               <%= label_tag 'amount', 'Enter Payment Amount' %>
               <%= number_field_tag 'amount' %>
               <p>Please enter your payment details:</p>
-              <div id="dropin"></div>
+              <% if @user_stripe_account == nil %>
+                <span class="payment-errors"></span>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                      <label class="small">Card Number</label>
+                      <%= text_field_tag :card_number, nil, name:nil, class: 'form-control', data: {stripe: 'number' }, placeholder: 'Card Number' %>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+                      <label class="small">Expiration month</label>
+                      <%= select_month(Date.today, {add_month_numbers: true}, id: 'card_month', class: 'form-control', data: {stripe: 'exp-month'}) %>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg 4">
+                      <label>Expiration year</label>
+                      <%= select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 10}, id: 'card_year', class: 'form-control', data: {stripe: 'exp-year'}) %>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+                      <label>Secuirty code</label>
+                      <%= text_field_tag :card_cvc, nil, name: nil, class: 'form-control', data: {stripe: 'cvc'}, placeholder: 'CVV/CVC' %>
+                    </div>
+                  </div>
+                </div>
+              <% else %>
+                <!-- for now just have two identical forms but later this should be "suggested card" -->
+                <span class="payment-errors"></span>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                      <label class="small">Card Number</label>
+                      <%= text_field_tag :card_number, nil, name:nil, class: 'form-control', data: {stripe: 'number' }, placeholder: 'Card Number' %>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+                      <label class="small">Expiration month</label>
+                      <%= select_month(Date.today, {add_month_numbers: true}, id: 'card_month', class: 'form-control', data: {stripe: 'exp-month'}) %>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg 4">
+                      <label>Expiration year</label>
+                      <%= select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 10}, id: 'card_year', class: 'form-control', data: {stripe: 'exp-year'}) %>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+                      <label>Secuirty code</label>
+                      <%= text_field_tag :card_cvc, nil, name: nil, class: 'form-control', data: {stripe: 'cvc'}, placeholder: 'CVV/CVC' %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
               <%=submit_tag "Pay", class: "button mt1" %>
             <%end%>
           </div>

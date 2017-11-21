@@ -30,6 +30,10 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'devise'
 
+gem 'omniauth-stripe-connect'
+gem "stripe"
+gem "stripe_event"
+
 gem 'bootstrap-datepicker-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -48,7 +52,6 @@ gem 'fog'
 
 gem 'rest-client'
 
-gem 'braintree', '~> 2.33.1'
 gem 'figaro'
 
 gem 'gon', '~> 5.1.2'

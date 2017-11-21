@@ -25,6 +25,7 @@
           <div class="col-sm-3">
             <h1 class="person-name"><%= link_to recipient.name,   conversation_messages_path(conversation) %></h1>
             <% if conversation.read?(conversation, current_user) %>
+              <i class="fa fa-asterisk asterisk-unread"></i>
               <p class="unread-messages">
                 Unread Messages
               </p>

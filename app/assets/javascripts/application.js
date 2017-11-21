@@ -20,6 +20,6 @@
 //= require post_pictures
 //= require profile_cover
 //= require side_bar
-//= require transactions
 //= require trips
+//= require verify_card
 //= require home

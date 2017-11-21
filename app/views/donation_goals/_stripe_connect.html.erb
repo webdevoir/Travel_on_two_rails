@@ -1,0 +1,31 @@
+<%= link_to 'Connect', stripe_url, class: 'btn btn-lg btn-info', target: '_blank' %>
+
+<!-- <%# stripe_manager = StripeManaged.new( @current_user ) %>
+<%# form_tag update_payment_info_path, multipart: true %>
+  <%# first_name = stripe_manager.legal_entity.first_name.present? ? stripe_manager.legal_entity.first_name : @current_user.name %>
+  <%# last_name = stripe_manager.legal_entity.last_name.present? ? stripe_manager.legal_entity.last_name : @current_user.name %>
+  <label>First Name</label>
+  <input type="text" name="legal_entity[first_name]" value="<%# first_name %>" class="form-control">
+  <label>Last Name</label>
+  <input type="text" name="legal_entity[last_name]" value="<%# last_name %>" class="form-control">
+  <label>Date of Birth</label>
+  <%# dob = stripe_manager.legal_entity.dob %>
+  <%# selected = Date.new( dob.year, dob.month, dob.day ) rescue nil %>
+  <div class="birth-select">
+    <%# date_select 'legal_entity', 'dob',
+            {order: [:day, :month, :year], selected: selected,
+              prompt: true,
+              start_year: 90.years.ago.year,
+              end_year: 13.years.ago.year },
+            { class: 'form-control', required: true } %>
+  </div>
+  <label>Street Address</label>
+  <input type="text" name="legal_entity[address][line1]" value="<%# stripe_manager.legal_entity.address.line1 %>" class="form-control" required="true">
+  <label>City</label>
+  <input type="text" name="legal_entity[address][city]" value="<%# stripe_manager.legal_entity.address.city %>" class="form-control" required="true">
+  <label>ZIP/Postal Code</label>
+  <input type="text" name="legal_entity[address][post_code]" value="<%# stripe_manager.legal_entity.address.postal_code %>" class="form-control" required="true">
+  <label>Province</label>
+  <%# select_tag "legal_entity[address][state]", options_for_select(StripeAccount::PROVINCE, stripe_manager.legal_entity.address.state), class: 'round_select' %>
+  <label>Account Number</label>
+<%# end %> -->

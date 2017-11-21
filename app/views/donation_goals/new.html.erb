@@ -7,7 +7,11 @@
         </div>
         <hr class="title-divider">
         <div class="sign_form">
+          <% if @stripe_account == nil %>
+          <%= render 'stripe_connect' %>
+          <% else %>
           <%= render 'form' %>
+          <% end %>
         </div>
       </div>
     </div>
