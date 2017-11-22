@@ -57,6 +57,7 @@ class PostsController < ApplicationController
         if @post.save
           @trip.total_distance += @post.distance
           @trip.save
+          send_email_to_followers(@trip, @post)
           # unless params[:post_pictures] == nil
           #   params[:post_pictures]['image'].each do |img|
           #     @post_picture = @post.post_pictures.create!(:picture => img)
@@ -135,6 +136,15 @@ class PostsController < ApplicationController
 
   def post_picture_params
     params.require("0").permit(:picture)
+  end
+
+  def send_email_to_followers(trip, post)
+    @trip = trip
+    @user = @trip.user
+    @post = post
+    @user.blogs_followed.each do |follower|
+      UserMailer.new_post_notification(follower, @user, @trip, @post).deliver_now
+    end
   end
 
   def post_distance(post)

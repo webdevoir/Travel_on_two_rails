@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     namespace :v1 do
-      devise_for :users
       get 'search', to: 'search#search'
       get 'location_search', to: 'search#location_search'
       resources :users do

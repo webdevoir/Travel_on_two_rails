@@ -17,4 +17,13 @@ class UserMailer < ApplicationMailer
     @recipient = recipient
     mail(to: @recipient.email, subject: "#{@user.name} Sent you a message")
   end
+
+  def new_post_notification(follower, user, trip, post)
+    @post_group = post.post_group
+    @trip = trip
+    @user = user
+    @follower = follower.user
+    mail(to: @follower.email, subject: "#{@user.name} Made a new post")
+  end
+
 end
