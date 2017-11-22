@@ -39,9 +39,15 @@ class MessagesController < ApplicationController
   end
 
   def create
-    UserMailer.sample_email(User.first).deliver_now
     @message = @conversation.messages.new(message_params)
+    @sender = @message.user
+    if @sender == @conversation.sender
+      @recipent = @conversation.recipient
+    else
+      @recipent = @conversation.sender
+    end
     if @message.save
+      UserMailer.new_message(@sender, @recipent, @conversation).deliver_now
       redirect_to conversation_messages_path(@conversation)
     end
   end
