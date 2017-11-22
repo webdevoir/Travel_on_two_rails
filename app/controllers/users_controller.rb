@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    raise 'hit'
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
@@ -32,6 +33,18 @@ class UsersController < ApplicationController
     @follows = follows(current_user, @user)
     if @follows == true
       @followed_blog = FollowedBlog.find_by(user_id: current_user.id, blog_owner_id: @user.id)
+    end
+  end
+
+  def verification
+    @user = User.find(params[:user_id])
+    @user.verified = true
+    if @user.save
+      flash[:notice] = "You have been successfully verified"
+      redirect_to user_path(@user)
+    else
+      flash[:notice] = "Something went wrong, please try again or contact staff"
+      redirect_to user_path(@user)
     end
   end
 

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :followed_blogs, only: [:index, :create, :destroy]
+    get "verification", to: "users#verification", as: "verification"
   end
 
   get 'search', to: 'search#search'
