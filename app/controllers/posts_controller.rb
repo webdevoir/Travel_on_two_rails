@@ -143,7 +143,7 @@ class PostsController < ApplicationController
     @user = @trip.user
     @post = post
     @user.blogs_followed.each do |follower|
-      UserMailer.new_post_notification(follower, @user, @trip, @post).deliver_now
+      SendRegistrationEmailJob.set(wait: 20.seconds).perform_later(follower, @user, @trip, @post)
     end
   end
 

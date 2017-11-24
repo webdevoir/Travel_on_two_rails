@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource(registration_params)
 
     if resource.save
-      UserMailer.new_registration(resource).deliver_now
+      SendRegistrationEmailJob.set(wait: 20.seconds).perform_later(resource)
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_up(resource_name, resource)

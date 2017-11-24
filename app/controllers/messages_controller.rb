@@ -47,7 +47,7 @@ class MessagesController < ApplicationController
       @recipent = @conversation.sender
     end
     if @message.save
-      UserMailer.new_message(@sender, @recipent, @conversation).deliver_now
+      SendMessageEmailJob.set(wait: 20.seconds).perform_later(@sender, @recipent, @conversation)
       redirect_to conversation_messages_path(@conversation)
     end
   end
