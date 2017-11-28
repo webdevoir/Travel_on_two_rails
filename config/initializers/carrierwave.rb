@@ -9,4 +9,6 @@ unless Rails.env.development?
     }
     config.fog_directory  = ENV["AWS_BUCKET"]              # required
   end
+
+  config.storage = :fog
 end
