@@ -49,6 +49,16 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = :debug
 
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV["send_gird_user"],
+    :password => ENV["send_gird_pass"],
+    :domain => 'travelontwo.bike',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
