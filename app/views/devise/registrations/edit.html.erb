@@ -1,27 +1,50 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div id="wrapper-reg">
+  <div class="container container-table <%= css_slug %>">
+    <div class="row vertical-center-row <%= css_slug %>">
+      <div class="registration-wrapper">
+        <div class="col-title">
+          <h2>Edit <%= resource_name.to_s.humanize %></h2>
+        </div>
+        <hr class="title-divider">
+        <div class="sign_form">
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.error_notification %>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <%= f.input :email, required: true, autofocus: true %>
+                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+              </div>
+            </div>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <%= f.input :password_confirmation, required: false %>
+              </div>
+            </div>
+            <div class="form-group col-submit">
+              <div class="field-title">
+                <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+              </div>
+            </div>
+            <div class="col-bottom">
+              <div class="action">
+                <%= f.button :submit, :class => "btn btn-warning btn-lg sharp btn-reg"%>
+              </div>
+              <h3>Cancel my account</h3>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+              <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+              <%= link_to "Back", :back %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>

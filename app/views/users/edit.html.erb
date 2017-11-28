@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>User Settings</h1>
+    </div>
+    <div class="col-sm-12">
+      <%= link_to "Change Password", edit_user_registration_url, :class => "btn btn-primary" %>
+    </div>
+    <div class="col-sm-12">
+        <%= form_for @user do |f| %>
+          <%= f.label 'email', 'Change Email' %>
+          <%= f.text_field :email, :class => "form-control" %><br>
+          <%= f.label 'name', 'Change Name' %>
+          <%= f.text_field :name, :class => "form-control" %><br>
+          <%= f.label 'description' %>
+          <%= f.text_area :description, :class => "form-control" %><br>
+          <%= f.label 'Country' %>
+          <%= f.text_field :country, :class => "form-control" %><br>
+          <%= f.label 'Prov/State' %>
+          <%= f.text_field :province, :class => "form-control" %><br>
+          <%= f.label 'City' %>
+          <%= f.text_field :city, :class => "form-control" %><br>
+          <%= f.label 'avatar', 'Upload Profile Picture' %>
+          <%= f.file_field :avatar %><br>
+          <%= f.label 'cover', 'Upload Cover Picture' %>
+          <%= f.file_field :cover %><br>
+        <%= f.submit "Submit", :class => "btn btn-submit" %>
+      <% end %>
+    </div>
+  </div>
+</div>

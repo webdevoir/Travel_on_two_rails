@@ -36,6 +36,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def verification
     @user = User.find(params[:user_id])
     @user.verified = true

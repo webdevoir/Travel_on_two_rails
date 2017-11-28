@@ -9,4 +9,8 @@ class HomeController < ApplicationController
       @featured_trips << trips.sample
     end
   end
+
+  def about
+    #code
+  end
 end
