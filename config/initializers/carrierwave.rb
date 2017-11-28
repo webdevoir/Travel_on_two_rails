@@ -8,7 +8,7 @@ unless Rails.env.development?
       :region                 => 'us-east-1'
     }
     config.fog_directory  = ENV["AWS_BUCKET"]              # required
+    config.storage = :fog
   end
 
-  config.storage = :fog
 end
