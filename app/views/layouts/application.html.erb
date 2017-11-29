@@ -104,6 +104,16 @@
       </div>
     </nav>
     <!--end of nav bar -->
+
+    <% if flash[:notice] %>
+      <div class="notice-container">
+        <div class="notice"><%= flash[:notice] %></div>
+      </div>
+    <% elsif flash[:error] %>
+      <div class="notice-container">
+        <div class="error"><%= flash[:error] %></div>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

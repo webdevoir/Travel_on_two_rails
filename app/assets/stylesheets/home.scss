@@ -22,6 +22,27 @@ nav.navbar.home-index {
    border-color: transparent;
 }
 
+.notice-container {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.notice {
+  width: 100%;
+  border-radius: 100px;
+  background-color: lightblue;
+  font-size: 20px;
+}
+
+.error {
+  width: 100%;
+  border-radius: 100px;
+  background-color: red;
+  font-size: 20px;
+}
+
 .nav.navbar-nav.navbar-right.home-index li a {
     color: white;
 }

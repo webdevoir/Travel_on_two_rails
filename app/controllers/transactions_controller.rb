@@ -48,7 +48,7 @@ class TransactionsController < ApplicationController
         redirect_to trip_url(@trip), notice: "Something went wrong, your transaction went through but the amount on the page will not be updated, please email us and we can sort this out."
       end
     else
-      flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
+      flash[:error] = "Something went wrong while processing your transaction. Please try again!"
       redirect_to trip_transactions_url(@trip)
     end
   end

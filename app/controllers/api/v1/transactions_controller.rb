@@ -17,7 +17,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
         render(json: {:success => "error"}.to_json)
       end
     else
-      flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
+      flash[:error] = "Something went wrong while processing your transaction. Please try again!"
       gon.client_token = generate_client_token
       render(json: {:success => "error"}.to_json)
     end
