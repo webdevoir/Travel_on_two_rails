@@ -51,6 +51,12 @@ $( document ).ready(function() {
     });
 
     $("#track-route").on("click", function(){
+      var pleaseWait = $('#pleaseWaitDialog');
+      pleaseWait.modal({
+        backdrop: 'static',
+        keyboard: false
+      });
+      pleaseWait.modal('show');
       var array_of_arrays = []
       var array = []
       var trackRoute = setInterval(function() {
@@ -59,6 +65,7 @@ $( document ).ready(function() {
         })
       }, 1 * 1000); // 60 * 1000 milsec
       $("#stop-track-route").on("click", function(){
+        pleaseWait.modal('hide');
         clearInterval(trackRoute);
         drawPolyLine(array)
       })
