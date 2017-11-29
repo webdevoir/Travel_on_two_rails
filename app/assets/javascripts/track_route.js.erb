@@ -44,33 +44,34 @@ $( document ).ready(function() {
 
   function initMapTrack() {
     // setting as global scope which might be bad
-    var uluru = {lat: -25.363, lng: 131.044};
-    map = new google.maps.Map(document.getElementById('map-track-route'), {
-      zoom: 7,
-      center: uluru
-    });
-
-    $("#track-route").on("click", function(){
-      var pleaseWait = $('#pleaseWaitDialog');
-      pleaseWait.modal({
-        backdrop: 'static',
-        keyboard: false
+    getLocation(function(pos) {
+      var uluru = pos;
+      map = new google.maps.Map(document.getElementById('map-track-route'), {
+        zoom: 7,
+        center: uluru
       });
-      pleaseWait.modal('show');
-      var array_of_arrays = []
-      var array = []
-      var trackRoute = setInterval(function() {
-        getLocation(function(pos){
-          array.push(pos)
+
+      $("#track-route").on("click", function(){
+        var pleaseWait = $('#pleaseWaitDialog');
+        pleaseWait.modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        pleaseWait.modal('show');
+        var array_of_arrays = []
+        var array = []
+        var trackRoute = setInterval(function() {
+          getLocation(function(pos){
+            array.push(pos)
+          })
+        }, 1 * 1000); // 60 * 1000 milsec
+        $("#stop-track-route").on("click", function(){
+          pleaseWait.modal('hide');
+          clearInterval(trackRoute);
+          drawPolyLine(array)
         })
-      }, 1 * 1000); // 60 * 1000 milsec
-      $("#stop-track-route").on("click", function(){
-        pleaseWait.modal('hide');
-        clearInterval(trackRoute);
-        drawPolyLine(array)
       })
     })
-
   }
 
   function getRoadsPoints(array_of_arrays) {
