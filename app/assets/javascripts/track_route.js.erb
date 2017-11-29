@@ -55,17 +55,12 @@ $( document ).ready(function() {
       var array = []
       var trackRoute = setInterval(function() {
         getLocation(function(pos){
-          array.push(pos.lat.toString() + "," + pos.lng.toString())
-          if (array.length === 99) {
-            array_of_arrays.push(array)
-            array = []
-          }
+          array.push(pos)
         })
       }, 1 * 1000); // 60 * 1000 milsec
       $("#stop-track-route").on("click", function(){
         clearInterval(trackRoute);
-        array_of_arrays.push(array)
-        getRoadsPoints(array_of_arrays)
+        drawPolyLine(array)
       })
     })
 
@@ -91,16 +86,12 @@ $( document ).ready(function() {
   }
 
   function drawPolyLine(array) {
-    if (typeof array[0] === "object") {
-      var snappedCoordinates = array
-    } else {
-      var snappedCoordinates = [];
-      for (var i = 0; i < array.snappedPoints.length; i++) {
-        var latlng = new google.maps.LatLng(
-            array.snappedPoints[i].location.latitude,
-            array.snappedPoints[i].location.longitude);
-        snappedCoordinates.push(latlng);
-      }
+    var snappedCoordinates = [];
+    for (var i = 0; i < array.length; i++) {
+      var latlng = new google.maps.LatLng(
+          array[i].lat,
+          array[i].lng);
+      snappedCoordinates.push(latlng);
     }
     var path = new google.maps.Polyline({
       path: snappedCoordinates,
@@ -112,13 +103,8 @@ $( document ).ready(function() {
 
     path.setMap(map)
     savePolyLineString(google.maps.geometry.encoding.encodePath(snappedCoordinates), google.maps.geometry.spherical.computeLength(path.getPath().getArray()))
-    if (array.snappedPoints == null) {
-      var array_mid_value = array[parseInt(array.snappedPoints.length/2)]
-      newLocation(array_mid_value.lat(), array_mid_value.lng())
-    } else {
-      var array_mid_value = array.snappedPoints[parseInt(array.snappedPoints.length/2)].location
-      newLocation(array_mid_value.latitude, array_mid_value.longitude)
-    }
+    var array_mid_value = snappedCoordinates[parseInt(snappedCoordinates.length/2)]
+    newLocation(array_mid_value.lat(), array_mid_value.lng())
   }
 
   function savePolyLineString(string, distance) {
