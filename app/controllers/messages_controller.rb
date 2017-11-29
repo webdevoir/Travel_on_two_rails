@@ -47,7 +47,9 @@ class MessagesController < ApplicationController
       @recipent = @conversation.sender
     end
     if @message.save
-      SendMessageEmailJob.set(wait: 20.seconds).perform_later(@sender, @recipent, @conversation)
+      if @recipent.email_subscribe == true
+        SendMessageEmailJob.set(wait: 20.seconds).perform_later(@sender, @recipent, @conversation)
+      end
       redirect_to conversation_messages_path(@conversation)
     end
   end

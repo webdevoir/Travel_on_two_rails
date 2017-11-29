@@ -52,6 +52,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def unsubscribe
+    @user = User.find(params[:user_id])
+    @user.email_subscribe = false
+    if @user.save
+      flash[:notice] = "You have unsubscribed"
+      redirect_to user_path(@user)
+    else
+      flash[:notice] = "Something went wrong, please try again or contact staff"
+      redirect_to user_path(@user)
+    end
+  end
+
 
   private
   def user_params

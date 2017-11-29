@@ -143,7 +143,9 @@ class PostsController < ApplicationController
     @user = @trip.user
     @post = post
     @user.blogs_followed.each do |follower|
-      SendRegistrationEmailJob.set(wait: 20.seconds).perform_later(follower, @user, @trip, @post)
+      if follower.email_subscribe == true
+        SendRegistrationEmailJob.set(wait: 20.seconds).perform_later(follower, @user, @trip, @post)
+      end
     end
   end
 
