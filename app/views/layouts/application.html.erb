@@ -109,10 +109,20 @@
       <div class="notice-container">
         <div class="notice"><%= flash[:notice] %></div>
       </div>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $(".notice-container").fadeOut(3000);
+        });
+      </script>
     <% elsif flash[:error] %>
       <div class="notice-container">
         <div class="error"><%= flash[:error] %></div>
       </div>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $(".notice-container").fadeOut(3000);
+        });
+      </script>
     <% end %>
     <%= yield %>
   </body>

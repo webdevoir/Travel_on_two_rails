@@ -143,7 +143,7 @@ class PostsController < ApplicationController
     @user = @trip.user
     @post = post
     @user.blogs_followed.each do |follower|
-      if follower.email_subscribe == true
+      if follower.user.email_subscribe == true
         SendRegistrationEmailJob.set(wait: 20.seconds).perform_later(follower, @user, @trip, @post)
       end
     end
@@ -153,7 +153,7 @@ class PostsController < ApplicationController
     start_point = post.address1
     end_point = post.address2
 
-    encoded_url = URI.encode("https://maps.googleapis.com/maps/api/directions/json?origin=#{start_point}&destination=#{end_point}&key=#{ENV['GOOGLE_MAPS_API']}")
+    encoded_url = URI.encode("https://maps.googleapis.com/maps/api/directions/json?origin=#{start_point}&destination=#{end_point}&mode=bicycling&key=#{ENV['GOOGLE_MAPS_API']}")
 
     http_response = RestClient::Request.execute(
        :method => :get,
