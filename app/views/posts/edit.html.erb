@@ -1,43 +1,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
 </script>
-<script type="text/javascript">
-$(function(){
-  function initialize() {
-
-    var input1 = document.getElementById('post_address1');
-    var input2 = document.getElementById('post_address2');
-    var autocomplete1 = new google.maps.places.Autocomplete(input1);
-    var autocomplete2 = new google.maps.places.Autocomplete(input2);
-    var geocoder= new google.maps.Geocoder();
-
-    google.maps.event.addListener(autocomplete2, 'place_changed', function() {
-      geocoder.geocode({'address': $("#post_address1").val()}, function(results, status) {
-        if (status === 'OK') {
-          var lat_lng_1 = results[0].geometry.location
-          $("#post_address1_lng").val(lat_lng_1.lng())
-          $("#post_address1_lat").val(lat_lng_1.lat())
-          geocoder.geocode({'address': $("#post_address2").val()}, function(results, status) {
-            if (status === 'OK') {
-              var lat_lng_2 = results[0].geometry.location
-              $("#post_address2_lng").val(lat_lng_2.lng())
-              $("#post_address2_lat").val(lat_lng_2.lat())
-              var distance = google.maps.geometry.spherical.interpolate(lat_lng_1, lat_lng_2, 0.5);
-              $("#post_center_lng").val(distance.lng())
-              $("#post_center_lat").val(distance.lat())
-            } else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          });
-        } else {
-          alert('Geocode was not successful for the following reason: ' + status);
-        }
-      });
-    });
-  }
-
-  google.maps.event.addDomListener(window, 'load', initialize);
-})
-</script>
+<%= javascript_include_tag "custom_directions" %>
 
 <div id="wrapper-reg">
   <div class="container container-table <%= css_slug %>">
