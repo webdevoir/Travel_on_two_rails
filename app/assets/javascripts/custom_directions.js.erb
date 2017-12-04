@@ -62,10 +62,11 @@ $(function(){
   }
 
   function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+    var selectedMode = document.getElementById('directions_type').value.toUpperCase();
     directionsService.route({
       origin: pointA,
       destination: pointB,
-      travelMode: google.maps.TravelMode.DRIVING
+      travelMode: google.maps.TravelMode[selectedMode]
     }, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
