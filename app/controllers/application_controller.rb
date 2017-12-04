@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def follows(current_user, user)
-    if current_user == user
+    if current_user == user || current_user == nil
       return false
     else
        followed_blog = FollowedBlog.where(user_id: current_user.id, blog_owner_id: user.id)

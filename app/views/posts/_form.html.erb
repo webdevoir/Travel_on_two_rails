@@ -48,14 +48,10 @@
     <%= f.hidden_field :address2_lat %>
     <% if params[:action] != "edit" %>
       <div class="field-title">
-        <%= label_tag :track_gps, "Click to track route via gps" %>
-        <%= check_box_tag :track_gps, true, class: "form-control" %>
+        <%= label_tag "Chose google maps directions type" %>
+        <%= select_tag "directions_type", "<option>Bicycling</option><option>Driving</option>".html_safe, class: "form-control" %>
       </div>
     <% end %>
-    <div class="field-title">
-      <%= label_tag :upload_gps, "Click to upload a gps file instead" %>
-      <%= check_box_tag :upload_gps, true, class: "form-control" %>
-    </div>
   </div>
 
   <%= f.button :submit, :class => "btn btn-submit" %>
