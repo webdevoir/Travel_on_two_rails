@@ -153,7 +153,7 @@ class PostsController < ApplicationController
     start_point = post.address1
     end_point = post.address2
 
-    encoded_url = URI.encode("https://maps.googleapis.com/maps/api/directions/json?origin=#{start_point}&destination=#{end_point}&mode=bicycling&key=#{ENV['GOOGLE_MAPS_API']}")
+    encoded_url = URI.encode("https://maps.googleapis.com/maps/api/directions/json?origin=#{start_point}&destination=#{end_point}&mode=#{params["directions_type"].downcase}&key=#{ENV['GOOGLE_MAPS_API']}")
 
     http_response = RestClient::Request.execute(
        :method => :get,

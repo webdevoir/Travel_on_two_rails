@@ -39,7 +39,7 @@ $( document ).ready(function() {
         array_of_lat_lng.push(ll)
       })
     })
-    drawPolyLine(array_of_lat_lng)
+    drawPolyLine(array_of_lat_lng, "gps")
   }
 
   function initMapTrack() {
@@ -93,13 +93,18 @@ $( document ).ready(function() {
     // this is getting run before loop is finished cause it's an async call but shouldn't do that
   }
 
-  function drawPolyLine(array) {
+  function drawPolyLine(array, gps) {
     var snappedCoordinates = [];
-    for (var i = 0; i < array.length; i++) {
-      var latlng = new google.maps.LatLng(
-          array[i].lat,
-          array[i].lng);
-      snappedCoordinates.push(latlng);
+    gps = typeof gps !== 'undefined' ? gps : false;
+    if (!(gps)) {
+      for (var i = 0; i < array.length; i++) {
+        var latlng = new google.maps.LatLng(
+            array[i].lat,
+            array[i].lng);
+        snappedCoordinates.push(latlng);
+      }
+    } else {
+      snappedCoordinates = array
     }
     var path = new google.maps.Polyline({
       path: snappedCoordinates,
