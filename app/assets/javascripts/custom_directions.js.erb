@@ -8,17 +8,21 @@ $(function(){
       $("#start-point").after(
         "<div class='field-title' id='way-point-" + count.toString() + "'>" +
           "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
-          "<input class='form-control' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+          "<input id='way-point-input-"+ count.toString() +"' class='form-control way-point' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
         "</div>"
       )
     } else {
       $("#way-point-" + (count - 1).toString()).after(
         "<div class='field-title' id='way-point-" + count.toString() + "'>" +
           "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
-          "<input class='form-control' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+          "<input id='way-point-input-"+ count.toString() +"' class='form-control way-point' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
         "</div>"
       )
     }
+    var input = new google.maps.places.Autocomplete(document.getElementById("way-point-input-"+ count.toString()));
+    google.maps.event.addListener(input, 'place_changed', function() {
+      calculateAndDisplayRoute(directionsService, directionsDisplay, $("#post_address1").val(), $("#post_address2").val());
+    })
   })
 
   function initMap() {
@@ -34,9 +38,9 @@ $(function(){
       var autocomplete1 = new google.maps.places.Autocomplete(input1);
       var autocomplete2 = new google.maps.places.Autocomplete(input2);
       var geocoder= new google.maps.Geocoder();
-      var directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay = new google.maps.DirectionsRenderer();
       directionsDisplay.setMap(map); // map should be already initialized.
-      var directionsService = new google.maps.DirectionsService();
+      directionsService = new google.maps.DirectionsService();
 
       google.maps.event.addListener(autocomplete2, 'place_changed', function() {
         geocoder.geocode({'address': $("#post_address1").val()}, function(results, status) {
@@ -88,10 +92,22 @@ $(function(){
   }
 
   function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+    var waypts = [];
+    var wayPointsArray = $(".way-point");
+    for (var i = 0; i < wayPointsArray.length; i++) {
+      var input = $(wayPointsArray[i])
+      if (input.val() != "") {
+        waypts.push({
+          location: input.val(),
+          stopover: true
+        });
+      }
+    }
     var selectedMode = document.getElementById('directions_type').value.toUpperCase();
     directionsService.route({
       origin: pointA,
       destination: pointB,
+      waypoints: waypts,
       travelMode: google.maps.TravelMode[selectedMode]
     }, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
