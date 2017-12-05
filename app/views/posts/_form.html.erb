@@ -47,6 +47,8 @@
     <%= f.hidden_field :address1_lat %>
     <%= f.hidden_field :address2_lng %>
     <%= f.hidden_field :address2_lat %>
+    <%= f.hidden_field :poly_line %>
+    <%= hidden_field_tag :distance %>
     <% if params[:action] != "edit" %>
       <div class="field-title">
         <%= label_tag "Chose google maps directions type" %>

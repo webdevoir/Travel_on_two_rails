@@ -111,11 +111,22 @@ $(function(){
       travelMode: google.maps.TravelMode[selectedMode]
     }, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
+        var distance = 0
+        var detail_response = response.routes[0]
+        for (var i = 0; i < detail_response.legs.length; i++) {
+          distance += detail_response.legs[i].distance.value
+        }
+        savePolyLineString(response.routes[0].overview_polyline, distance)
         directionsDisplay.setDirections(response);
       } else {
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+
+  function savePolyLineString(string, distance) {
+    $("#post_poly_line").val(string)
+    $("#distance").val(distance)
   }
 
   function createMarker(map, latlng, label, html) {
