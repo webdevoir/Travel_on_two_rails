@@ -1,5 +1,26 @@
 $(function(){
 
+  var count = 0
+
+  $("#add-waypoints").on("click", function(){
+    count++
+    if (count === 1) {
+      $("#start-point").after(
+        "<div class='field-title' id='way-point-" + count.toString() + "'>" +
+          "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
+          "<input class='form-control' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+        "</div>"
+      )
+    } else {
+      $("#way-point-" + (count - 1).toString()).after(
+        "<div class='field-title' id='way-point-" + count.toString() + "'>" +
+          "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
+          "<input class='form-control' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+        "</div>"
+      )
+    }
+  })
+
   function initMap() {
     // setting as global scope which might be bad
     getLocation(function(pos) {

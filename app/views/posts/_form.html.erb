@@ -32,11 +32,12 @@
         <p>Note changing the start and end location will not change the route as it is displayed on google maps. The only way to change this is to upload a new gps file.</p>
       </div>
     <% end %>
-    <div class="field-title">
+    <div class="field-title" id="start-point">
       <%= f.label :address1, "Enter starting point!" %>
       <%= f.text_field :address1, class: "form-control"%>
     </div>
-    <div class="field-title">
+    <button id="add-waypoints" type="button" name="button" class="btn btn-primary">Add WayPoint</button>
+    <div class="field-title" id="end-point">
       <%= f.label :address2, "Enter end point here!" %>
       <%= f.text_field :address2, class: "form-control" %>
     </div>
