@@ -103,12 +103,13 @@ class PostsController < ApplicationController
     @trip = @post.trip
     # old_distance = @post.distance
     if @post.update(post_params)
-      # distance, polyline = post_distance(@post)
-      # @post.distance = distance
-      # @post.poly_line = polyline
-      # @post.save
-      # @trip.total_distance -= old_distance
-      # @trip.total_distance += @post.distance
+      distance = (params[:distance].to_f/1000).round
+      polyline = params[:post][:poly_line]
+      @post.distance = distance
+      @post.poly_line = polyline
+      @post.save
+      @trip.total_distance -= old_distance
+      @trip.total_distance += @post.distance
       if @trip.save
         redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
       else

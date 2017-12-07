@@ -28,9 +28,8 @@
       <input type="text" data-provide='datepicker' name=post[post_date] >
     </div>
     <% if params[:action] == "edit" %>
-      <div class="field-title">
-        <p>Note changing the start and end location will not change the route as it is displayed on google maps. The only way to change this is to upload a new gps file.</p>
-      </div>
+      <%= label_tag "Check to enable route editing" %>
+      <%= check_box_tag 'change route' %>
     <% end %>
     <div class="field-title" id="start-point">
       <p style="color: red;">Note this is only for one day of your trip.</p>
@@ -50,12 +49,10 @@
     <%= f.hidden_field :address2_lat %>
     <%= f.hidden_field :poly_line %>
     <%= hidden_field_tag :distance %>
-    <% if params[:action] != "edit" %>
-      <div class="field-title">
-        <%= label_tag "Chose google maps directions type" %>
-        <%= select_tag "directions_type", "<option>Bicycling</option><option>Driving</option>".html_safe, class: "form-control" %>
-      </div>
-    <% end %>
+    <div class="field-title">
+      <%= label_tag "Chose google maps directions type" %>
+      <%= select_tag "directions_type", "<option>Bicycling</option><option>Driving</option>".html_safe, class: "form-control" %>
+    </div>
     <div id="new-post-map">
 
     </div>
