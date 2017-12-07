@@ -12,6 +12,9 @@ $( document ).ready(function() {
     $.get(href, {}, null, "script").done(function(){
       var val = $("#current_post_date").val()
       $("."+val).addClass("sidebar-active-item")
+      if ($(window).width() < 765 ) {
+        $("#wrapper").toggleClass("toggled");
+      }
     });
   })
 })

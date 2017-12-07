@@ -45,7 +45,7 @@ class PostsController < ApplicationController
       if params[:distance] == nil
         distance, polyline = post_distance(@post)
       else
-        distance = (params[:distance].to_f/100).round
+        distance = (params[:distance].to_f/1000).round
         polyline = params[:post][:poly_line]
       end
       @post.distance = distance
@@ -63,7 +63,7 @@ class PostsController < ApplicationController
           #     @post_picture = @post.post_pictures.create!(:picture => img)
           #   end
           # end
-          redirect_to new_trip_post_post_picture_path(@trip, @post), notice: "Your post was posted!"
+          redirect_to new_trip_post_post_picture_path(@trip, @post)
           else
             flash[:error]
             render :new

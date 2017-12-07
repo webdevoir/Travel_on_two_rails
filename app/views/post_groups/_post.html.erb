@@ -4,6 +4,22 @@ $( document ).ready(function() {
   $(".center").slick({
     slidesToShow: 3,
     arrows: true,
+    responsive: [
+           {
+             breakpoint: 1280,
+             settings: {
+               slidesToShow: 2,
+               slidesToScroll: 1
+             }
+           },
+           {
+             breakpoint: 1000,
+             settings: {
+               slidesToShow: 1,
+               slidesToScroll: 1
+             }
+           }
+         ]
   });
 
 })

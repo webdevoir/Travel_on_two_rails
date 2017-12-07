@@ -42,7 +42,7 @@ $(function(){
         createPolyline(lat_lng_path)
         // createMarker(map, center_point, "label", "html")
       }
-      if (posts.length/2 === (i + 1) || posts.length === 1) {
+      if (parseInt(posts.length/2) === (i + 1) || posts.length === 1) {
         setCenter(center_point)
       }
       var address1_point = lat_lng_path[0]
