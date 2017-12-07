@@ -24,7 +24,7 @@
       <%= f.text_area :post_content, class: "form-control" %>
     </div>
     <div class="field-title">
-      <label for="date">Chose the date of this post</label>
+      <label for="date">Chose the date of this post</label><br>
       <input type="text" data-provide='datepicker' name=post[post_date] >
     </div>
     <% if params[:action] == "edit" %>
@@ -33,6 +33,7 @@
       </div>
     <% end %>
     <div class="field-title" id="start-point">
+      <p style="color: red;">Note this is only for one day of your trip.</p>
       <%= f.label :address1, "Enter starting point!" %>
       <%= f.text_field :address1, class: "form-control"%>
     </div>

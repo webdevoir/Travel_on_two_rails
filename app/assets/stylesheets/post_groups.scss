@@ -4,9 +4,6 @@
 
 .post-group-row {
   margin-top: 10vh;
-  .col-lg-12 {
-    margin-top: 8vh;
-  }
 }
 
 .post-group-box {
@@ -31,6 +28,11 @@
     position: absolute;
     top: -50px;
     left: 0px;
+  }
+  .post-group-row {
+    .col-lg-12 {
+      margin-top: 8vh;
+    }
   }
   .align-left-button {
     float: left;
