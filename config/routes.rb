@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     get "unsubscribe", to: "users#unsubscribe", as: "unsubscribe"
   end
 
+  resources :admin, only: [:index]
+
   get 'search', to: 'search#search'
   get :trip_planner_search, to: "search#location_search"
 

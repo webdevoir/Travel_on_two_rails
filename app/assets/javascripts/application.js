@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
+//= require Chart.bundle
+//= require chartkick
 //= require scrollreveal
 //= require dropzone
 //= require cable

@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="progress-wrapper">
+        <div id="users-circle" data-total="<%= @users.length %>">
+        </div>
+        <div class="progress-text">
+          <%= "#{@users.length} users" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div id="trips-circle">
+      </div>
+      <div class="progress-text">
+        <%= "#{@trips.length} trips" %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div id="posts-circle">
+      </div>
+      <div class="progress-text">
+        <%= "#{@posts.length} posts" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+  var user_circle = new ProgressBar.Circle('#users-circle', {
+    color: '#FCB03C',
+    text: {
+      // Initial value for text.
+      // Default: null
+      value: 'Text',
+
+      // Text color.
+      // Default: same as stroke color (options.color)
+      color: '#f00',
+
+      // Class name for text element.
+      // Default: 'progressbar-text'
+      className: 'progressbar__label',
+
+      // If true, CSS is automatically set for container and text element.
+      // If you want to modify all CSS your self, set this to false
+      // Default: true
+      autoStyle: true
+    },
+  });
+
+  user_circle.animate(1.0);  // Number from 0.0 to 1.0
+
+  var trip_circle = new ProgressBar.Circle('#trips-circle', {
+    color: '#FCB03C'
+  });
+
+  trip_circle.animate(1.0);  // Number from 0.0 to 1.0
+
+  var post_circle = new ProgressBar.Circle('#posts-circle', {
+    color: '#FCB03C'
+  });
+
+  post_circle.animate(1.0);  // Number from 0.0 to 1.0
+})
+</script>
