@@ -1,67 +1,29 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4">
-      <div class="progress-wrapper">
-        <div id="users-circle" data-total="<%= @users.length %>">
-        </div>
-        <div class="progress-text">
-          <%= "#{@users.length} users" %>
-        </div>
-      </div>
+    <div class="col-sm-4 well text-center">
+      <i class="fa fa-user-circle fa-5x"></i>
+      <p><%= @users.length %> users</p>
     </div>
-    <div class="col-sm-4">
-      <div id="trips-circle">
-      </div>
-      <div class="progress-text">
-        <%= "#{@trips.length} trips" %>
-      </div>
+    <div class="col-sm-4 well text-center">
+      <i class="fa fa-book fa-5x"></i>
+      <p><%= @posts.length %> posts</p>
     </div>
-    <div class="col-sm-4">
-      <div id="posts-circle">
-      </div>
-      <div class="progress-text">
-        <%= "#{@posts.length} posts" %>
-      </div>
+    <div class="col-sm-4 well text-center">
+      <i class="fa fa-money fa-5x"></i>
+      <p><%= @total_raised %>$ raised</p>
+    </div>
+    <div class="col-sm-12 well">
+      <p>Cumulative Sign up</p>
+      <% sum = 0 %>
+      <%= line_chart @users.group_by_week(:created_at).count.map { |x,y| { x => (sum += y)} }.reduce({}, :merge) %>
+    </div>
+    <div class="col-sm-12 well">
+      <p>Sign in count (note does not track returning peoples)</p>
+      <%= line_chart User.group_by_day(:last_sign_in_at).count %>
+    </div>
+    <div class="col-sm-12 well">
+      <p>New Posts</p>
+      <%= line_chart @posts.group_by_day(:created_at).count %>
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-$( document ).ready(function() {
-  var user_circle = new ProgressBar.Circle('#users-circle', {
-    color: '#FCB03C',
-    text: {
-      // Initial value for text.
-      // Default: null
-      value: 'Text',
-
-      // Text color.
-      // Default: same as stroke color (options.color)
-      color: '#f00',
-
-      // Class name for text element.
-      // Default: 'progressbar-text'
-      className: 'progressbar__label',
-
-      // If true, CSS is automatically set for container and text element.
-      // If you want to modify all CSS your self, set this to false
-      // Default: true
-      autoStyle: true
-    },
-  });
-
-  user_circle.animate(1.0);  // Number from 0.0 to 1.0
-
-  var trip_circle = new ProgressBar.Circle('#trips-circle', {
-    color: '#FCB03C'
-  });
-
-  trip_circle.animate(1.0);  // Number from 0.0 to 1.0
-
-  var post_circle = new ProgressBar.Circle('#posts-circle', {
-    color: '#FCB03C'
-  });
-
-  post_circle.animate(1.0);  // Number from 0.0 to 1.0
-})
-</script>

@@ -12,8 +12,6 @@ class TransactionsController < ApplicationController
     @trip = Trip.find(params[:trip_id])
     @stripe_account = @current_user.stripe_account
 
-    raise 'hit'
-
     if params["stripeToken"] != nil
       customer = Stripe::Customer.create(
         email: @current_user.email,
@@ -22,6 +20,7 @@ class TransactionsController < ApplicationController
       @stripe_account.stripe_customer_id = customer.id
       @stripe_account.save
     end
+    total_amount = params[:amount].to_i*100
     fee = total_amount*(0.1)
     amount = total_amount - fee
     charge = Stripe::Charge.create({
@@ -41,6 +40,13 @@ class TransactionsController < ApplicationController
       }
     )
     if charge["status"] == "succeeded"
+      @purchase = Purchase.new({
+          buyer_id: @current_user.id,
+          donation_goal_id: @donation_goal.id,
+          paid: true,
+          stripe_charge: params[:amount]
+        })
+      @purchase.save
       @donation_goal.current_paid += params[:amount].to_f
       if @donation_goal.save
         redirect_to trip_url(@trip), notice: "Congraulations! Your transaction has been successfully!"

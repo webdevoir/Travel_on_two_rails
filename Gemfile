@@ -50,6 +50,7 @@ gem 'elasticsearch-rails'
 gem "passenger", "~> 5.0.18"
 gem 'fog'
 gem "chartkick"
+gem 'groupdate'
 
 gem 'rest-client'
 
