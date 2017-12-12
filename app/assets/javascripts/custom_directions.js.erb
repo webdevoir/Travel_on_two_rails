@@ -25,6 +25,15 @@ $(function(){
     })
   })
 
+  $("#new_post").submit(function(e){
+    if ($("#post_poly_line").val() != "") {
+      // $("#new_post").submit()
+    } else {
+      e.preventDefault()
+      alert("Please chose a valid start and end location")
+    }
+  })
+
   function initMap() {
     // setting as global scope which might be bad
     getLocation(function(pos) {

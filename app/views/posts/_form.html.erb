@@ -17,15 +17,15 @@
   <div class="form-group">
     <div class="field-title">
       <%= f.label :post_title, "What is the name of your post?" %>
-      <%= f.text_field :post_title, class: "form-control" %>
+      <%= f.text_field :post_title, class: "form-control", :required => true %>
     </div>
     <div class="field-title">
       <%= f.label :post_content, "Enter your post here!" %>
-      <%= f.text_area :post_content, class: "form-control" %>
+      <%= f.text_area :post_content, class: "form-control", :required => true %>
     </div>
     <div class="field-title">
       <label for="date">Chose the date of this post</label><br>
-      <input type="text" data-provide='datepicker' name=post[post_date] >
+      <input type="text" data-provide='datepicker' name=post[post_date] required>
     </div>
     <% if params[:action] == "edit" %>
       <%= label_tag "Check to enable route editing" %>
@@ -34,12 +34,12 @@
     <div class="field-title" id="start-point">
       <p style="color: red;">Note this is only for one day of your trip.</p>
       <%= f.label :address1, "Enter starting point!" %>
-      <%= f.text_field :address1, class: "form-control"%>
+      <%= f.text_field :address1, class: "form-control", :required => true %>
     </div>
     <button id="add-waypoints" type="button" name="button" class="btn btn-primary">Add WayPoint</button>
     <div class="field-title" id="end-point">
       <%= f.label :address2, "Enter end point here!" %>
-      <%= f.text_field :address2, class: "form-control" %>
+      <%= f.text_field :address2, class: "form-control", :required => true %>
     </div>
     <%= f.hidden_field :center_lng %>
     <%= f.hidden_field :center_lat %>
@@ -58,6 +58,6 @@
     </div>
   </div>
 
-  <%= f.button :submit, :class => "btn btn-submit" %>
+  <%= f.button :submit, :class => "btn btn-submit", :id => "submit-post" %>
 
 <% end %>
