@@ -32,13 +32,13 @@
        <div class="message-pictre">
          <% if message.user_id == current_user.id %>
            <% if message.user.avatar.url == nil  %>
-             <a href="http://placehold.it" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
+             <%= image_tag "missing.png", :class=> "message-photo img-rounded image-left" %>
            <% else %>
              <%= image_tag message.user.avatar.thumb.url, :class => "message-photo img-rounded image-left" %>
            <% end %>
          <% else %>
            <% if message.user.avatar.url == nil  %>
-             <a href="http://placehold.it" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
+             <%= image_tag "missing.png", :class=> "message-photo img-rounded image-right" %>
            <% else %>
              <%= image_tag message.user.avatar.thumb.url, :class => "message-photo img-rounded image-right" %>
            <% end %>

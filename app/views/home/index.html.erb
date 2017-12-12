@@ -156,10 +156,10 @@
     <div class="container text-center">
       <% if current_user %>
         <h2>Go To Your Page</h2>
-        <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-primary btn-xl', :method => :get) %>
+        <%= link_to 'Go To Your Page', user_path(@user_id), :class => 'btn btn-primary btn-xl' %>
       <% else %>
         <h2>Sign Up Now!</h2>
-        <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-default btn-xl sr-button', :method => :get) %>
+        <%= link_to 'Sign Up Now', new_user_registration_path, :class => 'btn btn-default btn-xl sr-button' %>
       <% end %>
     </div>
   </div>
