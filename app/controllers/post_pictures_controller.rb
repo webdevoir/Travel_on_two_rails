@@ -1,5 +1,7 @@
 class PostPicturesController < ApplicationController
 
+  before_filter :require_permission, only: [:create, :new, :destroy]
+
   def new
     @post = Post.find(params[:post_id])
     @trip = Trip.find(params[:trip_id])
@@ -46,6 +48,12 @@ class PostPicturesController < ApplicationController
   private
   def upload_params
   	params.require(:upload).permit(:picture)
+  end
+
+  def require_permission
+    if current_user != Trip.find(params[:trip_id]).user
+      redirect_to root_path
+    end
   end
 
 end

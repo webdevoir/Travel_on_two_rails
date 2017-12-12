@@ -1,6 +1,7 @@
 class GearListsController < ApplicationController
 
   before_action :load_trip
+  before_filter :require_permission, only: [:create, :update]
 
   def create
     @gear_list = GearList.new(gear_list_params)
@@ -32,4 +33,11 @@ class GearListsController < ApplicationController
   def load_trip
     @trip = Trip.find(params[:trip_id])
   end
+
+  def require_permission
+    if current_user != Trip.find(params[:trip_id]).user
+      redirect_to root_path
+    end
+  end
+
 end
