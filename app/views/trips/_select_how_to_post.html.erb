@@ -1,5 +1,5 @@
 <div id="which-post-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -8,9 +8,29 @@
         <h4 class="modal-title">Please select which method you will be using</h4>
       </div>
       <div class="modal-body select-how-to-post">
-        <a href="<%= trip_track_route_path(@trip, track_or_upload: 'track') %>" class="btn btn-primary">Track Yourself</a><br>
-        <a href="<%= trip_track_route_path(@trip, track_or_upload: 'upload') %>" class="btn btn-primary">Upload via a GPS file</a><br>
-        <a href="<%= new_trip_post_path(@trip) %>" class="btn btn-primary">Use Google maps</a>
+        <div class="row">
+          <div class="col-sm-4 text-center">
+            <div class="select-box">
+              <p class="select-header">Track Route</p>
+              <p class="select-text">Select track route if you want to track yourself while riding. Just be sure not to close the browser!</p>
+              <a href="<%= trip_track_route_path(@trip, track_or_upload: 'track') %>" class="btn btn-primary">Track Yourself</a><br>
+            </div>
+          </div>
+          <div class="col-sm-4 text-center">
+            <div class="select-box">
+              <p class="select-header">Google Maps</p>
+              <p class="select-text">Select google maps if you want to upload your route using google maps direction service. Simply specify a start and end location.</p>
+              <a href="<%= new_trip_post_path(@trip) %>" class="btn btn-primary">Use Google maps</a>
+            </div>
+          </div>
+          <div class="col-sm-4 text-center">
+            <div class="select-box">
+              <p class="select-header">GPS File</p>
+              <p class="select-text">Select GPS file if you have tracked your route with a gps device, simply upload it the .gps file and will take care of the rest</p>
+              <a href="<%= trip_track_route_path(@trip, track_or_upload: 'upload') %>" class="btn btn-primary">Upload a GPS file</a><br>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

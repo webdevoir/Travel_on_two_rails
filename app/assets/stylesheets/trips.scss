@@ -12,6 +12,24 @@ input.btn.btn-danger {
   }
 }
 
+.select-box {
+  border: 2px solid green;
+  border-radius: 10px;
+}
+
+.select-header {
+  background-color: white;
+  width: 80%;
+  margin: auto;
+  margin-top: -10px;
+  font-size: 20px
+}
+
+.select-text {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 .column-donation-goal {
   margin-top: 20px;
   .btn {
@@ -20,5 +38,11 @@ input.btn.btn-danger {
   }
   .btn.btn-secondary {
     margin-top: 0px;
+  }
+}
+
+@media(min-width:768px) {
+  .select-box {
+    margin-bottom: 8px;
   }
 }
