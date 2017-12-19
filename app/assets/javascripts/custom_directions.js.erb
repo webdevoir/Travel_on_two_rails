@@ -19,10 +19,15 @@ $(function(){
         "</div>"
       )
     }
-    var input = new google.maps.places.Autocomplete(document.getElementById("way-point-input-"+ count.toString()));
-    google.maps.event.addListener(input, 'place_changed', function() {
-      calculateAndDisplayRoute(directionsService, directionsDisplay, $("#post_address1").val(), $("#post_address2").val());
-    })
+    var timeout = null
+    var input = document.getElementById("way-point-input-"+ count.toString())
+    var autocomplete_input = new google.maps.places.Autocomplete(input);
+    input.onkeyup = function(e) {
+      clearTimeout(timeout)
+      timeout = setTimeout(function(){
+        calculateAndDisplayRoute(directionsService, directionsDisplay, $("#post_address1").val(), $("#post_address2").val());
+      }, 2000)
+    }
   })
 
   $("#new_post").submit(function(e){
