@@ -44,9 +44,10 @@ $(function(){
       });
       var input1 = document.getElementById('post_address1');
       var input2 = document.getElementById('post_address2');
+      var timeout = null
       var autocomplete1 = new google.maps.places.Autocomplete(input1);
       var autocomplete2 = new google.maps.places.Autocomplete(input2);
-      var geocoder= new google.maps.Geocoder();
+      geocoder = new google.maps.Geocoder();
       directionsDisplay = new google.maps.DirectionsRenderer();
       directionsDisplay.setMap(map); // map should be already initialized.
       directionsService = new google.maps.DirectionsService();
@@ -70,32 +71,30 @@ $(function(){
         setCenter(lat_lng_hash)
       }
 
-      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
-        if (window.location.href.substr(window.location.href.length - 4) != "edit" || $("#change_route").is(':checked')) {
-          geocoder.geocode({'address': $("#post_address1").val()}, function(results, status) {
-            if (status === 'OK') {
-              var lat_lng_1 = results[0].geometry.location
-              $("#post_address1_lng").val(lat_lng_1.lng())
-              $("#post_address1_lat").val(lat_lng_1.lat())
-              geocoder.geocode({'address': $("#post_address2").val()}, function(results, status) {
-                if (status === 'OK') {
-                  var lat_lng_2 = results[0].geometry.location
-                  $("#post_address2_lng").val(lat_lng_2.lng())
-                  $("#post_address2_lat").val(lat_lng_2.lat())
-                  calculateAndDisplayRoute(directionsService, directionsDisplay, $("#post_address1").val(), $("#post_address2").val());
-                  var distance = google.maps.geometry.spherical.interpolate(lat_lng_1, lat_lng_2, 0.5);
-                  $("#post_center_lng").val(distance.lng())
-                  $("#post_center_lat").val(distance.lat())
-                } else {
-                  alert('Geocode was not successful for the following reason: ' + status);
-                }
-              });
-            } else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          });
-        }
-      });
+      // adding listner to autocompletes
+      // google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+      //   setMidPoints()
+      // });
+      input2.onkeyup = function(e) {
+        clearTimeout(timeout)
+        timeout = setTimeout(function(){
+          setMidPoints()
+        }, 2000)
+      }
+      // google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+      //   if ($("#post_address2").val() != "") {
+      //     setMidPoints()
+      //   }
+      // });
+      input1.onkeyup = function(e) {
+        clearTimeout(timeout)
+        timeout = setTimeout(function(){
+          if ($("#post_address2").val() != "") {
+            setMidPoints()
+          }
+        }, 2000)
+      }
+
       $("#directions_type").on("change", function(){
         if (window.location.href.substr(window.location.href.length - 4) != "edit" || $("#change_route").is(':checked')) {
           if ($("#post_address1").val() != "" && $("#post_address2").val() != "") {
@@ -104,6 +103,37 @@ $(function(){
         }
       })
     })
+  }
+
+  function setMidPoints() {
+    if (window.location.href.substr(window.location.href.length - 4) != "edit" || $("#change_route").is(':checked')) {
+      $("#loading-image").css("display", "block")
+      geocoder.geocode({'address': $("#post_address1").val()}, function(results, status) {
+        if (status === 'OK') {
+          var lat_lng_1 = results[0].geometry.location
+          $("#post_address1_lng").val(lat_lng_1.lng())
+          $("#post_address1_lat").val(lat_lng_1.lat())
+          geocoder.geocode({'address': $("#post_address2").val()}, function(results, status) {
+            if (status === 'OK') {
+              var lat_lng_2 = results[0].geometry.location
+              $("#post_address2_lng").val(lat_lng_2.lng())
+              $("#post_address2_lat").val(lat_lng_2.lat())
+              calculateAndDisplayRoute(directionsService, directionsDisplay, $("#post_address1").val(), $("#post_address2").val());
+              var distance = google.maps.geometry.spherical.interpolate(lat_lng_1, lat_lng_2, 0.5);
+              $("#post_center_lng").val(distance.lng())
+              $("#post_center_lat").val(distance.lat())
+              $("#loading-image").css("display", "none")
+            } else {
+              $("#loading-image").css("display", "none")
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
+          });
+        } else {
+          $("#loading-image").css("display", "none")
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+    }
   }
 
   function getLocation(callback) {
@@ -150,8 +180,10 @@ $(function(){
         }
         savePolyLineString(response.routes[0].overview_polyline, distance)
         directionsDisplay.setDirections(response);
+        $("#loading-image").css("display", "none")
       } else {
         window.alert('Directions request failed due to ' + status);
+        $("#loading-image").css("display", "none")
       }
     });
   }

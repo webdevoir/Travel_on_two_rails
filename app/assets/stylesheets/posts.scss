@@ -73,7 +73,22 @@
   margin-top: 6vh;
 }
 
-#new-post-map {
+#map-wrapper {
   height: 400px;
+  width: 100%;
+  position: relative;
+}
+
+#loading-image {
+  background: transparent url(Loading_icon.gif) no-repeat center center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+}
+
+#new-post-map {
+  height: 100%;
   width: 100%;
 }
