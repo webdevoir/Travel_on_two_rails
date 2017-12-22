@@ -31,18 +31,39 @@ $(function(){
     <div class="form-group">
       <div class="field-title">
         <%= f.label :trip_name, "What is the name of your trip?" %>
-        <%= f.text_field :trip_name, class: "form-control"%>
+        <%= f.text_field :trip_name, class: "form-control", :required => true%>
       </div>
       <div class="field-title">
         <%= f.label :description, "Give a short description of your trip" %>
-        <%= f.text_area :description, class: "form-control" %>
+        <%= f.text_area :description, class: "form-control", :required => true %>
       </div>
       <div class="field-title">
         <%= f.label :start, "Starting location of your trip" %>
         <p style="color: red;">This is for the entire trip, For example Paris to Berlin. This can be changed at any time.</p>
-        <%= f.text_field :start, class: "form-control" %>
+        <div class="row">
+          <div class="col-xs-4">
+            <%= text_field_tag :start_country, nil, { :class => "form-control", :required => true, :placeholder => "Country"} %>
+          </div>
+          <div class="col-xs-4">
+            <%= text_field_tag :start_province, nil, { :class => "form-control", :required => true, :placeholder => "Province/State"} %>
+          </div>
+          <div class="col-xs-4">
+            <%= text_field_tag :start_city, nil,{ :class => "form-control", :required => true, :placeholder => "City" }%>
+          </div>
+        </div>
+        <br>
         <%= f.label :end, "Ending location of your trip" %>
-        <%= f.text_field :end, class: "form-control" %>
+        <div class="row">
+          <div class="col-xs-4">
+            <%= text_field_tag :end_country, nil, :class => "form-control", :required => true, :placeholder => "Country" %>
+          </div>
+          <div class="col-xs-4">
+            <%= text_field_tag :end_province, nil, :class => "form-control", :required => true, :placeholder => "Province/State" %>
+          </div>
+          <div class="col-xs-4">
+            <%= text_field_tag :end_city, nil, :class => "form-control", :required => true, :placeholder => "City" %>
+          </div>
+        </div>
         <p>
           (Note please try and keep start and end location as accurate as possible. It helps other users find you in the search engine)
         </p>
@@ -53,6 +74,6 @@ $(function(){
       </div>
     </div>
 
-    <%= f.button :submit %>
+    <%= f.button :submit, :id => "trip_submit_btn" %>
 
   <% end %>

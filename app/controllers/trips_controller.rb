@@ -27,7 +27,8 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-
+    @trip.start = "#{params[:start_city]}, #{params[:start_province]}, #{params[:start_country]}"
+    @trip.end = "#{params[:end_city]}, #{params[:end_province]}, #{params[:end_country]}"
     if current_user
       @trip.user_id = current_user.id
     end

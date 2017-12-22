@@ -12,4 +12,17 @@ $( document ).ready(function() {
     $("#" + val).modal()
   })
 
+  $("#new_trip").submit(function(e){
+    var button = $("#trip_submit_btn")
+    button.removeAttr("data-disable-with", null)
+    if ($("#start_country").val() != "" && $("#start_province").val() != "" && $("#start_city").val() != "" && $("#end_country").val() != "" && $("#end_province").val() != "" && $("#end_city").val() != "") {
+    } else {
+      e.preventDefault()
+      alert("Please chose a valid start and end location")
+      button.prop('disabled', false);
+      button.blur()
+      button.hideFocus = true;
+    }
+  })
+
 })
