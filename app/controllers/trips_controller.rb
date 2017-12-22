@@ -7,6 +7,8 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find_by(id: params[:id])
+    @start_array = @trip.start.gsub(/\s+/, "").split(",")
+    @end_array = @trip.end.gsub(/\s+/, "").split(",")
     if @trip.gear_list == nil
       @gear_list = GearList.new
     else
@@ -46,6 +48,8 @@ class TripsController < ApplicationController
 
   def update
     @trip = Trip.find_by(id: params[:id])
+    @trip.start = "#{params[:start_city]}, #{params[:start_province]}, #{params[:start_country]}"
+    @trip.end = "#{params[:end_city]}, #{params[:end_province]}, #{params[:end_country]}"
     if @trip.update(trip_params)
       redirect_to trip_path(@trip)
     else
