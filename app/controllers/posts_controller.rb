@@ -103,7 +103,29 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @trip = @post.trip
-    # old_distance = @post.distance
+    @post_group_old = @post.post_group
+    old_distance = @post.distance
+    date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
+    year = date.year
+    day = date.day
+    month = date.strftime("%B")
+    if @post_group_old.month != month || @post_group_old.year != year
+      @post_group = PostGroup.where(:year => year, :month => month, :trip_id => @trip.id).first
+      if @post_group == nil
+        @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
+        if @post_group.save
+          return true
+        else
+          flash[:error] = "Something wen't wrong try again"
+        end
+      end
+      if @post_group_old.posts.length == 0
+        @post_group_old.destroy
+      end
+    else
+      @post_group = @post_group_old
+    end
+    @post.post_group_id = @post_group.id
     if @post.update(post_params)
       distance = (params[:distance].to_f/1000).round
       polyline = params[:post][:poly_line]
