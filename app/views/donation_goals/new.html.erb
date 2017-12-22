@@ -1,3 +1,10 @@
+<% content_for :head do %>
+  <script src="https://js.stripe.com/v2/" type="text/javascript"></script>
+  <script type="text/javascript">
+    Stripe.setPublishableKey("<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>");
+  </script>
+<% end %>
+
 <div id="wrapper-reg">
   <div class="container container-table <%= css_slug %>">
     <div class="row vertical-center-row <%= css_slug %>">

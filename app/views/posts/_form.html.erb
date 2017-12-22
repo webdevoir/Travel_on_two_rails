@@ -31,15 +31,21 @@
       <%= label_tag "Check to enable route editing" %>
       <%= check_box_tag 'change route' %>
     <% end %>
-    <div class="field-title" id="start-point">
-      <p style="color: red;">Note this is only for one day of your trip.</p>
-      <%= f.label :address1, "Enter starting point!" %>
-      <%= f.text_field :address1, class: "form-control", :required => true %>
-    </div>
-    <button id="add-waypoints" type="button" name="button" class="btn btn-primary">Add WayPoint</button>
-    <div class="field-title" id="end-point">
-      <%= f.label :address2, "Enter end point here!" %>
-      <%= f.text_field :address2, class: "form-control", :required => true %>
+    <div id="google-maps-directions">
+      <div class="field-title" id="start-point">
+        <p style="color: red;">Note this is only for one day of your trip.</p>
+        <%= f.label :address1, "Enter starting point!" %>
+        <%= f.text_field :address1, class: "form-control", :required => true %>
+      </div>
+      <button id="add-waypoints" type="button" name="button" class="btn btn-primary">Add WayPoint</button>
+      <div class="field-title" id="end-point">
+        <%= f.label :address2, "Enter end point here!" %>
+        <%= f.text_field :address2, class: "form-control", :required => true %>
+      </div>
+      <div class="field-title">
+        <%= label_tag "Chose google maps directions type" %>
+        <%= select_tag "directions_type", "<option>Bicycling</option><option>Driving</option>".html_safe, class: "form-control" %>
+      </div>
     </div>
     <%= f.hidden_field :center_lng %>
     <%= f.hidden_field :center_lat %>
@@ -48,11 +54,7 @@
     <%= f.hidden_field :address2_lng %>
     <%= f.hidden_field :address2_lat %>
     <%= f.hidden_field :poly_line %>
-    <%= hidden_field_tag :distance %>
-    <div class="field-title">
-      <%= label_tag "Chose google maps directions type" %>
-      <%= select_tag "directions_type", "<option>Bicycling</option><option>Driving</option>".html_safe, class: "form-control" %>
-    </div>
+    <%= f.hidden_field :distance %>
     <div id="map-wrapper">
       <div id="new-post-map">
 

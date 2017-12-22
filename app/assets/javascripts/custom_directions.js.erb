@@ -30,6 +30,18 @@ $(function(){
     }
   })
 
+  if (window.location.href.substr(window.location.href.length - 4) == "edit") {
+    $("#post_distance").val($("#post_distance").val()*1000)
+    $("#google-maps-directions").css("display", "none")
+    $("#change_route").on("click", function(){
+      if ($("#change_route").is(':checked')) {
+        $("#google-maps-directions").css("display", "block")
+      } else {
+        $("#google-maps-directions").css("display", "none")
+      }
+    })
+  }
+
   $("#new_post").submit(function(e){
     if ($("#post_poly_line").val() != "") {
       // $("#new_post").submit()
@@ -58,7 +70,6 @@ $(function(){
       directionsService = new google.maps.DirectionsService();
 
       if (window.location.href.substr(window.location.href.length - 4) === "edit") {
-        console.log("edit!");
         var polyline = $("#post_poly_line").val()
         var lat_lng_path = google.maps.geometry.encoding.decodePath(polyline)
         var path = new google.maps.Polyline({
@@ -195,7 +206,7 @@ $(function(){
 
   function savePolyLineString(string, distance) {
     $("#post_poly_line").val(string)
-    $("#distance").val(distance)
+    $("#post_distance").val(distance)
   }
 
   function createMarker(map, latlng, label, html) {

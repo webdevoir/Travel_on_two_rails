@@ -119,19 +119,21 @@ class PostsController < ApplicationController
           flash[:error] = "Something wen't wrong try again"
         end
       end
-      if @post_group_old.posts.length == 0
-        @post_group_old.destroy
-      end
     else
       @post_group = @post_group_old
     end
     @post.post_group_id = @post_group.id
     if @post.update(post_params)
-      distance = (params[:distance].to_f/1000).round
+      raise 'hit'
+      distance = (params[:post][:distance].to_f/1000).round
       polyline = params[:post][:poly_line]
       @post.distance = distance
       @post.poly_line = polyline
       @post.save
+      if @post_group_old.posts.length == 0
+        @post_group_old.destroy
+        @post_group_old.delete
+      end
       @trip.total_distance -= old_distance
       @trip.total_distance += @post.distance
       if @trip.save
