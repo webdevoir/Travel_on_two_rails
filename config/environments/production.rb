@@ -27,6 +27,7 @@ Rails.application.configure do
   config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   config.action_mailer.default_url_options = { :host => "www.travelontwo.bike" }
   config.active_job.queue_adapter = :delayed_job
+  config.exceptions_app = self.routes
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
