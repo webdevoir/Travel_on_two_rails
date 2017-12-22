@@ -60,10 +60,27 @@ $( document ).ready(function() {
 </div>
 <% unless @post.post_pictures == nil %>
   <section class="center slider">
-    <% @post.post_pictures.each do |post_picture| %>
+    <% @post.post_pictures.each_with_index do |post_picture, index| %>
       <div class="post-picture-image">
-        <%= image_tag(post_picture.picture_url, class: "post-picture") if post_picture.picture? %>
+        <%= image_tag(post_picture.picture_url, class: "post-picture", 'data-target': "##{post_picture.id}", 'data-toggle': "modal") if post_picture.picture? %>
       </div>
     <% end %>
   </section>
+  <% @post.post_pictures.each_with_index do |post_picture, index| %>
+    <div id="<%= post_picture.id %>" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg"> -->
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-body-image">
+              <%= image_tag(post_picture.picture_url, class: "post-picture-modal") if post_picture.picture? %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
 <% end %>
