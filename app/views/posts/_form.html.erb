@@ -25,7 +25,7 @@
     </div>
     <div class="field-title">
       <label for="date">Chose the date of this post</label><br>
-      <input type="text" data-provide='datepicker' name=post[post_date] required>
+      <input id="post_date_picker" value="<%= @date_string %>" type="text" data-provide='datepicker' name=post[post_date] required>
     </div>
     <% if params[:action] == "edit" %>
       <%= label_tag "Check to enable route editing" %>

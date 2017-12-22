@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     1.times { @post.post_pictures.build}
+    @date_string = ""
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @article }
@@ -82,7 +83,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @user = @trip.user
     @post_pictures = @post.post_pictures
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @article }
@@ -91,7 +91,9 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    post_group = @post.post_group
     1.times { @post.post_pictures.build}
+    @date_string = "#{post_group.month}, #{@post.day}, #{post_group.year}".to_date.strftime("%m/%d/%Y")
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @article }
