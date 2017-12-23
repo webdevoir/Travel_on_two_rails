@@ -63,62 +63,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def pardon
-    @user = User.find(params[:user_id])
-    if current_user.admin
-      @user.offense_count -= 1
-      @user.open_offense = false
-      if @user.save
-        flash[:notice] = "Pardon'd user"
-        redirect_to flagged_messages_path
-      else
-        flash[:error] = "Something went wrong"
-        redirect_to '/admin'
-      end
-    else
-      flash[:error] = "Need to be admin."
-      redirect_to '/'
-    end
-  end
-
-  def warn
-    @user = User.find(params[:user_id])
-    if current_user.admin
-      @user.open_offense = false
-      if @user.save
-        flash[:notice] = "Warned User"
-        # TODO: Add email to user that he has an offense count
-        redirect_to flagged_messages_path
-      else
-        flash[:error] = "Something went wrong"
-        redirect_to '/admin'
-      end
-    else
-      flash[:error] = "Need to be admin."
-      redirect_to '/'
-    end
-  end
-
-  def ban
-    @user = User.find(params[:user_id])
-    if current_user.admin
-      @user.open_offense = false
-      @user,ban
-      if @user.save
-        flash[:notice] = "Banned User"
-        # TODO: Add email to user that he has been banned
-        redirect_to flagged_messages_path
-      else
-        flash[:error] = "Something went wrong"
-        redirect_to '/admin'
-      end
-    else
-      flash[:error] = "Need to be admin."
-      redirect_to '/'
-    end
-  end
-
-
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :cover, :description, :country, :province, :city)

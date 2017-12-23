@@ -26,4 +26,22 @@ class UserMailer < ApplicationMailer
     mail(to: @follower.email, subject: "#{@user.name} Made a new post")
   end
 
+  def pardon_user(user, message)
+    @user = user
+    @message = message
+    mail(to: @user.email, subject: "Pardon Email")
+  end
+
+  def warn_user(user, message)
+    @user = user
+    @message = message
+    mail(to: @user.email, subject: "WARNING EMAIL")
+  end
+
+  def ban_user(user, message)
+    @user = user
+    @message = message
+    mail(to: @user.email, subject: "BANNED")
+  end
+
 end

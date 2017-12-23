@@ -17,7 +17,7 @@
             <td><%= user.name %></td>
             <td><%= flagged_message.body %></td>
             <td><%= user.offense_count %></td>
-            <td><%= button_to('Pardon User', user_pardon_path(user.id), :class => 'btn btn-success', :method => :patch) %></td>
+            <td><%= button_to('Pardon User', user_pardon_path(user.id, message_id: message.id), :class => 'btn btn-success', :method => :patch) %></td>
             <td><button type="button" name="button" class="btn btn-warning">Warn User</button></td>
             <td><button type="button" name="button" class="btn btn-danger">Ban User</button></td>
           </tr>

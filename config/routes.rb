@@ -39,9 +39,9 @@ Rails.application.routes.draw do
     resources :followed_blogs, only: [:index, :create, :destroy]
     get "verification", to: "users#verification", as: "verification"
     get "unsubscribe", to: "users#unsubscribe", as: "unsubscribe"
-    patch "pardon", to: "users#pardon", as: "pardon"
-    patch "warn", to: "users#warn", as: "warn"
-    patch "ban", to: "users#ban", as: "ban"
+    patch "pardon", to: "admin#pardon", as: "pardon"
+    patch "warn", to: "admin#warn", as: "warn"
+    patch "ban", to: "admin#ban", as: "ban"
   end
 
   # admin route
