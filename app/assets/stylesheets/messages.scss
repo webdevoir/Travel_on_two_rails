@@ -73,3 +73,10 @@
 .view-all-messages-col {
   margin-top: 14px;
 }
+
+.flag-message-button {
+  position: absolute;
+  z-index: 1;
+  top: 56px;
+  left: 30px;
+}

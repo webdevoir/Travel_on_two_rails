@@ -7,13 +7,16 @@
         <% end %>
       </div>
      <% @messages.each do |message| %>
-      <% if message.body %>
+      <% if message.flagged %>
+        <% next %>
+      <% elsif message.body %>
        <% user = User.find(message.user_id) %>
        <div class="col-sm-12">
          <div class="item">
           <% if message.user_id == current_user.id %>
           <div class="content sender">
           <% else %>
+          <%= button_to('Flag Message', conversation_message_path(@conversation, message), :class => 'btn btn-primary btn-xl flag-message-button', :method => :patch) %>
           <div class="content reciever">
           <% end %>
            <div class="header"><strong><%= user.name %></strong></div>
@@ -37,7 +40,6 @@
              <%= image_tag message.user.avatar.thumb.url, :class => "message-photo img-rounded image-left" %>
            <% end %>
          <% else %>
-            <%= button_to('Flag Message', conversation_message_path(@conversation, message), :class => 'btn btn-primary btn-xl', :method => :patch) %>
            <% if message.user.avatar.url == nil  %>
              <%= image_tag "missing.png", :class=> "message-photo img-rounded image-right" %>
            <% else %>

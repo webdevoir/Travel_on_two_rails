@@ -56,9 +56,13 @@ class MessagesController < ApplicationController
 
   def update
     @message = Message.find(params[:id])
+    @user = @message.user
     if current_user
-      if (current_user.id == @conversation.sender_id || current_user.id == @conversation.recipient_id) && (current_user.id != @message.user_id)
+      if (current_user.id == @conversation.sender_id || current_user.id == @conversation.recipient_id) && (current_user.id != @message.user_id) && (@message.flagged != true)
         @message.flagged = true
+        @user.offense_count += 1
+        @user.open_offense = true
+        @user.save
         if @message.save
           redirect_to conversation_messages_path(@conversation)
           flash[:notice] = "Messaged flagged, we will take a look at this as soon as we can."
@@ -68,7 +72,7 @@ class MessagesController < ApplicationController
         end
       else
         redirect_to conversation_messages_path(@conversation)
-        flash[:error] = "Something went wrong"
+        flash[:error] = "Message already flagged."
       end
     else
       redirect_to "/"

@@ -63,6 +63,32 @@ class UsersController < ApplicationController
     end
   end
 
+  def pardon
+    @user = User.find(params[:user_id])
+    if current_user.admin
+      @user.offense_count -= 1
+      @user.open_offense = false
+      if @user.save
+        flash[:notice] = "Pardon'd user"
+        redirect_to flagged_messages_path
+      else
+        flash[:error] = "Something went wrong"
+        redirect_to '/admin'
+      end
+    else
+      flash[:error] = "Need to be admin."
+      redirect_to '/'
+    end
+  end
+
+  def warn
+    #code
+  end
+
+  def ban
+    #code
+  end
+
 
   private
   def user_params

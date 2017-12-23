@@ -10,6 +10,10 @@ class AdminController < ApplicationController
     @total_raised = total_raised(@purchases)
   end
 
+  def flagged_messages
+    @flagged_messages = Message.where(flagged: true)
+  end
+
   private
   def total_raised(purchases)
     total = 0
