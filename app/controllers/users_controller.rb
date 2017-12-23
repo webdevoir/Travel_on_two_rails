@@ -82,11 +82,40 @@ class UsersController < ApplicationController
   end
 
   def warn
-    #code
+    @user = User.find(params[:user_id])
+    if current_user.admin
+      @user.open_offense = false
+      if @user.save
+        flash[:notice] = "Warned User"
+        # TODO: Add email to user that he has an offense count
+        redirect_to flagged_messages_path
+      else
+        flash[:error] = "Something went wrong"
+        redirect_to '/admin'
+      end
+    else
+      flash[:error] = "Need to be admin."
+      redirect_to '/'
+    end
   end
 
   def ban
-    #code
+    @user = User.find(params[:user_id])
+    if current_user.admin
+      @user.open_offense = false
+      @user,ban
+      if @user.save
+        flash[:notice] = "Banned User"
+        # TODO: Add email to user that he has been banned
+        redirect_to flagged_messages_path
+      else
+        flash[:error] = "Something went wrong"
+        redirect_to '/admin'
+      end
+    else
+      flash[:error] = "Need to be admin."
+      redirect_to '/'
+    end
   end
 
 
