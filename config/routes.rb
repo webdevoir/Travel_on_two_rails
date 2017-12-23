@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   # Dynamic error pages
-  get "/400", to: "errors#bad_request" 
+  get "/400", to: "errors#bad_request"
   get "/404", to: "errors#not_found"
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         resources :followed_blogs, only: [:create, :destroy, :index]
       end
       resources :conversations do
-        resources :messages, only: [:index, :create]
+        resources :messages, only: [:index, :create, :update]
       end
       resources :trips do
         resources :posts do

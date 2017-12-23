@@ -37,6 +37,7 @@
              <%= image_tag message.user.avatar.thumb.url, :class => "message-photo img-rounded image-left" %>
            <% end %>
          <% else %>
+            <%= button_to('Flag Message', conversation_message_path(@conversation, message), :class => 'btn btn-primary btn-xl', :method => :patch) %>
            <% if message.user.avatar.url == nil  %>
              <%= image_tag "missing.png", :class=> "message-photo img-rounded image-right" %>
            <% else %>

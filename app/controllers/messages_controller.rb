@@ -54,6 +54,29 @@ class MessagesController < ApplicationController
     end
   end
 
+  def update
+    @message = Message.find(params[:id])
+    if current_user
+      if (current_user.id == @conversation.sender_id || current_user.id == @conversation.recipient_id) && (current_user.id != @message.user_id)
+        @message.flagged = true
+        if @message.save
+          redirect_to conversation_messages_path(@conversation)
+          flash[:notice] = "Messaged flagged, we will take a look at this as soon as we can."
+        else
+          redirect_to conversation_messages_path(@conversation)
+          flash[:error] = "Something went wrong"
+        end
+      else
+        redirect_to conversation_messages_path(@conversation)
+        flash[:error] = "Something went wrong"
+      end
+    else
+      redirect_to "/"
+      flash[:error] = "Need to be signed in"
+    end
+
+  end
+
   private
   def message_params
     params.require(:message).permit(:body, :user_id)
