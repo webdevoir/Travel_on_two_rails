@@ -16,11 +16,11 @@ body.home-index {
   background-color: transparent !important;
 }
 
-nav.navbar.home-index {
-   background-color: transparent;
-   background: transparent;
-   border-color: transparent;
-}
+// nav.navbar.home-index {
+//    background-color: transparent;
+//    background: transparent;
+//    border-color: transparent;
+// }
 
 .notice-container {
   position: absolute;
@@ -517,4 +517,12 @@ h2.home {
       display: none;
     }
   }
+}
+
+@media (max-width: 432px) {
+
+  #search-trip-homepage {
+    margin-top: 10px;
+  }
+
 }

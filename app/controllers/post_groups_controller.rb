@@ -43,7 +43,7 @@ class PostGroupsController < ApplicationController
   end
 
   def max_post_group(trip, post_group)
-    post_groups = trip.post_groups.sort_by {|obj| Date::MONTHNAMES.index(obj.month)}
+    post_groups = trip.post_groups.sort_by {|obj| Date::MONTHNAMES.index(obj.month) && obj.year.to_i }
     index = post_groups.find_index(post_group)
     if index == post_groups.length
       return nil
@@ -56,7 +56,7 @@ class PostGroupsController < ApplicationController
   end
 
   def min_post_group(trip, post_group)
-    post_groups = trip.post_groups.sort_by {|obj| Date::MONTHNAMES.index(obj.month)}
+    post_groups = trip.post_groups.sort_by {|obj| Date::MONTHNAMES.index(obj.month) && obj.year.to_i }
     index = post_groups.find_index(post_group)
     if index == 0
       return nil

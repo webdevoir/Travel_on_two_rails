@@ -21,6 +21,10 @@ input.search-text-input {
   display: inline-block;
 }
 
+.search-page-button {
+  width: 19%;
+}
+
 .search-body-row {
   display: table;
 
@@ -56,5 +60,8 @@ input.search-text-input {
     .advance-search-box {
       position: relative;
     }
+  }
+  .search-page-button {
+    width: auto;
   }
 }
