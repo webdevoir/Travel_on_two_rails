@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171223230331) do
+ActiveRecord::Schema.define(version: 20171223234531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20171223230331) do
     t.integer "user_id"
     t.boolean "read",            default: false
     t.boolean "flagged",         default: false
+    t.boolean "open_offense",    default: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
@@ -169,7 +170,6 @@ ActiveRecord::Schema.define(version: 20171223230331) do
     t.boolean  "admin",                  default: false
     t.integer  "offense_count",          default: 0
     t.boolean  "banned",                 default: false
-    t.boolean  "open_offense"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

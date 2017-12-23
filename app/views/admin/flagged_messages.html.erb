@@ -12,14 +12,14 @@
         </tr>
         <% @flagged_messages.each do |flagged_message| %>
           <% user = flagged_message.user %>
-          <% if user.open_offense %>
+          <% if flagged_message.open_offense %>
           <tr>
             <td><%= user.name %></td>
             <td><%= flagged_message.body %></td>
             <td><%= user.offense_count %></td>
-            <td><%= button_to('Pardon User', user_pardon_path(user.id, message_id: message.id), :class => 'btn btn-success', :method => :patch) %></td>
-            <td><button type="button" name="button" class="btn btn-warning">Warn User</button></td>
-            <td><button type="button" name="button" class="btn btn-danger">Ban User</button></td>
+            <td><%= button_to('Pardon User', user_pardon_path(user.id, message_id: flagged_message.id), :class => 'btn btn-success', :method => :patch) %></td>
+            <td><%= button_to('Warn User', user_warn_path(user.id, message_id: flagged_message.id), :class => 'btn btn-warning', :method => :patch) %></td>
+            <td><%= button_to('Ban User', user_ban_path(user.id, message_id: flagged_message.id), :class => 'btn btn-danger btn-ban-user', :method => :patch) %></td>
           </tr>
           <% end %>
         <% end %>

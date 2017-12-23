@@ -60,8 +60,7 @@ class MessagesController < ApplicationController
     if current_user
       if (current_user.id == @conversation.sender_id || current_user.id == @conversation.recipient_id) && (current_user.id != @message.user_id) && (@message.flagged != true)
         @message.flagged = true
-        @user.offense_count += 1
-        @user.open_offense = true
+        @message.open_offense = true
         @user.save
         if @message.save
           redirect_to conversation_messages_path(@conversation)

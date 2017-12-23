@@ -19,7 +19,8 @@ class AdminController < ApplicationController
     @message = Message.find(params[:message_id])
     if current_user.admin
       @user.offense_count -= 1
-      @user.open_offense = false
+      @message.open_offense = false
+      @message.save
       if @user.save
         flash[:notice] = "Pardon'd user"
         SendPardonUserEmailJob.set(wait: 20.seconds).perform_later(@user, @message)
@@ -38,7 +39,9 @@ class AdminController < ApplicationController
     @user = User.find(params[:user_id])
     @message = Message.find(params[:message_id])
     if current_user.admin
-      @user.open_offense = false
+      @user.offense_count += 1
+      @message.open_offense = false
+      @message.save
       if @user.save
         flash[:notice] = "Warned User"
         SendWarnUserEmailJob.set(wait: 20.seconds).perform_later(@user, @message)
@@ -57,11 +60,12 @@ class AdminController < ApplicationController
     @user = User.find(params[:user_id])
     @message = Message.find(params[:message_id])
     if current_user.admin
-      @user.open_offense = false
-      @user,ban
+      @message.open_offense = false
+      # @user.banned = true
+      @message.save
       if @user.save
         flash[:notice] = "Banned User"
-        SendBannedUserEmailJob.set(wait: 20.seconds).perform_later(@user, @message)
+        SendBanUserEmailJob.set(wait: 20.seconds).perform_later(@user, @message)
         # TODO: Add email to user that he has been banned
         redirect_to flagged_messages_path
       else
