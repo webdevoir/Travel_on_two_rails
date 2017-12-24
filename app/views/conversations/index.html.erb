@@ -33,7 +33,7 @@
           </div>
           <div class="col-sm-5 col-sm-offset-2">
             <% last_message = conversation.messages.last %>
-            <% unless last_message == nil %>
+            <% if last_message != nil && last_message.flagged != true %>
               <p class="last-message">
                 <%= last_message.body %>
               </p>
