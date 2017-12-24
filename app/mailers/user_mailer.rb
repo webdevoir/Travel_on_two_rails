@@ -11,6 +11,13 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Validate your account')
   end
 
+  def new_flagged_message()
+    @users = User.where(admin: true)
+    @users.each do |user|
+      mail(to: user.email, subject: "New Flagged Message")
+    end
+  end
+
   def new_message(sender, recipient, conversation)
     @conversation = conversation
     @user = sender

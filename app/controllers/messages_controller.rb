@@ -63,6 +63,7 @@ class MessagesController < ApplicationController
         @message.open_offense = true
         @user.save
         if @message.save
+          SendFlaggedEmailJob.set(wait: 20.seconds).perform_later()
           redirect_to conversation_messages_path(@conversation)
           flash[:notice] = "Messaged flagged, we will take a look at this as soon as we can."
         else
