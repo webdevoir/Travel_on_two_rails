@@ -528,4 +528,13 @@ h2.home {
     margin-top: 10px;
   }
 
+  #home-index {
+    header.masthead {
+      height: 92vh;
+      .header-content {
+        padding: 100px 15px 100px;
+      }
+    }
+  }
+
 }
