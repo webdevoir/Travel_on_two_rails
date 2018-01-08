@@ -17,11 +17,11 @@ body.home-index {
   background-color: transparent !important;
 }
 
-// nav.navbar.home-index {
-//    background-color: transparent;
-//    background: transparent;
-//    border-color: transparent;
-// }
+nav.navbar {
+   background-color: $dark-green;
+   background: $dark-green;
+   border-color: $dark-green;
+}
 
 .notice-container {
   position: absolute;
@@ -48,7 +48,7 @@ body.home-index {
   border: white 2px solid;
 }
 
-.nav.navbar-nav.navbar-right.home-index li a {
+.nav.navbar-nav.navbar-right li a {
     color: white;
 }
 
@@ -57,7 +57,7 @@ ul.dropdown-menu li a {
 }
 
 ul.nav a:hover {
-  border-bottom: solid #f0ad4e;
+  border-bottom: solid $green;
   padding-bottom: 7px;
 }
 
@@ -128,16 +128,16 @@ h2.home {
 }
 
 .btn-primary {
-    background: #0099cc;
+    background: $blue;
     color: #ffffff;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: #33a6cc;
+    background: $dark-blue;
 }
 
 .btn-primary:active, .btn-primary.active {
-    background: #007299;
+    background: $dark-blue;
     box-shadow: none;
 }
 
@@ -151,17 +151,18 @@ h2.home {
 }
 
 .btn-primary.outline {
-	border: 2px solid #f0ad4e;
-	color: #f0ad4e;
+	border: 2px solid $green;
+	color: $green;
 }
 
 .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
-	color: #e28809;
-	border-color: #e28809;
+	color: #979425;
+	border-color: #979425;
+  background-color: transparent;
 }
 .btn-primary.outline:active, .btn-primary.outline.active {
-	border-color: #007299;
-	color: #007299;
+  border-color: #979425;
+	color: #979425;
 	box-shadow: none;
 }
 
@@ -181,18 +182,18 @@ h2.home {
   hr {
     max-width: 50px;
     border-width: 3px;
-    border-color: #F05F40; }
+    border-color: $blue; }
 
   hr.light {
     border-color: white; }
 
   a {
-    color: #F05F40;
+    color: $blue;
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     transition: all 0.2s; }
     a:focus, a:hover {
-      color: #f05f40; }
+      color: $blue; }
 
   h1,
   h2,
@@ -208,11 +209,11 @@ h2.home {
     margin-bottom: 20px; }
 
   .bg-primary {
-    background-color: #F05F40 !important; }
+    background-color: $red !important; }
 
   .bg-dark {
     color: white;
-    background-color: #222222 !important; }
+    background-color: $dark-green !important; }
 
   .text-faded {
     color: rgba(255, 255, 255, 0.7); }
@@ -380,7 +381,7 @@ h2.home {
       margin: 0 auto 20px; }
 
   .text-primary {
-    color: #F05F40 !important; }
+    color: $blue !important; }
 
   .no-gutter > [class*='col-'] {
     padding-right: 0;
@@ -425,28 +426,28 @@ h2.home {
 
   .btn-primary {
     color: white;
-    border-color: #F05F40;
-    background-color: #F05F40; }
+    border-color: $blue;
+    background-color: $blue; }
     .btn-primary.focus, .btn-primary:focus {
       color: white;
-      border-color: #a4270d;
-      background-color: #eb3812; }
+      border-color: $dark-blue;
+      background-color: $dark-blue; }
     .btn-primary:hover {
       color: white;
-      border-color: #e13612;
-      background-color: #eb3812; }
+      border-color: $dark-blue;
+      background-color: $dark-blue; }
     .btn-primary.active, .btn-primary:active,
     .open > .btn-primary.dropdown-toggle {
       color: white;
-      border-color: #e13612;
-      background-color: #eb3812; }
+      border-color: $dark-blue;
+      background-color: $dark-blue; }
       .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover,
       .open > .btn-primary.dropdown-toggle.focus,
       .open > .btn-primary.dropdown-toggle:focus,
       .open > .btn-primary.dropdown-toggle:hover {
         color: white;
-        border-color: #a4270d;
-        background-color: #c93110; }
+        border-color: $dark-blue;
+        background-color: $dark-blue; }
     .btn-primary.active, .btn-primary:active,
     .open > .btn-primary.dropdown-toggle {
       background-image: none; }
@@ -454,10 +455,10 @@ h2.home {
     fieldset[disabled] .btn-primary.focus,
     fieldset[disabled] .btn-primary:focus,
     fieldset[disabled] .btn-primary:hover {
-      border-color: #F05F40;
-      background-color: #F05F40; }
+      border-color: $dark-blue;
+      background-color: $dark-blue; }
     .btn-primary .badge {
-      color: #F05F40;
+      color: $blue;
       background-color: white; }
 
   .btn {
