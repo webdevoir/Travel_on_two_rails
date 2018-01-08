@@ -23,12 +23,12 @@
           <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-calendar"></span> Change Date</a>
           <div class="align-left-button">
             <% unless @min_post_group == nil %>
-              <%= button_to "Back to #{@min_post_group.month}", trip_post_group_path(@trip, @min_post_group), :class => "btn btn-warning sharp", :method => :get %>
+              <%= button_to "Back to #{@min_post_group.month}", trip_post_group_path(@trip, @min_post_group), :class => "btn btn-primary sharp", :method => :get %>
             <% end %>
           </div>
           <div class="align-right-button">
             <% unless @max_post_group == nil %>
-              <%= button_to "Next to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group), :class => "btn btn-warning sharp", :method => :get %>
+              <%= button_to "Next to #{@max_post_group.month}", trip_post_group_path(@trip, @max_post_group), :class => "btn btn-primary sharp", :method => :get %>
             <% end %>
           </div>
           <%= link_to "Back to Trip", trip_path(@trip), :class => "back-to-trip-link" %>

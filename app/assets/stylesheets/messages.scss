@@ -10,11 +10,12 @@
 }
 
 .sender {
-  background-color: green;
+  background-color: $dark-green;
+  color: white;
 }
 
 .reciever {
-  background-color: blue;
+  background-color: $blue;
   color: white;
   text-align: right;
 }
@@ -56,14 +57,14 @@
 .triangle-current {
   position: absolute;
   bottom: -12px;
-  border-top: 20px solid green;
+  border-top: 20px solid $dark-green;
 }
 
 .triangle-other {
   position: absolute;
   right: 15px;
   bottom: -5px;
-  border-top: 20px solid blue;
+  border-top: 20px solid $blue;
 }
 
 .message-pictre {

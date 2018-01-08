@@ -16,7 +16,7 @@
           <% if message.user_id == current_user.id %>
           <div class="content sender">
           <% else %>
-          <%= button_to('Flag Message', conversation_message_path(@conversation, message), :class => 'btn btn-primary btn-xl flag-message-button', :method => :patch) %>
+          <%= button_to('Flag Message', conversation_message_path(@conversation, message), :class => 'btn btn-warning btn-xl flag-message-button', :method => :patch) %>
           <div class="content reciever">
           <% end %>
            <div class="header"><strong><%= user.name %></strong></div>

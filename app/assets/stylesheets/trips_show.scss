@@ -74,6 +74,13 @@
   text-align: center;
 }
 
+.post-group-box-title {
+  color: $yellow;
+  &:hover {
+    color: $yellow;
+  }
+}
+
 .post-box {
 
   margin-bottom: 16px;

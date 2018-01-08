@@ -23,6 +23,14 @@ nav.navbar {
    border-color: $dark-green;
 }
 
+a {
+  color: $blue;
+}
+/* line 52, /home/evanshabsove/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_scaffolding.scss */
+a:hover, a:focus {
+  color: $blue;
+}
+
 .notice-container {
   position: absolute;
   width: 20%;
@@ -156,13 +164,13 @@ h2.home {
 }
 
 .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
-	color: #979425;
-	border-color: #979425;
+	color: $dark-light-green;
+	border-color: $dark-light-green;
   background-color: transparent;
 }
 .btn-primary.outline:active, .btn-primary.outline.active {
-  border-color: #979425;
-	color: #979425;
+  border-color: $dark-light-green;
+	color: $dark-light-green;
 	box-shadow: none;
 }
 
@@ -194,14 +202,6 @@ h2.home {
     transition: all 0.2s; }
     a:focus, a:hover {
       color: $blue; }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
 
   p {
     font-size: 16px;
@@ -358,7 +358,7 @@ h2.home {
         .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category,
         .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
           padding: 0 15px;
-          font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
+           }
         .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
           font-size: 14px;
           font-weight: 600;
@@ -466,7 +466,7 @@ h2.home {
     text-transform: uppercase;
     border: none;
     border-radius: 300px;
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
+     }
 
   .btn-xl {
     padding: 15px 30px; }

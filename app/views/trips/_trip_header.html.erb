@@ -1,5 +1,5 @@
 <div class="col-md-12 back-column">
-  <%= link_to "Back to Profile", user_path(@user), :class => "btn btn-warning sharp" %>
+  <%= link_to "Back to Profile", user_path(@user), :class => "btn btn-primary sharp" %>
 </div>
 <div class="col-md-12 trip-cover-column">
   <div class="trip-display">
@@ -48,8 +48,8 @@
 </div>
 <% if @trip.donation_goal == nil && current_user == @user %>
   <div class="col-md-4 well column-donation-goal">
-    <button  class="btn btn-warning btn-lg btn-secondary sharp" type="button" name="button" disabled>Create a donation goal</button>
-    <%# button_to 'create a donation goal', new_trip_donation_goal_url(@trip), :class => "btn btn-warning btn-lg btn-secondary sharp", :method => "get" %>
+    <button  class="btn btn-primary btn-lg btn-secondary sharp" type="button" name="button" disabled>Create a donation goal</button>
+    <%# button_to 'create a donation goal', new_trip_donation_goal_url(@trip), :class => "btn btn-primary btn-lg btn-secondary sharp", :method => "get" %>
     <p>Still in development, stay tuned!</p>
   </div>
 <% end %>
@@ -70,7 +70,7 @@
     <p>
       <%= @donation_goal.description %>
     </p>
-    <%= button_to('Donate Now!', new_trip_transaction_path(@trip), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %>
+    <%= button_to('Donate Now!', new_trip_transaction_path(@trip), :class => 'btn btn-primary btn-lg btn-secondary sharp', :method => :get) %>
   </div>
 <% end %>
 <% unless @trip.description == nil && @trip.gear_list == nil %>

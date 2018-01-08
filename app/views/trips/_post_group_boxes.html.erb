@@ -24,7 +24,7 @@
       <div class="row">
         <% post_groups.each_with_index do |post_group, index| %>
           <div class="col-md-4 col-sm-6">
-            <a href="<%= trip_post_group_url(@trip, post_group) %>">
+            <a href="<%= trip_post_group_url(@trip, post_group) %>" class="post-group-box-title">
               <% if post_group.image == nil %>
               <div class="post-group-box">
               <% else %>

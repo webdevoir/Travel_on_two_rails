@@ -35,12 +35,12 @@
 }
 
 .post-picture-modal {
-  max-width: 100%;
+  min-width: 100%;
   margin: auto;
 }
 
 .slick-prev:before, .slick-next:before {
-    color:red !important;
+    color: $red !important;
 }
 
 .slick-slider {
