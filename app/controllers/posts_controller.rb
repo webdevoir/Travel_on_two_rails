@@ -124,7 +124,6 @@ class PostsController < ApplicationController
     end
     @post.post_group_id = @post_group.id
     if @post.update(post_params)
-      raise 'hit'
       distance = (params[:post][:distance].to_f/1000).round
       polyline = params[:post][:poly_line]
       @post.distance = distance

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'search', to: 'search#search'
       get 'location_search', to: 'search#location_search'
+      resources :sessions, only: [:create, :destroy]
+      resources :registrations, only: [:create]
       resources :users do
         resources :followed_blogs, only: [:create, :destroy, :index]
       end

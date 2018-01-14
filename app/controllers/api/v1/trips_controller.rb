@@ -5,7 +5,7 @@ class Api::V1::TripsController < Api::V1::BaseController
     trip = Trip.find(params[:id])
     result = TripSerializer.new(trip)
 
-    render(json: result.to_json)
+    render(json: { success: true, trip: result }.to_json)
   end
 
   api :post, "trips"

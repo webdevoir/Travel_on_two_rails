@@ -34,6 +34,8 @@ gem 'omniauth-stripe-connect'
 gem "stripe"
 gem "stripe_event"
 
+gem 'rack-cors', :require => 'rack/cors'
+
 gem 'bootstrap-datepicker-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
