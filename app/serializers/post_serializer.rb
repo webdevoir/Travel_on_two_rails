@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :post_title, :post_content, :address1, :address2, :trip_id, :created_at, :updated_at, :post_group_id, :day, :distance, :center_lat, :center_lng, :full_date, :post_pictures
+  attributes :id, :post_title, :post_content, :address1, :address2, :trip_id, :created_at, :updated_at, :post_group_id, :day, :distance, :center_lat, :center_lng, :full_date, :post_pictures, :poly_line
 
   has_many :post_pictures
 
