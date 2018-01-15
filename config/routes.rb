@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         resources :post_groups, only: [:show, :update]
         resources :gear_lists, only: [:create, :update]
         resources :transactions, only: [:create]
+        resources :poly_line_strings, only: [:index]
       end
     end
   end
