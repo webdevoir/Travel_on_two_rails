@@ -1,17 +1,18 @@
 class Api::V1::ConversationsController < Api::V1::BaseController
 
   api :get, "conversations"
+  param :user_id, String, :desc => "Current user id"
   def index
     conversations = User.find(params[:user_id]).conversations
 
-    results = []
+    response = { "success" => true, "conversations" => [] }
 
     conversations.each do |conversation|
       result = ConversationSerializer.new(conversation)
-      results << result
+      response["conversations"] << result
     end
 
-    render(json: results.to_json)
+    render(json: response.to_json)
   end
 
   api :get, "conversations/:id"
