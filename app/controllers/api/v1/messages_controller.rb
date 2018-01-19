@@ -33,7 +33,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
   def create
     @message = @conversation.messages.new(message_params)
     if @message.save
-      render(json: {:success => "success"}.to_json)
+      render(json: {:success => true, :message => @message}.to_json)
     end
   end
 

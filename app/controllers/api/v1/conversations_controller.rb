@@ -37,7 +37,7 @@ class Api::V1::ConversationsController < Api::V1::BaseController
       @conversation = Conversation.create!(conversation_params)
     end
 
-    render(json: {:success => "success"}.to_json)
+    render(json: {:success => "success", :conversation => @conversation}.to_json)
   end
 
   private
