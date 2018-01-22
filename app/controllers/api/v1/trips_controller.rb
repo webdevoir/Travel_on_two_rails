@@ -9,20 +9,27 @@ class Api::V1::TripsController < Api::V1::BaseController
   end
 
   api :post, "trips"
+  param :user_id, String, :desc => "Current User id"
   param :trip, Hash, :desc => "Params for details of a listing" do
     param :trip_name, String, :desc => "Name of trip"
     param :photo, String, :desc => "Image file of photo"
     param :description, String, :desc => "Description of trip"
-    param :start, String, :desc => "start point of the trip (should be google address)"
-    param :end, String, :desc => "end point of trip (should be google address)"
+    param :start_city, String, :desc => "start point of the trip (should be google address)"
+    param :start_province, String, :desc => "start point of the trip (should be google address)"
+    param :start_country, String, :desc => "start point of the trip (should be google address)"
+    param :end_city, String, :desc => "start point of the trip (should be google address)"
+    param :end_province, String, :desc => "start point of the trip (should be google address)"
+    param :end_country, String, :desc => "start point of the trip (should be google address)"
   end
   def create
-    current_user = User.find(1)
+    current_user = User.find(params[:user_id])
     @user = current_user
     @trip = Trip.new(trip_params)
     @trip.user_id = @user.id
+    @trip.start = "#{params[:trip][:start_city]}, #{params[:trip][:start_province]}, #{params[:trip][:start_country]}"
+    @trip.end = "#{params[:trip][:end_city]}, #{params[:trip][:end_province]}, #{params[:trip][:end_country]}"
     if @trip.save
-      render(json: {:success => "success", :trip => @trip}.to_json)
+      render(json: {:success => true, :trip => @trip}.to_json)
     else
       render(json: {:success => "error"}.to_json)
     end
