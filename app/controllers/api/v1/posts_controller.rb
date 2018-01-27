@@ -2,9 +2,9 @@ class Api::V1::PostsController < Api::V1::BaseController
   before_action :load_trip
 
   api :post, "/trips/:trip_id/posts"
-  param :distance, Float, :desc => "Distance in meters"
   param :trip_id, String, :desc => "Current trip id"
   param :post, Hash, :desc => "Params for details of a post" do
+    param :distance, Integer, :desc => "Distance in meters"
     param :post_title, String, :desc => "Name of trip"
     param :post_content, String, :desc => "Image file of photo"
     param :address1, String, :desc => "Start of the post"
@@ -19,7 +19,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     param :poly_line, String, :desc => "Encoded polyline of the route taken"
   end
   def create
-    date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
+    date = params[:post][:post_date].to_datetime
     year = date.year
     day = date.day
     month = date.strftime("%B")
@@ -30,14 +30,14 @@ class Api::V1::PostsController < Api::V1::BaseController
       if @post_group.save
         return true
       else
-        flash[:error] = "Something wen't wrong try again"
+        render(json: {:success => "error"}.to_json)
       end
     end
 
     @post = @trip.posts.build(post_params)
     @post.post_group_id = @post_group[0].id
     @post.day = day.to_s
-    distance = (params[:distance].to_f/1000).round
+    distance = (params[:post][:distance].to_f/1000).round
     @post.distance = distance
     if distance == false
       render(json: {:success => "error"}.to_json)
@@ -106,7 +106,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   private
   def post_params
-    params.require(:post).permit(:post_title, :post_content, :address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address1_lng, :poly_line)
+    params.require(:post).permit(:post_title, :post_content, :address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address2_lng, :poly_line)
   end
 
   def post_picture_params
