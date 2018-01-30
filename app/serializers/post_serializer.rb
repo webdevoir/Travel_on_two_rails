@@ -1,11 +1,11 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :post_title, :post_content, :address1, :address2, :trip_id, :created_at, :updated_at, :post_group_id, :day, :distance, :center_lat, :center_lng, :full_date, :post_pictures, :poly_line, :side_bar
+  attributes :id, :post_title, :post_content, :address1, :address2, :trip_id, :created_at, :updated_at, :post_group_id, :day, :distance, :center_lat, :center_lng, :full_date, :post_pictures, :poly_line, :side_bar, :address1_lat, :address1_lng, :address2_lat, :address2_lng
 
   has_many :post_pictures
 
   def full_date
     post_group = object.post_group
-    return "#{post_group.year} - #{post_group.month} - #{object.day}"
+    return "#{object.day} #{post_group.month} #{post_group.year}".to_datetime.strftime("%d/%m/%Y")
   end
 
   def side_bar

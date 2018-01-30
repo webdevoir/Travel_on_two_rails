@@ -12,10 +12,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def post_params
-    params.require(:post).permit(:post_title, :post_content, :address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address2_lng)
-  end
-
   def create
     date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
     year = date.year

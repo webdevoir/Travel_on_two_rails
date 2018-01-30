@@ -22,7 +22,7 @@ class Api::V1::FollowedBlogsController < Api::V1::BaseController
     @user = User.find(params[:user_id])
     @followed_blog = FollowedBlog.new(blog_owner_id: @user.id, user_id: current_user.id)
     if @followed_blog.save
-      render(json: {:success => true}.to_json)
+      render(json: {:success => true, followed_blog: @followed_blog}.to_json)
     else
       render(json: {:success => "error"}.to_json)
     end
@@ -32,7 +32,7 @@ class Api::V1::FollowedBlogsController < Api::V1::BaseController
   def destroy
     @followed_blog = FollowedBlog.find(params[:id])
     if @followed_blog.destroy
-      render(json: {:success => "success"}.to_json)
+      render(json: {:success => true}.to_json)
     else
       render(json: {:success => "error"}.to_json)
     end

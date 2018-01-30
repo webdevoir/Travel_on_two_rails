@@ -52,6 +52,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
   end
 
+  api :get, "trip/:trip_id/posts/:id"
   def show
     post = Post.find(params[:id])
 

@@ -7,9 +7,10 @@ class Api::V1::MessagesController < Api::V1::BaseController
   skip_before_action :read_nav_check, only: [:index]
 
   api :get, "conversations/:id/messages"
+  param :user_id, String, :desc => "current user id"
   def index
     # temp
-    current_user = User.find(1)
+    current_user = User.find(params[:user_id])
     unread_messages = Message.where(:read => false, :conversation_id => @conversation.id)
     if unread_messages.length > 0
       unread_messages.each do |message|
