@@ -10,6 +10,35 @@ class Api::V1::UsersController < Api::V1::BaseController
     render(json: { success: true, user: result, following: following, followed_blog: followed_blog }.to_json)
   end
 
+  api :put, "users/:id"
+  param :user, Hash, :desc => "Params for details of a user" do
+    param :name, String
+    param :email, String
+    param :password, String
+    param :password_confirmation, String
+    param :avatar, String
+    param :cover, String
+    param :description, String
+    param :country, String
+    param :province, String
+    param :city, String
+  end
+  def update
+    @user = User.find(params[:id])
+    if params[:coverPhoto] == nil
+      @user.avatar = params[:file]
+    else
+      @user.cover = params[:file]
+    end
+    if @user.save
+      result = UserSerializer.new(@user)
+      render(json: { success: true, user: result }.to_json)
+    else
+      flash[:error] = "Something went wrong"
+      render(json: { success: false, message: "something went wrong" }.to_json)
+    end
+  end
+
   private
   def follows(current_user, user)
     if current_user == user || current_user == nil
@@ -22,5 +51,9 @@ class Api::V1::UsersController < Api::V1::BaseController
          return true, followed_blog[0]
        end
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :cover, :description, :country, :province, :city)
   end
 end
