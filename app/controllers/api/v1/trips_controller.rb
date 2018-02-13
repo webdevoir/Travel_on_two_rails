@@ -28,6 +28,9 @@ class Api::V1::TripsController < Api::V1::BaseController
     @trip.user_id = @user.id
     @trip.start = "#{params[:trip][:start_city]}, #{params[:trip][:start_province]}, #{params[:trip][:start_country]}"
     @trip.end = "#{params[:trip][:end_city]}, #{params[:trip][:end_province]}, #{params[:trip][:end_country]}"
+    if params[:fileName] != nil
+      @trip.photo = params[:file]
+    end
     if @trip.save
       render(json: {:success => true, :trip => @trip}.to_json)
     else
@@ -49,9 +52,16 @@ class Api::V1::TripsController < Api::V1::BaseController
   end
   def update
     @trip = Trip.find(params[:id])
-    @trip.start = "#{params[:trip][:start_city]}, #{params[:trip][:start_province]}, #{params[:trip][:start_country]}"
-    @trip.end = "#{params[:trip][:end_city]}, #{params[:trip][:end_province]}, #{params[:trip][:end_country]}"
-    if @trip.update(trip_params)
+    if params[:trip] != nil
+      @trip.trip_name = params[:trip][:trip_name]
+      @trip.description = params[:trip][:description]
+      @trip.start = "#{params[:trip][:start_city]}, #{params[:trip][:start_province]}, #{params[:trip][:start_country]}"
+      @trip.end = "#{params[:trip][:end_city]}, #{params[:trip][:end_province]}, #{params[:trip][:end_country]}"
+    end
+    if params[:fileName] != nil
+      @trip.photo = params[:file]
+    end
+    if @trip.save
       render(json: {:success => true, :trip => @trip}.to_json)
     else
       render(json: {:success => "error"}.to_json)
