@@ -25,10 +25,13 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
   def update
     @user = User.find(params[:id])
-    if params[:coverPhoto] == nil
-      @user.avatar = params[:file]
-    else
+    if params[:coverPhoto] != nil
       @user.cover = params[:file]
+    elsif params[:avatar] != nil
+      @user.avatar = params[:file]
+    end
+    if params[:user] != nil
+      @user.update(user_params)
     end
     if @user.save
       result = UserSerializer.new(@user)

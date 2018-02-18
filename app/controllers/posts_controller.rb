@@ -25,19 +25,15 @@ class PostsController < ApplicationController
       end
       redirect_to trip_track_route_path(@trip, track_or_upload: track_or_upload, date: params[:post][:post_date], post_title: post_params[:post_title], post_content: post_params[:post_content], address1: post_params[:address1], address2: post_params[:address2], center_lng: post_params[:center_lng], center_lat: post_params[:center_lat], address1_lat: post_params[:address1_lat], address1_lng: post_params[:address1_lng], address2_lat: post_params[:address2_lat], address2_lng: post_params[:address2_lng])
     else
-      @post_group = PostGroup.where(:year => year, :month => month, :trip_id => @trip.id)
+      @post_group = PostGroup.find_by(:year => year, :month => month, :trip_id => @trip.id)
 
-      if @post_group.length == 0
+      if @post_group == nil
         @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
-        if @post_group.save
-          return true
-        else
-          flash[:error] = "Something wen't wrong try again"
-        end
+        @post_group.save
       end
 
       @post = @trip.posts.build(post_params)
-      @post.post_group_id = @post_group[0].id
+      @post.post_group_id = @post_group.id
       @post.day = day.to_s
       if params[:distance] == nil
         distance, polyline = post_distance(@post)
@@ -106,7 +102,7 @@ class PostsController < ApplicationController
     day = date.day
     month = date.strftime("%B")
     if @post_group_old.month != month || @post_group_old.year != year
-      @post_group = PostGroup.where(:year => year, :month => month, :trip_id => @trip.id).first
+      @post_group = PostGroup.find_by(:year => year, :month => month, :trip_id => @trip.id).first
       if @post_group == nil
         @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
         if @post_group.save

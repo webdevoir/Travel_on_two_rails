@@ -23,19 +23,15 @@ class Api::V1::PostsController < Api::V1::BaseController
     year = date.year
     day = date.day
     month = date.strftime("%B")
-    @post_group = PostGroup.where(:year => year, :month => month, :trip_id => @trip.id)
+    @post_group = PostGroup.find_by(:year => year, :month => month, :trip_id => @trip.id)
 
-    if @post_group.length == 0
+    if @post_group == nil
       @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
-      if @post_group.save
-        return true
-      else
-        render(json: {:success => "error"}.to_json)
-      end
+      @post_group.save
     end
 
     @post = @trip.posts.build(post_params)
-    @post.post_group_id = @post_group[0].id
+    @post.post_group_id = @post_group.id
     @post.day = day.to_s
     distance = (params[:post][:distance].to_f/1000).round
     @post.distance = distance
@@ -75,21 +71,39 @@ class Api::V1::PostsController < Api::V1::BaseController
     # TODO: Need to put in if someone changes date of post, should also maybe think about dealing with center in back end rather then front
     @post = Post.find(params[:id])
     @trip = @post.trip
-    @post.distance = post_distance(@post)
-    if @post.update(post_params)
-      if @post.distance != post_distance(@post) && @post.distance != nil
-        if @post.distance > post_distance(@post)
-          diff = @post.distance - post_distance(@post)
-          @trip.total_distance -= diff
-          @trip.save
-        elsif @post.distance == nil
-        else
-          diff = post_distance(@post) - @post.distance
-          @trip.total_distance += diff
-          @trip.save
-        end
+    @post_group_old = @post.post_group
+    old_distance = @post.distance
+    date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
+    year = date.year
+    day = date.day
+    month = date.strftime("%B")
+    if @post_group_old.month != month || @post_group_old.year != year
+      @post_group = PostGroup.find_by(:year => year, :month => month, :trip_id => @trip.id).first
+      if @post_group == nil
+        @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
+        @post_group.save
       end
-      render(json: {:success => "success"}.to_json)
+    else
+      @post_group = @post_group_old
+    end
+    @post.post_group_id = @post_group.id
+    if @post.update(post_params)
+      distance = (params[:post][:distance].to_f/1000).round
+      polyline = params[:post][:poly_line]
+      @post.distance = distance
+      @post.poly_line = polyline
+      @post.save
+      if @post_group_old.posts.length == 0
+        @post_group_old.destroy
+        @post_group_old.delete
+      end
+      @trip.total_distance -= old_distance
+      @trip.total_distance += @post.distance
+      if @trip.save
+        render(json: {:success => "success"}.to_json)
+      else
+        render(json: {:success => "error"}.to_json)
+      end
     else
       render(json: {:success => "error"}.to_json)
     end
