@@ -7,14 +7,20 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
     param :password, String
   end
   def create
-
-    user = User.new(params[:user])
+    user = User.new(user_params)
+    binding.pry
     if user.save
-      render :json=> user.as_json(:email=>user.email), :status=>201
+      render :json=> {:success=>true, :email=>user.email, :user_id=>user.id, :user => user}
       return
     else
-      warden.custom_failure!
+      binding.pry
       render :json=> user.errors, :status=>422
     end
   end
+
+  private
+  def user_params
+    params.require(:registration).permit(:name, :email, :password)
+  end
+
 end
