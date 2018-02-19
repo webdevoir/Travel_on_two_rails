@@ -8,12 +8,10 @@ class Api::V1::RegistrationsController < Api::V1::BaseController
   end
   def create
     user = User.new(user_params)
-    binding.pry
     if user.save
       render :json=> {:success=>true, :email=>user.email, :user_id=>user.id, :user => user}
       return
     else
-      binding.pry
       render :json=> user.errors, :status=>422
     end
   end
