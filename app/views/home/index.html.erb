@@ -3,21 +3,21 @@
     <div class="header-content">
       <div class="header-content-inner">
         <% if current_user %>
-          <h1 id="homeHeading">Welcome to our community</h1>
+          <h1 id="homeHeading"><%= t("homepage.lander") %></h1>
           <hr>
-          <p>We'll help you plan your trip, fund it, and share it with the world.</p>
+          <p><%= t("homepage.lander_text") %></p>
           <!-- <%# button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %> -->
           <div class="button-group">
-            <%= button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-primary btn-xl ', :method => :get) %>
+            <%= button_to(t("homepage.go_to_page"), user_path(@user_id), :class => 'btn btn-primary btn-xl ', :method => :get) %>
             <button type="button" id="search-trip-homepage" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Search Trips</button>
           </div>
         <% else %>
-          <h1 id="homeHeading">START YOUR TOURING ADVENTURE NOW</h1>
+          <h1 id="homeHeading"><%= t("homepage.lander_not_logged") %></h1>
           <hr>
-          <p>We'll help you plan your trip, fund it, and share it with the world.</p>
+          <p><%= t("homepage.lander_text") %></p>
           <!-- <%# button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %> -->
           <div class="button-group">
-            <%= button_to('Sign Up Now', new_user_registration_path, :class => 'btn btn-primary btn-xl', :method => :get) %>
+            <%= button_to(t("homepage.sign_up_now"), new_user_registration_path, :class => 'btn btn-primary btn-xl', :method => :get) %>
             <button type="button" id="search-trip-homepage" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Search Trips</button>
           </div>
         <% end %>
@@ -30,7 +30,7 @@
     <div class="container new-trips-container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h1>Current Trips</h1>
+          <h1><%= t('homepage.current_trips') %></h1>
           <div class="trip-carousel">
             <% @featured_trips.each_with_index do |trip, index| %>
               <div class="trip-slider-<%= trip.id %> trip-slider" data-trip-id=<%= trip.id %>>
@@ -60,7 +60,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading">We Support You.</h2>
+          <h2 class="section-heading"><%= t("homepage.support") %></h2>
           <hr class="primary">
         </div>
       </div>
@@ -70,29 +70,29 @@
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-bicycle text-primary sr-icons"></i>
-            <h3>Built for Cyclists</h3>
-            <p class="text-muted">Built by cyclists for cyclists, Travel on Two strives to help you get from planning to sharing faster.</p>
+            <h3><%= t("homepage.built_title") %></h3>
+            <p class="text-muted"><%= t("homepage.built_text") %></p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-usd text-primary sr-icons"></i>
-            <h3>Raising Money</h3>
-            <p class="text-muted">Travel on Two gives you the tools to raise money for your trip, for charity or for personal reasons.</p>
+            <h3><%= t("homepage.raise_title") %></h3>
+            <p class="text-muted"><%= t("homepage.raise_text") %></p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-map-marker text-primary sr-icons"></i>
-            <h3>Chart Your Route Accuratly</h3>
-            <p class="text-muted">Download our app to chart your daily ride to get the most accurate distance measurments, time on bike, elevation and more.</p>
+            <h3><%= t("homepage.chart_title") %></h3>
+            <p class="text-muted"><%= t("homepage.chart_text") %></p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-envelope text-primary sr-icons"></i>
-            <h3>Connect With Others</h3>
-            <p class="text-muted">Message other users to ask questions about their trip and expeirence.</p>
+            <h3><%= t("homepage.connect_title") %></h3>
+            <p class="text-muted"><%= t("homepage.connect_text") %></p>
           </div>
         </div>
       </div>
@@ -129,11 +129,11 @@
   <div class="call-to-action bg-dark">
     <div class="container text-center">
       <% if current_user %>
-        <h2>Go To Your Page</h2>
-        <%= link_to 'Go To Your Page', user_path(@user_id), :class => 'btn btn-primary btn-xl' %>
+        <h2><%= t("homepage.go_to_page") %></h2>
+        <%= link_to t("homepage.go_to_page"), user_path(@user_id), :class => 'btn btn-primary btn-xl' %>
       <% else %>
-        <h2>Sign Up Now!</h2>
-        <%= link_to 'Sign Up Now', new_user_registration_path, :class => 'btn btn-default btn-xl sr-button' %>
+        <h2><%= t("homepage.sign_up_now") %></h2>
+        <%= link_to t("homepage.sign_up_now"), new_user_registration_path, :class => 'btn btn-default btn-xl sr-button' %>
       <% end %>
     </div>
   </div>
@@ -142,9 +142,9 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading">Let's Get In Touch!</h2>
+          <h2 class="section-heading"><%= t("homepage.feedback_title") %></h2>
           <hr class="primary">
-          <p>I need feedback! I want to make this website with the community in mind. Please reach out to me and let me know what you hate/love.</p>
+          <p><%= t("homepage.feedback_text") %></p>
         </div>
       </div>
       <div class="row">

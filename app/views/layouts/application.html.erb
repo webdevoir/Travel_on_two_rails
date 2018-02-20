@@ -70,27 +70,27 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right <%= css_slug %>">
             <% if current_user %>
-              <li><a href="<%= user_path(current_user) %>"><span class="	glyphicon glyphicon-user"></span> Profile</a></li>
+              <li><a href="<%= user_path(current_user) %>"><span class="	glyphicon glyphicon-user"></span> <%= t('navbar.profile') %></a></li>
               <% if @read == false %>
-                <li><a href="<%= conversations_path %>"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+                <li><a href="<%= conversations_path %>"><span class="glyphicon glyphicon-envelope"></span> <%= t('navbar.messages') %></a></li>
               <% else %>
-                <li><a href="<%= conversations_path %>"><span class="glyphicon glyphicon-envelope"></span><i class="fa fa-asterisk asterisk-nav"></i> Messages</a></li>
+                <li><a href="<%= conversations_path %>"><span class="glyphicon glyphicon-envelope"></span><i class="fa fa-asterisk asterisk-nav"></i> <%= t('navbar.messages') %></a></li>
               <% end %>
-              <li><a href="<%= user_followed_blogs_path(current_user) %>"><span class="glyphicon glyphicon-list-alt"></span> Followed Users</a></li>
+              <li><a href="<%= user_followed_blogs_path(current_user) %>"><span class="glyphicon glyphicon-list-alt"></span> <%= t('navbar.followed_users') %></a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Settings <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= t('navbar.settings') %> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="<%= user_path(current_user) %>"><span class="glyphicon glyphicon-user"></span> Manage Trips</a></li>
-                  <li><a href="<%= about_path %>"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>
-                  <li><a href="<%= destroy_user_session_path %>" data-method="delete"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                  <li><a href="<%= user_path(current_user) %>"><span class="glyphicon glyphicon-user"></span> <%= t('navbar.manage_trips') %></a></li>
+                  <li><a href="<%= about_path %>"><span class="glyphicon glyphicon-question-sign"></span> <%= t('navbar.about') %></a></li>
+                  <li><a href="<%= destroy_user_session_path %>" data-method="delete"><span class="glyphicon glyphicon-log-out"></span> <%= t('navbar.log_out') %></a></li>
                 </ul>
               </li>
             <% else %>
-              <li><a href="<%= about_path %>"><span class="glyphicon glyphicon-question-sign"></span> About</a></li>
-              <li><a href="<%= new_user_registration_path %>"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="<%= about_path %>"><span class="glyphicon glyphicon-question-sign"></span> <%= t('navbar.about') %></a></li>
+              <li><a href="<%= new_user_registration_path %>"><span class="glyphicon glyphicon-user"></span> <%= t('navbar.sign_up') %></a></li>
               <!--start dropdown menu  -->
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> <%= t('navbar.login') %> <b class="caret"></b></a>
                 <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
                   <li>
                     <div class="row">
@@ -99,13 +99,13 @@
                           <div class="form-group">
                             <%= f.label :email, "Email address?", class: "sr-only" %>
                             <!-- <label class="sr-only" for="exampleInputEmail2">Email address</label> -->
-                            <%= f.text_field :email, placeholder: 'Email address', class: "form-control" %>
+                            <%= f.text_field :email, placeholder: t('navbar.email_address'), class: "form-control" %>
                             <!-- <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address"> -->
                           </div>
                           <div class="form-group">
                             <%= f.label :password, "Password?", class: "sr-only" %>
                             <!-- <label class="sr-only" for="exampleInputPassword2">Password</label> -->
-                            <%= f.password_field :password, placeholder: 'Password', class: "form-control" %>
+                            <%= f.password_field :password, placeholder: t('navbar.password'), class: "form-control" %>
                             <!-- <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password"> -->
                           </div>
                           <div class="checkbox">
@@ -113,7 +113,7 @@
                             <%# f.label :remeber_me %>
                           </div>
                           <div class="form-group">
-                            <%= submit_tag "Log in" %>
+                            <%= submit_tag t('navbar.login') %>
                           </div>
                         <% end %>
                       </div>
@@ -124,11 +124,11 @@
             <% end %>
             <li class="search-bar">
               <%= form_tag(search_path, method: 'get', class: 'navbar-form navbar-left') do %>
-                <%= search_field_tag 'q', nil, class: 'form-control', placeholder: 'Search For a Blog' %>
-                <%= submit_tag "Search", class: 'btn btn-primary btn-sm outline', :name => nil %>
+                <%= search_field_tag 'q', nil, class: 'form-control', placeholder: t('navbar.search_blog') %>
+                <%= submit_tag t('navbar.search'), class: 'btn btn-primary btn-sm outline', :name => nil %>
               <% end %>
             </li>
-            <li class="search-button"><a href="<%= search_path %>"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+            <li class="search-button"><a href="<%= search_path %>"><span class="glyphicon glyphicon-search"></span> <%= t('navbar.search') %></a></li>
           </ul>
         </div>
       </div>
