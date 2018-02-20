@@ -40,6 +40,16 @@ a:hover, a:focus {
   right: 0;
 }
 
+.nav-logo {
+  max-width: 105px;
+}
+
+a.navbar-brand {
+  position: absolute;
+  left: 50px;
+  padding: 4px;
+}
+
 .notice {
   width: 100%;
   border-radius: 2px;
@@ -159,8 +169,8 @@ h2.home {
 }
 
 .btn-primary.outline {
-	border: 2px solid $green;
-	color: $green;
+	border: 2px solid $yellow;
+	color: $yellow;
 }
 
 .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
