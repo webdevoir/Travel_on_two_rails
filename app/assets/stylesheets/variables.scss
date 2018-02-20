@@ -7,6 +7,23 @@ $dark-blue: #1977B0;
 $light-blue: #bbdef2;
 $dark-light-green: #4e5a52;
 
+@font-face {
+  font-family: "Mitr Light";
+  src: url(/assets/Mitr-Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Mitr Regular";
+  src: url(/assets/Mitr-Regular.ttf) format("truetype");
+}
+
+p, div, a, span, label {
+  font-family: "Mitr Light";
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Mitr Regular";
+}
 
 // $green: #267D3E;
 // $blue: #D2E9F9;
