@@ -8,9 +8,10 @@ class HomeController < ApplicationController
     3.times do
       @featured_trips << trips.sample
     end
+    @feedback = Feedback.new()
   end
 
   def about
-    #code
+    @feedback = Feedback.new()
   end
 end

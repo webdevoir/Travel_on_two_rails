@@ -19,6 +19,7 @@ class UserMailer < ApplicationMailer
   end
 
   def new_feedback(feedback)
+    @feedback = feedback
     @users = User.where(admin: true)
     @users.each do |user|
       mail(to: user.email, subject: "New Feedback")

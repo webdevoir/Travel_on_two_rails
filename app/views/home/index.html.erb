@@ -150,9 +150,15 @@
       <div class="row">
         <div class="col-lg-12 mr-auto text-center">
           <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-          <p>
-            <a href="mailto:evan.shabsove@gmail.com">evan.shabsove@gmail.com</a>
-          </p>
+          <div class="feedback-box">
+            <%= form_for @feedback do |f| %>
+            <%= f.label :email, "Email" %>
+            <%= f.text_field :email, required: true, autofocus: true, class: "form-control", placeholder: "my@email.com" %>
+            <%= f.label :content, "Message" %>
+            <%= f.text_area :content, required: true, autofocus: true, class: "form-control", placeholder: "Message content" %>
+            <%= f.submit "Submit", :class => "btn btn-primary btn-xl" %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

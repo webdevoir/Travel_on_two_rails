@@ -23,17 +23,18 @@ $(function(){
         <h4 class="modal-title">Chose Two Points</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag search_path, method: "get" %>
-          <%= label_tag :q, 'Name' %>
-          <%= text_field_tag :q, "", :class => "form-control" %>
-          <%= label_tag :start, 'Starting Place' %>
-          <%= text_field_tag :start, "", :class => "form-control" %>
-          <%= label_tag :end, 'Ending Place' %>
-          <%= text_field_tag :end, "", :class => "form-control" %>
+        <%= form_for search_path, method: "get" do |f| %>
+          <%= f.label :q, 'Name' %>
+          <%= f.text_field :q, :class => "form-control" %>
+          <%= f.label :start, 'Starting Place' %>
+          <%= f.text_field :start, :class => "form-control" %>
+          <%= f.label :end, 'Ending Place' %>
+          <%= f.text_field :end, :class => "form-control" %>
       </div>
       <div class="modal-footer">
-          <%= submit_tag "Submit", :class => "btn btn-submit" %>
+          <%= f.submit "Submit", :class => "btn btn-submit" %>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
