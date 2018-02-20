@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
   get "/about", to: "home#about", as: "about"
 
+  resources :feedbacks, only: [:create]
+
   resources :users do
     resources :followed_blogs, only: [:index, :create, :destroy]
     get "verification", to: "users#verification", as: "verification"
