@@ -153,9 +153,9 @@
           <div class="feedback-box">
             <%= form_for @feedback do |f| %>
             <%= f.label :email, "Email" %>
-            <%= f.text_field :email, required: true, autofocus: true, class: "form-control", placeholder: "my@email.com" %>
+            <%= f.text_field :email, required: true, class: "form-control", placeholder: "my@email.com" %>
             <%= f.label :content, "Message" %>
-            <%= f.text_area :content, required: true, autofocus: true, class: "form-control", placeholder: "Message content" %>
+            <%= f.text_area :content, required: true, class: "form-control", placeholder: "Message content" %>
             <%= f.submit "Submit", :class => "btn btn-primary btn-xl" %>
             <% end %>
           </div>
