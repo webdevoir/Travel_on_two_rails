@@ -22,14 +22,23 @@ test: &TEST
   username: evanshabsove
   password: 123
 
+# production:
+#   adapter: postgresql
+#   encoding: utf8
+#   host: localhost
+#   database: travel_on_two_production
+#   pool: 5
+#   username: travel_on_two_beta
+#   password: password
 production:
+  <<: *default
   adapter: postgresql
-  encoding: utf8
-  host: localhost
-  database: travel_on_two_production
-  pool: 5
-  username: travel_on_two_beta
-  password: password
+  encoding: unicode
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
 
 cucumber:
   <<: *TEST
