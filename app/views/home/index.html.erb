@@ -25,36 +25,37 @@
     </div>
   </header>
   <%= render "trip_explorer_modal" %>
-
-  <section class="bg-primary" id="about">
-    <div class="container new-trips-container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h1><%= t('homepage.current_trips') %></h1>
-          <div class="trip-carousel">
-            <% @featured_trips.each_with_index do |trip, index| %>
-              <div class="trip-slider-<%= trip.id %> trip-slider" data-trip-id=<%= trip.id %>>
-                <% if trip.photo.url != nil %>
+  <% if @featured_trips.length > 0 %>
+    <section class="bg-primary" id="about">
+      <div class="container new-trips-container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h1><%= t('homepage.current_trips') %></h1>
+            <div class="trip-carousel">
+              <% @featured_trips.each_with_index do |trip, index| %>
+                <div class="trip-slider-<%= trip.id %> trip-slider" data-trip-id=<%= trip.id %>>
+                  <% if trip.photo.url != nil %>
+                    <style media="screen">
+                      .trip-slider-<%= trip.id %> {
+                        background-image: url(<%= trip.photo.url %>)
+                      }
+                    </style>
+                  <% else %>
                   <style media="screen">
                     .trip-slider-<%= trip.id %> {
-                      background-image: url(<%= trip.photo.url %>)
+                      background-image: url(<%= asset_url("#{(index + 1).to_s}.jpg") %>)
                     }
                   </style>
-                <% else %>
-                <style media="screen">
-                  .trip-slider-<%= trip.id %> {
-                    background-image: url(<%= asset_url("#{(index + 1).to_s}.jpg") %>)
-                  }
-                </style>
-                <% end %>
-                <h2><a href="<%= trip_path(trip) %>" class="trip-link">View <%= trip.user.name %>'s Trip</a></h2>
-              </div>
-            <% end %>
+                  <% end %>
+                  <h2><a href="<%= trip_path(trip) %>" class="trip-link">View <%= trip.user.name %>'s Trip</a></h2>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <% end %>
 
   <section id="services">
     <div class="container">
