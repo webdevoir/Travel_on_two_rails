@@ -3,7 +3,9 @@ class SearchController < ApplicationController
     if params[:q].nil?
       @trips = []
     else
-      @trips_and_users = Elasticsearch::Model.search(params[:q], [Trip, User]).records.to_a
+      @trips = Trip.ransack(trip_name_cont: params[:q])
+      @users_found = User.ransack(name_cont: params[:q])
+      @trips_and_users = @trips.result + @users_found.result
       @trips = seperate_trips_and_users(@trips_and_users)
       if exists(params[:start]) && !(exists(params[:end]))
         @trips.each do |trip|

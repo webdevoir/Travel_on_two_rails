@@ -1,8 +1,8 @@
-require 'elasticsearch/model'
+# require 'elasticsearch/model'
 
 class Trip < ApplicationRecord
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
 
   include ActiveModel::Validations
 

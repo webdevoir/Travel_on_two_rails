@@ -47,9 +47,10 @@ gem 'active_model_serializers'
 # Carrier wave for image uploading
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+# gem 'elasticsearch-model'
+# gem 'elasticsearch-rails'
 # gem "passenger", '~> 4.0.59'
+gem 'ransack'
 gem 'fog'
 gem "chartkick"
 gem 'groupdate'
