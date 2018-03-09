@@ -8,7 +8,7 @@ $(function(){
         center: lat_lng_hash
       });
 
-      var polyline = "<%= @route.poly_line %>"
+      var polyline = $("#poly_line").val()
       var lat_lng_path = google.maps.geometry.encoding.decodePath(polyline)
       var path = new google.maps.Polyline({
         path: lat_lng_path,

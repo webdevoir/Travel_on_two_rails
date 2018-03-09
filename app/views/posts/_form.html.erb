@@ -1,5 +1,6 @@
 <%= form_for([@trip, @post], :html => { :multipart => true }) do |f| %>
-  <%= hidden_field_tag route_id: @route.id %>
+  <%= hidden_field_tag :route_id, @route.id %>
+  <%= hidden_field_tag :poly_line, @route.poly_line %>
 
   <!-- error messages -->
   <% if @post.errors.any? %>

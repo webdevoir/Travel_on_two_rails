@@ -9,6 +9,7 @@ class RoutesController < ApplicationController
 
   def create
     @route = Route.new(route_params)
+    @route.distance = params[:distance].to_i
     @trip = Trip.find(params[:trip_id])
     if @route.save
       flash[:success] = "route saved"
