@@ -27,32 +27,33 @@ $(function(){
     }).done(function(result){
       var posts_unsorted = result.posts
       var trip = result.trip
+      var routes = result.routes
       var posts = posts_unsorted
-      createDirections(posts, map)
+      createDirections(routes, map)
     })
   }
 
-  function createDirections(posts, map) {
+  function createDirections(routes, map) {
     var waypts = []
     var last_point = ""
-    for (var i = 0; i < posts.length; i++) {
-      var center_point = {lat: parseFloat(posts[i].center_lat), lng: parseFloat(posts[i].center_lng)}
-      if (posts[i].poly_line != null) {
-        var lat_lng_path = google.maps.geometry.encoding.decodePath(posts[i].poly_line)
+    for (var i = 0; i < routes.length; i++) {
+      var center_point = {lat: parseFloat(routes[i].center_lat), lng: parseFloat(routes[i].center_lng)}
+      if (routes[i].poly_line != null) {
+        var lat_lng_path = google.maps.geometry.encoding.decodePath(routes[i].poly_line)
         createPolyline(lat_lng_path)
         // createMarker(map, center_point, "label", "html")
       }
-      if (parseInt(posts.length/2) === (i + 1) || posts.length === 1) {
+      if (parseInt(routes.length/2) === (i + 1) || routes.length === 1) {
         setCenter(center_point)
       }
       var address1_point = lat_lng_path[0]
       var address2_point = lat_lng_path[lat_lng_path.length -1]
-      var last_point_boolean = last_point === posts[i].address1
-      last_point = posts[i].address2
+      var last_point_boolean = last_point === routes[i].address1
+      last_point = routes[i].address2
       if (i === 0 ) {
         createMarker(map, address1_point, "label", "html")
         createMarker(map, address2_point, "label", "html")
-      } else if ( i === posts.length - 1 ) {
+      } else if ( i === routes.length - 1 ) {
         createMarker(map, address2_point, "label", "html")
         if (!last_point_boolean) {
           createMarker(map, address1_point, "label", "html")
@@ -66,30 +67,6 @@ $(function(){
         }
       }
     }
-    // directionsService.route({
-    //   origin: start,
-    //   destination: end,
-    //   waypoints: waypts,
-    //   optimizeWaypoints: true,
-    //   travelMode: 'DRIVING',
-    //   unitSystem: google.maps.UnitSystem.METRIC
-    // }, function(response, status) {
-    //   if (status === 'OK') {
-    //     renderDirections(response, map);
-    //     var infowindow = []
-    //     for (var i = 0; i < response.routes[0].legs.length; i++) {
-    //       infowindow[i] = new google.maps.InfoWindow();
-    //       var legs = response.routes[0].legs[i]
-    //       var distance = google.maps.geometry.spherical.interpolate(legs.start_location, legs.end_location, 0.5);
-    //       createMarker(map, distance, "label", "html")
-    //       // infowindow[i].setContent(legs.steps[0].distance.text + "<br>" + legs.steps[0].duration.text + " ");
-    //       // infowindow[i].setPosition(legs.steps[0].path[0]);
-    //       // infowindow[i].open(map);
-    //     }
-    //   } else {
-    //     window.alert('Directions request failed due to ' + status);
-    //   }
-    // });
   }
 
   function renderDirections(result, map) {
