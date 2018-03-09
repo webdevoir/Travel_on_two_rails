@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220043530) do
+ActiveRecord::Schema.define(version: 20180309035712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,14 @@ ActiveRecord::Schema.define(version: 20180220043530) do
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
 
+  create_table "point_of_interests", force: :cascade do |t|
+    t.integer  "route_id"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "post_groups", force: :cascade do |t|
     t.string   "month"
     t.string   "year"
@@ -117,6 +125,7 @@ ActiveRecord::Schema.define(version: 20180220043530) do
     t.string   "address1_lng"
     t.string   "address2_lat"
     t.string   "address2_lng"
+    t.integer  "route_id"
   end
 
   create_table "purchases", force: :cascade do |t|
@@ -126,6 +135,22 @@ ActiveRecord::Schema.define(version: 20180220043530) do
     t.datetime "updated_at",                       null: false
     t.boolean  "paid",             default: false
     t.string   "stripe_charge"
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "center_lat"
+    t.string   "center_lng"
+    t.text     "poly_line"
+    t.string   "address1_lat"
+    t.string   "address1_lng"
+    t.string   "address2_lat"
+    t.string   "address2_lng"
+    t.boolean  "public"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "distance"
   end
 
   create_table "stripe_accounts", force: :cascade do |t|

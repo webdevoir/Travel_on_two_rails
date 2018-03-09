@@ -71,6 +71,8 @@ Rails.application.routes.draw do
     get "fetch_post_planer/:id", to: "trip_planner#fetch_post", as: "fetch_post_planer"
   end
 
+  resources :routes
+
   resources :conversations do
     resources :messages
   end

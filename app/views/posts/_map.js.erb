@@ -1,0 +1,53 @@
+$(function(){
+
+  function initMap() {
+    // setting as global scope which might be bad
+      var lat_lng_hash = {lat: parseFloat(<%= @route.center_lat %>), lng: parseFloat(<%= @route.center_lng %>)}
+      map = new google.maps.Map(document.getElementById('new-post-map'), {
+        zoom: 9,
+        center: lat_lng_hash
+      });
+
+      var polyline = "<%= @route.poly_line %>"
+      var lat_lng_path = google.maps.geometry.encoding.decodePath(polyline)
+      var path = new google.maps.Polyline({
+        path: lat_lng_path,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      path.setMap(map)
+      createMarker(map, {lat: parseFloat(<%= @route.address1_lat %>), lng: parseFloat(<%= @route.address1_lng %>)})
+      createMarker(map, {lat: parseFloat(<%= @route.address2_lat %>), lng: parseFloat(<%= @route.address2_lng %>)})
+      // var center_lat_edit = $("#post_center_lat").val()
+      // var center_lng_edit = $("#post_center_lng").val()
+      // var lat_lng_hash = {lat: parseFloat(center_lat_edit), lng: parseFloat(center_lng_edit)}
+      // setCenter(lat_lng_hash)
+  }
+
+  function createMarker(map, latlng) {
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        zIndex: Math.round(latlng.lat*-100000)<<5
+        });
+        // marker.myname = label;
+
+    // google.maps.event.addListener(marker, 'click', function() {
+    //     infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6));
+    //     infowindow.open(map,marker);
+    //     });
+    return marker;
+  }
+
+  function setCenter(latlng) {
+    map.setCenter({
+      lat : latlng.lat,
+      lng : latlng.lng
+    });
+  }
+
+  initMap()
+})

@@ -1,6 +1,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
 </script>
-<%= javascript_include_tag "custom_directions" %>
+<script type="text/javascript">
+  <%= render partial: "map.js.erb", route: @route %>
+</script>
 
 <div id="wrapper-reg">
   <div class="container container-table <%= css_slug %>">

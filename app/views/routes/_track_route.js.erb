@@ -1,10 +1,6 @@
 $( document ).ready(function() {
 
   var count = 0
-  console.log("here fam")
-  console.log(<%= @track_or_upload_or_google %>)
-
-  $('#submit-map-button').prop('disabled', true);
 
   $("#add-waypoints").on("click", function(){
     count++
@@ -62,6 +58,11 @@ $( document ).ready(function() {
         savePolyLineString(response.routes[0].overview_polyline, distance)
         directionsDisplay.setDirections(response);
         $("#loading-image").css("display", "none")
+        $('#submit-map-button').css({
+          cursor: "pointer",
+          opacity: "1"
+        })
+        $('#submit-map-button').prop('disabled', false);
       } else {
         window.alert('Directions request failed due to ' + status);
         $("#loading-image").css("display", "none")
@@ -95,6 +96,8 @@ $( document ).ready(function() {
     // });
   })
 
+  $('#submit-map-button').prop('disabled', true);
+
   function readGpxPoints(gpxDoc) {
     var array_of_lat_lng = []
     var array = []
@@ -127,24 +130,22 @@ $( document ).ready(function() {
       directionsDisplay.setMap(map); // map should be already initialized.
       directionsService = new google.maps.DirectionsService();
 
-      input2.onkeyup = function(e) {
-        clearTimeout(timeout)
-        timeout = setTimeout(function(){
-          setMidPoints()
-        }, 2000)
-      }
-      // google.maps.event.addListener(autocomplete1, 'place_changed', function() {
-      //   if ($("#route_address2").val() != "") {
-      //     setMidPoints()
-      //   }
-      // });
-      input1.onkeyup = function(e) {
-        clearTimeout(timeout)
-        timeout = setTimeout(function(){
-          if ($("#route_address2").val() != "") {
+      if ("<%= @track_or_upload_or_google %>" === "google") {
+        input2.onkeyup = function(e) {
+          clearTimeout(timeout)
+          timeout = setTimeout(function(){
             setMidPoints()
-          }
-        }, 2000)
+          }, 2000)
+        }
+
+        input1.onkeyup = function(e) {
+          clearTimeout(timeout)
+          timeout = setTimeout(function(){
+            if ($("#route_address2").val() != "") {
+              setMidPoints()
+            }
+          }, 2000)
+        }
       }
 
       $("#directions_type").on("change", function(){
