@@ -17,5 +17,15 @@
         <%= f.submit "Save Route", class: "btn btn-primary" %>
       <% end %>
     </div>
+    <div class="col-sm-12">
+      <h1>Add POI</h1>
+      <%= form_for [@route, @point_of_interest] do |f| %>
+        <%= f.label "Latitude" %>
+        <%= f.text_field :latitude, class: "form-control" %>
+        <%= f.label "Longitude" %>
+        <%= f.text_field :longitude, class: "form-control" %>
+        <%= f.submit "Save POI", class: "btn btn-primary" %>
+      <% end %>
+    </div>
   </div>
 </div>
