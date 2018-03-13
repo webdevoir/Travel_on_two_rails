@@ -30,6 +30,7 @@ class RoutesController < ApplicationController
 
   def show
     @route = Route.find(params[:id])
+    @saved_route = SavedRoute.new()
   end
 
   # def fetch_route

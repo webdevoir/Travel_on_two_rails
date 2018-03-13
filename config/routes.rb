@@ -72,7 +72,7 @@ Rails.application.routes.draw do
   end
 
   resources :routes
-  resources :saved_routes, only: [:index]
+  resources :saved_routes, only: [:index, :create, :show, :destroy]
 
   resources :conversations do
     resources :messages

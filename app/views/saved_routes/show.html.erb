@@ -6,16 +6,13 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+      <h1>Your saved route page</h1>
       <div id="map-trip-planner">
 
       </div>
     </div>
     <div class="col-sm-12">
       <h3><%= @route.address1 %> - <%= @route.address2 %> </h3>
-      <%= form_for @saved_route do |f| %>
-        <%= hidden_field_tag 'route_id', @route.id %>
-        <%= f.submit "Save Route", class: "btn btn-primary" %>
-      <% end %>
     </div>
   </div>
 </div>
