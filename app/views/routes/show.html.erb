@@ -1,1 +1,17 @@
-<h1>show route page</h1>
+<script
+ src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=geometry">
+</script>
+<%= javascript_include_tag "route_map" %>
+<%= hidden_field_tag "route_polyline", @route.poly_line %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="map-trip-planner">
+
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <h3><%= @route.address1 %> - <%= @route.address2 %> </h3>
+    </div>
+  </div>
+</div>

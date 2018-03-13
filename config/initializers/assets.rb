@@ -12,3 +12,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( trip_planner.js )
 Rails.application.config.assets.precompile += %w( track_route.js )
 Rails.application.config.assets.precompile += %w( custom_directions.js )
+Rails.application.config.assets.precompile += %w( route_map.js )

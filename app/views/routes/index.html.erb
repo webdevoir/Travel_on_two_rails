@@ -37,39 +37,28 @@ $(function(){
     </div>
     <% end %>
     <div class="search-results">
-      <% if @found_trips.length == 0 %>
+      <% if @routes.length == 0 %>
       <div class="col-sm-9 user-search-column no-float no-float">
         <h1>There are no search resutls for that query, plase try again</h1>
       </div>
       <% else %>
-        <% @found_trips.each do |trip| %>
+        <% @routes.each do |route| %>
           <div class="col-sm-9 user-search-column">
             <div class="row">
               <div class="col-sm-4">
-                <% if trip.photo.url == nil %>
-                  <a href="<%= trip_path(trip) %>" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
-                <% else %>
-                  <div class="user-thumb-image">
-                    <a href="<%= trip_path(trip) %>">
-                      <%= image_tag trip.photo.url, :class => "user-cover-photo img-thumbnail" %>
-                    </a>
-                  </div>
-                <% end %>
+                <div class="user-thumb-image">
+                  <a href="<%= route_path(route) %>" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
+                </div>
               </div>
               <div class="col-sm-7 col-sm-offset-1">
                 <h3>
-                  <%= link_to trip.trip_name, controller: "trips", action: "show", id: trip.id %>
+                  <%= link_to route.address1, controller: "routes", action: "show", id: route.id %>
                 </h3>
                 <div class="user-description">
-                  <p><%= trip.user.name %></p>
+                  <p>ROUTE</p>
                 </div>
-                <% unless trip.description == nil  %>
-                  <div class="user-description">
-                    <p><%= trip.description %></p>
-                  </div>
-                <% end %>
                 <div class="user-description">
-                  <p><%= trip.start %>, <%= trip.end %></p>
+                  <p><%= route.address1 %>, <%= route.address2 %></p>
                 </div>
               </div>
             </div>
