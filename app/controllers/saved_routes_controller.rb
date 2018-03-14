@@ -6,6 +6,7 @@ class SavedRoutesController < ApplicationController
 
   def show
     @route = Route.find(params[:id])
+    @trips = @current_user.trips
   end
 
   def create
@@ -19,5 +20,9 @@ class SavedRoutesController < ApplicationController
     else
       redirect_to route_path(@route)
     end
+  end
+
+  def destroy
+    #code
   end
 end

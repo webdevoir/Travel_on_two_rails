@@ -25,3 +25,4 @@
 //= require trips
 //= require verify_card
 //= require home
+//= require saved_routes

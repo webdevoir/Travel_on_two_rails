@@ -30,9 +30,10 @@ $(function(){
     createPolyline(lat_lng_path)
     var address1_point = lat_lng_path[0]
     var address2_point = lat_lng_path[lat_lng_path.length -1]
-    createMarker(map, address1_point, "label", "html")
-    createMarker(map, address2_point, "label", "html")
+    createMarker(map, address1_point, "label", "html", null)
+    createMarker(map, address2_point, "label", "html", null)
     var center_point = lat_lng_path[Math.round(lat_lng_path.length/2)]
+    setPOI()
     setCenter(center_point)
   }
 
@@ -40,6 +41,18 @@ $(function(){
     var directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
     directionsRenderer.setDirections(result);
+  }
+
+  function setPOI() {
+    var id = $("#route_id").val()
+    $.ajax({
+      url: "/routes/"+id+"/fetch_pois",
+    }).done(function(result){
+      var pois = result.pois
+      for (var i = 0; i < pois.length; i++) {
+        createMarker(map, {lat: parseFloat(pois[i].latitude), lng: parseFloat(pois[i].longitude)}, "label", "html", pois[i])
+      }
+    })
   }
 
   function createPolyline(lat_lng_path) {
@@ -54,8 +67,7 @@ $(function(){
     path.setMap(map)
   }
 
-  function createMarker(map, latlng, label, html) {
-    var contentString = '<b>'+label+'</b><br>'+html;
+  function createMarker(map, latlng, label, html, poi) {
     var marker = new google.maps.Marker({
         position: latlng,
         map: map,
@@ -64,10 +76,20 @@ $(function(){
         });
         marker.myname = label;
 
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(contentString+"<br>"+marker.getPosition().toUrlValue(6));
-        infowindow.open(map,marker);
-        });
+    if (poi != null) {
+      var contentString = "<h3 class='info-title'>" +
+                            poi.category +
+                          "</h3>" +
+                          "<p class='info-text'>" +
+                            poi.info +
+                          "</p>"
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      })
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+      });
+    }
     return marker;
   }
 

@@ -73,6 +73,7 @@ Rails.application.routes.draw do
 
   resources :routes do
     resources :point_of_interests, only: [:create, :destroy]
+    get :fetch_pois
   end
   resources :saved_routes, only: [:index, :create, :show, :destroy]
 

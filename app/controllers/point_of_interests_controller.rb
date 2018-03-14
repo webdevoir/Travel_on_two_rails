@@ -19,6 +19,6 @@ class PointOfInterestsController < ApplicationController
 
   private
   def point_of_interest_params
-    params.require(:point_of_interest).permit(:latitude, :longitude)
+    params.require(:point_of_interest).permit(:latitude, :longitude, :type, :category, :info)
   end
 end

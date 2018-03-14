@@ -20,6 +20,10 @@
     <div class="col-sm-12">
       <h1>Add POI</h1>
       <%= form_for [@route, @point_of_interest] do |f| %>
+        <%= f.label "Category" %>
+        <%= f.text_field :category, class: "form-control" %>
+        <%= f.label "Info" %>
+        <%= f.text_field :info, class: "form-control" %>
         <%= f.label "Latitude" %>
         <%= f.text_field :latitude, class: "form-control" %>
         <%= f.label "Longitude" %>

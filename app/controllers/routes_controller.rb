@@ -34,10 +34,11 @@ class RoutesController < ApplicationController
     @point_of_interest = PointOfInterest.new()
   end
 
-  # def fetch_route
-  #   @route = Trip.find(params[:route_id])
-  #   render(json: { "posts" => @posts, "trip" => @trip, "routes" => @routes }.to_json)
-  # end
+  def fetch_pois
+    @route = Route.find(params[:route_id])
+    @pois = @route.point_of_interests
+    render(json: { "pois" => @pois }.to_json)
+  end
 
   private
   def route_params
