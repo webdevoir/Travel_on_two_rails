@@ -239,6 +239,9 @@ GEM
       json
       multi_json
       request_store (>= 1.0.5)
+    gpx (1.0.0)
+      nokogiri (~> 1.7)
+      rake
     groupdate (3.2.0)
       activesupport (>= 3)
     hashie (3.5.5)
@@ -432,6 +435,7 @@ DEPENDENCIES
   figaro
   fog
   gon (~> 5.1.2)
+  gpx
   groupdate
   jbuilder (~> 2.5)
   jquery-rails

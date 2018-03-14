@@ -40,6 +40,14 @@ class RoutesController < ApplicationController
     render(json: { "pois" => @pois }.to_json)
   end
 
+  def export_gpx_file
+    @route = Route.find(params[:route_id])
+    respond_to do |format|
+      format.html
+      format.gpx { send_data @route.to_gpx, filename: "#{@route.address1 = @route.address2}.gpx" }
+    end
+  end
+
   private
   def route_params
     params.require(:route).permit(:address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address2_lng, :poly_line, :distance)
@@ -103,5 +111,38 @@ class RoutesController < ApplicationController
     else
       return true
     end
+  end
+
+  def decode(polyline)
+    points = []
+    index = lat = lng = 0
+
+    while index < polyline.length
+      result = 1
+      shift = 0
+      while true
+        b = polyline[index].ord - 63 - 1
+        index += 1
+        result += b << shift
+        shift += 5
+        break if b < 0x1f
+      end
+      lat += (result & 1) != 0 ? (~result >> 1) : (result >> 1)
+
+      result = 1
+      shift = 0
+      while true
+        b = polyline[index].ord - 63 - 1
+        index += 1
+        result += b << shift
+        shift += 5
+        break if b < 0x1f
+      end
+      lng += (result & 1) != 0 ? ~(result >> 1) : (result >> 1)
+
+      points << {lat: lat * 1e-5, lng: lng * 1e-5}
+    end
+
+    points
   end
 end
