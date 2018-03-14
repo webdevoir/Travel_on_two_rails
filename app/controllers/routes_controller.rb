@@ -3,7 +3,7 @@ class RoutesController < ApplicationController
   # note params[:type] can be google, upload, or track
   def new
     @route = Route.new()
-    @route = route.find(params[:route_id])
+    @trip = Trip.find(params[:trip_id])
     @track_or_upload_or_google = params[:type]
   end
 
