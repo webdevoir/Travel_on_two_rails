@@ -33,6 +33,7 @@ gem 'devise'
 gem 'omniauth-stripe-connect'
 gem "stripe"
 gem "stripe_event"
+gem 'gpx'
 
 gem 'rack-cors', :require => 'rack/cors'
 

@@ -7,7 +7,12 @@
       <div id="user-information">
         <%= render "user_information" %>
       </div>
-      <div id="trips">
+      <% if @current_user.id == @user.id %>
+        <div class="saved-routes">
+          <%= link_to 'Saved routes', saved_routes_path, class: "btn btn-primary" %>
+        </div>
+      <% end %>
+      <div id="trips-profile">
         <%= render "trip_boxes" %>
       </div>
     </div>

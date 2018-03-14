@@ -1,0 +1,35 @@
+<script
+ src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=geometry">
+</script>
+<%= javascript_include_tag "route_map" %>
+<%= hidden_field_tag "route_polyline", @route.poly_line %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="map-trip-planner">
+
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <h3><%= @route.address1 %> - <%= @route.address2 %> </h3>
+      <%= form_for @saved_route do |f| %>
+        <%= hidden_field_tag 'route_id', @route.id %>
+        <%= f.submit "Save Route", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class="col-sm-12">
+      <h1>Add POI</h1>
+      <%= form_for [@route, @point_of_interest] do |f| %>
+        <%= f.label "Category" %>
+        <%= f.text_field :category, class: "form-control" %>
+        <%= f.label "Info" %>
+        <%= f.text_field :info, class: "form-control" %>
+        <%= f.label "Latitude" %>
+        <%= f.text_field :latitude, class: "form-control" %>
+        <%= f.label "Longitude" %>
+        <%= f.text_field :longitude, class: "form-control" %>
+        <%= f.submit "Save POI", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

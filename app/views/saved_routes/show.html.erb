@@ -1,0 +1,26 @@
+<script
+ src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=geometry">
+</script>
+<%= javascript_include_tag "route_map" %>
+<%= hidden_field_tag "route_polyline", @route.poly_line %>
+<%= hidden_field_tag "route_id", @route.id %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Your saved route page</h1>
+      <div id="map-trip-planner">
+
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <h3><%= @route.address1 %> - <%= @route.address2 %> </h3>
+    </div>
+    <div class="col-sm-12">
+      <div class="add-to-trip">
+        <h3>Add this route to your trip</h3>
+        <%= select_tag "trips", options_from_collection_for_select(@trips, "id", "trip_name"), class: "form-control" %>
+        <button type="button" name="button" class="btn btn-primary" id="add-route-button">ADD ROUTE</button>
+      </div>
+    </div>
+  </div>
+</div>

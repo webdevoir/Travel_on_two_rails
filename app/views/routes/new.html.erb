@@ -1,0 +1,59 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
+</script>
+<script type="text/javascript">
+  <%= render partial: "track_route.js.erb", track_or_upload_or_google: @track_or_upload_or_google %>
+</script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <% if @track_or_upload == "upload" %>
+        <h1>Upload GPS File</h1>
+      <% else %>
+        <h1>Track Route</h1>
+      <% end %>
+    </div>
+    <div class="col-sm-12">
+      <% if @track_or_upload_or_google == "upload" %>
+        <%= render "upload_gps" %>
+      <% elsif @track_or_upload_or_google == "track" %>
+        <%= render "track_route_map" %>
+      <% else %>
+        <%= render "google" %>
+      <% end %>
+    </div>
+    <div class="col-sm-12">
+      <div id="map-track-route">
+      </div>
+      <%= form_for @route do |f| %>
+        <%= hidden_field_tag :distance %>
+        <%= hidden_field_tag :trip_id, @trip.id %>
+        <div class="field-title" id="start-point">
+          <%= f.label :address1, "Enter starting point!" %>
+          <%= f.text_field :address1, class: "form-control"%>
+        </div>
+        <% if @track_or_upload_or_google == "google" %>
+          <button id="add-waypoints" type="button" name="button" class="btn btn-primary">Add WayPoint</button>
+        <% end %>
+        <div class="field-title">
+          <%= f.label :address2, "Enter end point here!" %>
+          <%= f.text_field :address2, class: "form-control" %>
+        </div>
+        <% if @track_or_upload_or_google == "google" %>
+          <div class="field-title">
+            <%= label_tag "Chose google maps directions type" %>
+            <%= select_tag "directions_type", "<option>Bicycling</option><option>Driving</option>".html_safe, class: "form-control" %>
+          </div>
+        <% end %>
+        <%= f.hidden_field :center_lng %>
+        <%= f.hidden_field :center_lat %>
+        <%= f.hidden_field :address1_lng %>
+        <%= f.hidden_field :address1_lat %>
+        <%= f.hidden_field :address2_lng %>
+        <%= f.hidden_field :address2_lat %>
+        <%= f.hidden_field :poly_line %>
+        <%= f.submit "Submit", :class => "btn btn-submit", :id => "submit-map-button" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -68,7 +68,8 @@ class TripsController < ApplicationController
   def fetch_posts
     @trip = Trip.find(params[:trip_id])
     @posts = sort_posts(@trip)
-    render(json: { "posts" => @posts, "trip" => @trip }.to_json)
+    @routes = get_routes(@posts)
+    render(json: { "posts" => @posts, "trip" => @trip, "routes" => @routes }.to_json)
   end
 
   private
@@ -105,6 +106,16 @@ class TripsController < ApplicationController
     else
       return percent*100.0
     end
+  end
+
+  def get_routes(posts)
+    routes_array = []
+    posts.each do |post|
+      if post.route != nil
+        routes_array << post.route
+      end
+    end
+    return routes_array
   end
 
   def sort_posts(trip)

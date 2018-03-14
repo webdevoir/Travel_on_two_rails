@@ -29,7 +29,11 @@ class SearchController < ApplicationController
 
   def location_search
     @trips = Trip.all
-    @found_trips = distance_from_points(@trips, params[:start], params[:end])
+    if exists(params[:start]) && exists(params[:end])
+      @found_trips = distance_from_points(@trips, params[:start], params[:end])
+    else
+      @found_trips = []
+    end
   end
 
 

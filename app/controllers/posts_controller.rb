@@ -6,6 +6,7 @@ class PostsController < ApplicationController
     @post = Post.new
     1.times { @post.post_pictures.build}
     @date_string = ""
+    @route = Route.find(params[:route_id])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @article }
@@ -13,6 +14,7 @@ class PostsController < ApplicationController
   end
 
   def create
+    @route = Route.find(params[:route_id])
     date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
     year = date.year
     day = date.day
@@ -35,32 +37,20 @@ class PostsController < ApplicationController
       @post = @trip.posts.build(post_params)
       @post.post_group_id = @post_group.id
       @post.day = day.to_s
-      if params[:distance] == nil
-        distance, polyline = post_distance(@post)
+      @post.route_id = @route.id
+      if @post.save
+        @trip.total_distance += @route.distance
+        @trip.save
+        send_email_to_followers(@trip, @post)
+        # unless params[:post_pictures] == nil
+        #   params[:post_pictures]['image'].each do |img|
+        #     @post_picture = @post.post_pictures.create!(:picture => img)
+        #   end
+        # end
+        redirect_to new_trip_post_post_picture_path(@trip, @post)
       else
-        distance = (params[:distance].to_f/1000).round
-        polyline = params[:post][:poly_line]
-      end
-      @post.distance = distance
-      @post.poly_line = polyline
-      if distance == false
         flash[:error]
         render :new
-      else
-        if @post.save
-          @trip.total_distance += @post.distance
-          @trip.save
-          send_email_to_followers(@trip, @post)
-          # unless params[:post_pictures] == nil
-          #   params[:post_pictures]['image'].each do |img|
-          #     @post_picture = @post.post_pictures.create!(:picture => img)
-          #   end
-          # end
-          redirect_to new_trip_post_post_picture_path(@trip, @post)
-          else
-            flash[:error]
-            render :new
-          end
       end
     end
   end
@@ -149,7 +139,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:post_title, :post_content, :address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address2_lng)
+    params.require(:post).permit(:post_title, :post_content)
   end
 
   def post_picture_params

@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :followed_blogs
   has_many :blogs_followed, class_name: "FollowedBlog", foreign_key: :blog_owner_id
   has_one :stripe_account
+  has_many :routes, through: :saved_routes
+  has_many :saved_routes
 
 
   def has_payment_info?

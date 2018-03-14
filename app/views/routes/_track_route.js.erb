@@ -1,0 +1,298 @@
+$( document ).ready(function() {
+
+  var count = 0
+
+  $("#add-waypoints").on("click", function(){
+    count++
+    if (count === 1) {
+      $("#start-point").after(
+        "<div class='field-title' id='way-point-" + count.toString() + "'>" +
+          "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
+          "<input id='way-point-input-"+ count.toString() +"' class='form-control way-point' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+        "</div>"
+      )
+    } else {
+      $("#way-point-" + (count - 1).toString()).after(
+        "<div class='field-title' id='way-point-" + count.toString() + "'>" +
+          "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
+          "<input id='way-point-input-"+ count.toString() +"' class='form-control way-point' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+        "</div>"
+      )
+    }
+    var timeout = null
+    var input = document.getElementById("way-point-input-"+ count.toString())
+    var autocomplete_input = new google.maps.places.Autocomplete(input);
+    input.onkeyup = function(e) {
+      clearTimeout(timeout)
+      timeout = setTimeout(function(){
+        calculateAndDisplayRoute(directionsService, directionsDisplay, $("#route_address1").val(), $("#route_address2").val());
+      }, 2000)
+    }
+  })
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+    var waypts = [];
+    var wayPointsArray = $(".way-point");
+    for (var i = 0; i < wayPointsArray.length; i++) {
+      var input = $(wayPointsArray[i])
+      if (input.val() != "") {
+        waypts.push({
+          location: input.val(),
+          stopover: false
+        });
+      }
+    }
+    var selectedMode = document.getElementById('directions_type').value.toUpperCase();
+    directionsService.route({
+      origin: pointA,
+      destination: pointB,
+      waypoints: waypts,
+      travelMode: google.maps.TravelMode[selectedMode]
+    }, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        var distance = 0
+        var detail_response = response.routes[0]
+        for (var i = 0; i < detail_response.legs.length; i++) {
+          distance += detail_response.legs[i].distance.value
+        }
+        savePolyLineString(response.routes[0].overview_polyline, distance)
+        directionsDisplay.setDirections(response);
+        $("#loading-image").css("display", "none")
+        $('#submit-map-button').css({
+          cursor: "pointer",
+          opacity: "1"
+        })
+        $('#submit-map-button').prop('disabled', false);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+        $("#loading-image").css("display", "none")
+      }
+    });
+  }
+
+  $("#gpx-upload").on("change", function(){
+    var xml = $(this)[0].files[0]
+
+    var reader = new FileReader()
+
+    reader.onload = function(e) {
+      try {
+        var gpxDoc = $($.parseXML(reader.result));
+        readGpxPoints(gpxDoc);
+      } catch (err) {
+        $("#processing-overlay").hide();
+        alert("Uh oh. Looks like there's something wrong with the GPX file...\n\n" + err);
+      }
+    };
+
+
+    reader.readAsText(xml)
+    // $(xml).find("trkpt").each(function () {
+    //    var lat = $(this).attr("lat");
+    //    var lon = $(this).attr("lon");
+    //    var p = new google.maps.LatLng(lat, lon);
+    //    points.push(p);
+    //    bounds.extend(p);
+    // });
+  })
+
+  $('#submit-map-button').prop('disabled', true);
+
+  function readGpxPoints(gpxDoc) {
+    var array_of_lat_lng = []
+    var array = []
+    $("gpx:root>trk>trkseg", gpxDoc).each(function(i, e) {
+      $(e).children("trkpt").each(function(i, e) {
+        var lat = parseFloat($(e).attr("lat"));
+        var lon = parseFloat($(e).attr("lon"));
+        var ll = new google.maps.LatLng(lat, lon)
+        array_of_lat_lng.push(ll)
+      })
+    })
+    drawPolyLine(array_of_lat_lng, "gps")
+  }
+
+  function initMapTrack() {
+    // setting as global scope which might be bad
+    getLocation(function(pos) {
+      var uluru = pos;
+      map = new google.maps.Map(document.getElementById('map-track-route'), {
+        zoom: 11,
+        center: uluru
+      });
+      var input1 = document.getElementById('route_address1');
+      var input2 = document.getElementById('route_address2');
+      var timeout = null
+      var autocomplete1 = new google.maps.places.Autocomplete(input1);
+      var autocomplete2 = new google.maps.places.Autocomplete(input2);
+      geocoder = new google.maps.Geocoder();
+      directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(map); // map should be already initialized.
+      directionsService = new google.maps.DirectionsService();
+
+      if ("<%= @track_or_upload_or_google %>" === "google") {
+        input2.onkeyup = function(e) {
+          clearTimeout(timeout)
+          timeout = setTimeout(function(){
+            setMidPoints()
+          }, 2000)
+        }
+
+        input1.onkeyup = function(e) {
+          clearTimeout(timeout)
+          timeout = setTimeout(function(){
+            if ($("#route_address2").val() != "") {
+              setMidPoints()
+            }
+          }, 2000)
+        }
+      }
+
+      $("#directions_type").on("change", function(){
+        if (window.location.href.substr(window.location.href.length - 4) != "edit" || $("#change_route").is(':checked')) {
+          if ($("#route_address1").val() != "" && $("#route_address2").val() != "") {
+            calculateAndDisplayRoute(directionsService, directionsDisplay, $("#route_address1").val(), $("#route_address2").val());
+          }
+        }
+      })
+
+      $("#track-route").on("click", function(){
+        var pleaseWait = $('#pleaseWaitDialog');
+        pleaseWait.modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        pleaseWait.modal('show');
+        var array_of_arrays = []
+        var array = []
+        var trackRoute = setInterval(function() {
+          getLocation(function(pos){
+            array.push(pos)
+          })
+        }, 1 * 1000); // 60 * 1000 milsec
+        $("#stop-track-route").on("click", function(){
+          pleaseWait.modal('hide');
+          clearInterval(trackRoute);
+          drawPolyLine(array)
+        })
+      })
+    })
+  }
+
+  function getRoadsPoints(array_of_arrays) {
+    var hash = { snappedPoints: [] }
+    var count = 0
+    for (var i = 0; i < array_of_arrays.length; i++) {
+      $.get('https://roads.googleapis.com/v1/snapToRoads', {
+        interpolate: true,
+        key: "<%= ENV['GOOGLE_MAPS_API'] %>",
+        path: array_of_arrays[i].join('|')
+      }, function(data) {
+        count++;
+        hash.snappedPoints = hash.snappedPoints.concat(data.snappedPoints)
+        if (count === array_of_arrays.length) {
+          drawPolyLine(hash);
+        }
+      });
+    }
+    // this is getting run before loop is finished cause it's an async call but shouldn't do that
+  }
+
+  function setMidPoints() {
+    $("#loading-image").css("display", "block")
+    geocoder.geocode({'address': $("#route_address1").val()}, function(results, status) {
+      if (status === 'OK') {
+        var lat_lng_1 = results[0].geometry.location
+        $("#route_address1_lng").val(lat_lng_1.lng())
+        $("#route_address1_lat").val(lat_lng_1.lat())
+        geocoder.geocode({'address': $("#route_address2").val()}, function(results, status) {
+          if (status === 'OK') {
+            var lat_lng_2 = results[0].geometry.location
+            $("#route_address2_lng").val(lat_lng_2.lng())
+            $("#route_address2_lat").val(lat_lng_2.lat())
+            calculateAndDisplayRoute(directionsService, directionsDisplay, $("#route_address1").val(), $("#route_address2").val());
+            var distance = google.maps.geometry.spherical.interpolate(lat_lng_1, lat_lng_2, 0.5);
+            $("#route_center_lng").val(distance.lng())
+            $("#route_center_lat").val(distance.lat())
+            $("#loading-image").css("display", "none")
+          } else {
+            $("#loading-image").css("display", "none")
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      } else {
+        $("#loading-image").css("display", "none")
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+  function drawPolyLine(array, gps) {
+    var snappedCoordinates = [];
+    gps = typeof gps !== 'undefined' ? gps : false;
+    if (!(gps)) {
+      for (var i = 0; i < array.length; i++) {
+        var latlng = new google.maps.LatLng(
+            array[i].lat,
+            array[i].lng);
+        snappedCoordinates.push(latlng);
+      }
+    } else {
+      snappedCoordinates = array
+    }
+    var path = new google.maps.Polyline({
+      path: snappedCoordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+
+    path.setMap(map)
+    savePolyLineString(google.maps.geometry.encoding.encodePath(snappedCoordinates), google.maps.geometry.spherical.computeLength(path.getPath().getArray()))
+    var array_mid_value = snappedCoordinates[parseInt(snappedCoordinates.length/2)]
+    newLocation(array_mid_value.lat(), array_mid_value.lng())
+  }
+
+  function savePolyLineString(string, distance) {
+    $("#route_poly_line").val(string)
+    $("#distance").val(distance)
+  }
+
+  function newLocation(newLat,newLng) {
+    map.setCenter({
+      lat : newLat,
+      lng : newLng
+    });
+    map.setZoom(11)
+    $('#submit-map-button').css({
+      cursor: "inherit",
+      opacity: "1"
+    })
+    $('#submit-map-button').prop('disabled', false);
+  }
+
+  function getLocation(callback) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        callback(pos);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  }
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    alert("Some stuff went wrong")
+  }
+
+  initMapTrack()
+
+})

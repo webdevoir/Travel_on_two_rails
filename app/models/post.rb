@@ -3,6 +3,7 @@ class Post < ApplicationRecord
 
   belongs_to :post_group
   belongs_to :trip
+  belongs_to :route
   has_many :post_pictures
 
   accepts_nested_attributes_for :post_pictures, allow_destroy: true

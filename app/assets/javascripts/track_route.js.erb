@@ -1,5 +1,74 @@
 $( document ).ready(function() {
 
+  var count = 0
+  console.log("here fam")
+  console.log(<%= @track_or_upload_or_google %>)
+
+  $('#submit-map-button').prop('disabled', true);
+
+  $("#add-waypoints").on("click", function(){
+    count++
+    if (count === 1) {
+      $("#start-point").after(
+        "<div class='field-title' id='way-point-" + count.toString() + "'>" +
+          "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
+          "<input id='way-point-input-"+ count.toString() +"' class='form-control way-point' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+        "</div>"
+      )
+    } else {
+      $("#way-point-" + (count - 1).toString()).after(
+        "<div class='field-title' id='way-point-" + count.toString() + "'>" +
+          "<label for='waypoint-" + count.toString() + "'>Waypoint " + count.toString() + "</label>" +
+          "<input id='way-point-input-"+ count.toString() +"' class='form-control way-point' type='text' name='waypoint-" + count.toString() + "' placeholder='Enter a location' autocomplete='off'>" +
+        "</div>"
+      )
+    }
+    var timeout = null
+    var input = document.getElementById("way-point-input-"+ count.toString())
+    var autocomplete_input = new google.maps.places.Autocomplete(input);
+    input.onkeyup = function(e) {
+      clearTimeout(timeout)
+      timeout = setTimeout(function(){
+        calculateAndDisplayRoute(directionsService, directionsDisplay, $("#route_address1").val(), $("#route_address2").val());
+      }, 2000)
+    }
+  })
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+    var waypts = [];
+    var wayPointsArray = $(".way-point");
+    for (var i = 0; i < wayPointsArray.length; i++) {
+      var input = $(wayPointsArray[i])
+      if (input.val() != "") {
+        waypts.push({
+          location: input.val(),
+          stopover: false
+        });
+      }
+    }
+    var selectedMode = document.getElementById('directions_type').value.toUpperCase();
+    directionsService.route({
+      origin: pointA,
+      destination: pointB,
+      waypoints: waypts,
+      travelMode: google.maps.TravelMode[selectedMode]
+    }, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        var distance = 0
+        var detail_response = response.routes[0]
+        for (var i = 0; i < detail_response.legs.length; i++) {
+          distance += detail_response.legs[i].distance.value
+        }
+        savePolyLineString(response.routes[0].overview_polyline, distance)
+        directionsDisplay.setDirections(response);
+        $("#loading-image").css("display", "none")
+      } else {
+        window.alert('Directions request failed due to ' + status);
+        $("#loading-image").css("display", "none")
+      }
+    });
+  }
+
   $("#gpx-upload").on("change", function(){
     var xml = $(this)[0].files[0]
 
@@ -26,8 +95,6 @@ $( document ).ready(function() {
     // });
   })
 
-  $('#submit-map-button').prop('disabled', true);
-
   function readGpxPoints(gpxDoc) {
     var array_of_lat_lng = []
     var array = []
@@ -50,6 +117,43 @@ $( document ).ready(function() {
         zoom: 11,
         center: uluru
       });
+      var input1 = document.getElementById('route_address1');
+      var input2 = document.getElementById('route_address2');
+      var timeout = null
+      var autocomplete1 = new google.maps.places.Autocomplete(input1);
+      var autocomplete2 = new google.maps.places.Autocomplete(input2);
+      geocoder = new google.maps.Geocoder();
+      directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(map); // map should be already initialized.
+      directionsService = new google.maps.DirectionsService();
+
+      input2.onkeyup = function(e) {
+        clearTimeout(timeout)
+        timeout = setTimeout(function(){
+          setMidPoints()
+        }, 2000)
+      }
+      // google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+      //   if ($("#route_address2").val() != "") {
+      //     setMidPoints()
+      //   }
+      // });
+      input1.onkeyup = function(e) {
+        clearTimeout(timeout)
+        timeout = setTimeout(function(){
+          if ($("#route_address2").val() != "") {
+            setMidPoints()
+          }
+        }, 2000)
+      }
+
+      $("#directions_type").on("change", function(){
+        if (window.location.href.substr(window.location.href.length - 4) != "edit" || $("#change_route").is(':checked')) {
+          if ($("#route_address1").val() != "" && $("#route_address2").val() != "") {
+            calculateAndDisplayRoute(directionsService, directionsDisplay, $("#route_address1").val(), $("#route_address2").val());
+          }
+        }
+      })
 
       $("#track-route").on("click", function(){
         var pleaseWait = $('#pleaseWaitDialog');
@@ -93,6 +197,35 @@ $( document ).ready(function() {
     // this is getting run before loop is finished cause it's an async call but shouldn't do that
   }
 
+  function setMidPoints() {
+    $("#loading-image").css("display", "block")
+    geocoder.geocode({'address': $("#route_address1").val()}, function(results, status) {
+      if (status === 'OK') {
+        var lat_lng_1 = results[0].geometry.location
+        $("#route_address1_lng").val(lat_lng_1.lng())
+        $("#route_address1_lat").val(lat_lng_1.lat())
+        geocoder.geocode({'address': $("#route_address2").val()}, function(results, status) {
+          if (status === 'OK') {
+            var lat_lng_2 = results[0].geometry.location
+            $("#route_address2_lng").val(lat_lng_2.lng())
+            $("#route_address2_lat").val(lat_lng_2.lat())
+            calculateAndDisplayRoute(directionsService, directionsDisplay, $("#route_address1").val(), $("#route_address2").val());
+            var distance = google.maps.geometry.spherical.interpolate(lat_lng_1, lat_lng_2, 0.5);
+            $("#route_center_lng").val(distance.lng())
+            $("#route_center_lat").val(distance.lat())
+            $("#loading-image").css("display", "none")
+          } else {
+            $("#loading-image").css("display", "none")
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      } else {
+        $("#loading-image").css("display", "none")
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
   function drawPolyLine(array, gps) {
     var snappedCoordinates = [];
     gps = typeof gps !== 'undefined' ? gps : false;
@@ -121,7 +254,7 @@ $( document ).ready(function() {
   }
 
   function savePolyLineString(string, distance) {
-    $("#post_poly_line").val(string)
+    $("#route_poly_line").val(string)
     $("#distance").val(distance)
   }
 

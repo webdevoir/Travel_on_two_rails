@@ -1,28 +1,81 @@
-<div class="container">
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
+</script>
+<script type="text/javascript">
+$(function(){
+  function initialize() {
+
+    var input1 = document.getElementById('start');
+    var input2 = document.getElementById('end');
+    var autocomplete1 = new google.maps.places.Autocomplete(input1);
+    var autocomplete2 = new google.maps.places.Autocomplete(input2);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+})
+</script>
+<div class="container search-container">
   <div class="row">
-    <div class="col-sm-12">
-      <h3>Found Blogs</h3>
+    <%= form_for search_path, method: :get do |f| %>
+    <div class="col-xs-12 search-column">
+        <p>
+          <%= text_field_tag :q, params[:q], :class => "form-control search-text-input", placeholder: 'Search' %>
+          <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp search-page-button" %>
+        </p>
     </div>
-      <% @found_trips.each do |found_trip| %>
-      <div class="col-sm-12 user-search-column">
-        <div class="row">
-          <div class="col-sm-3">
-            <% if found_trip.photo.url == nil %>
-                <a href="http://placehold.it" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
-            <% else %>
-                <%= image_tag found_trip.photo.url, :class => "user-cover-photo img-rounded" %>
-            <% end %>
-          </div>
-          <div class="col-sm-3">
-            <h1><%= link_to found_trip.trip_name, trip_path(found_trip) %></h1>
-          </div>
-          <div class="col-sm-5 col-sm-offset-1">
-            <p>
-              <%= found_trip.description %>
-            </p>
-          </div>
-        </div>
+  </div>
+  <div class="row search-body-row">
+    <div class="col-sm-3 advance-search">
+      <div class="advance-search-box">
+        <h3>Advance Search</h3>
+          <p>
+            <%= text_field_tag :start, params[:start], :class => "form-control", placeholder: 'Start' %>
+          </p>
+          <p>
+            <%= text_field_tag :end, params[:end], :class => "form-control", placeholder: 'End' %>
+          </p>
+          <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp" %>
       </div>
+    </div>
     <% end %>
+    <div class="search-results">
+      <% if @found_trips.length == 0 %>
+      <div class="col-sm-9 user-search-column no-float no-float">
+        <h1>There are no search resutls for that query, plase try again</h1>
+      </div>
+      <% else %>
+        <% @found_trips.each do |trip| %>
+          <div class="col-sm-9 user-search-column">
+            <div class="row">
+              <div class="col-sm-4">
+                <% if trip.photo.url == nil %>
+                  <a href="<%= trip_path(trip) %>" class="profile-image"><%= image_tag "missing.png", :class=> "img-thumbnail" %></a>
+                <% else %>
+                  <div class="user-thumb-image">
+                    <a href="<%= trip_path(trip) %>">
+                      <%= image_tag trip.photo.url, :class => "user-cover-photo img-thumbnail" %>
+                    </a>
+                  </div>
+                <% end %>
+              </div>
+              <div class="col-sm-7 col-sm-offset-1">
+                <h3>
+                  <%= link_to trip.trip_name, controller: "trips", action: "show", id: trip.id %>
+                </h3>
+                <div class="user-description">
+                  <p><%= trip.user.name %></p>
+                </div>
+                <% unless trip.description == nil  %>
+                  <div class="user-description">
+                    <p><%= trip.description %></p>
+                  </div>
+                <% end %>
+                <div class="user-description">
+                  <p><%= trip.start %>, <%= trip.end %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
