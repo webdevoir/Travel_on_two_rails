@@ -6,9 +6,9 @@
           <h1 id="homeHeading"><%= t("homepage.lander") %></h1>
           <hr>
           <p><%= t("homepage.lander_text") %></p>
-          <!-- <%# button_to('Go To Your Page', user_path(@user_id), :class => 'btn btn-warning btn-lg btn-secondary sharp', :method => :get) %> -->
           <div class="button-group">
-            <%= button_to(t("homepage.go_to_page"), user_path(@user_id), :class => 'btn btn-primary btn-xl ', :method => :get) %>
+            <button type="button" id="search-route-homepage" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#route_explorer_modal"><%= t("homepage.go_to_page") %></button>
+            <!-- <%# button_to(t("homepage.go_to_page"), user_path(@user_id), :class => 'btn btn-primary btn-xl ', :method => :get) %> -->
             <button type="button" id="search-trip-homepage" name="button" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#trip_explorer_modal">Search Trips</button>
           </div>
         <% else %>
@@ -25,6 +25,7 @@
     </div>
   </header>
   <%= render "trip_explorer_modal" %>
+  <%= render "route_explorer_modal" %>
   <% if @featured_trips.length > 0 %>
     <section class="bg-primary" id="about">
       <div class="container new-trips-container">

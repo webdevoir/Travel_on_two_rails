@@ -4,8 +4,8 @@
 $(function(){
   function initialize() {
 
-    var input1 = document.getElementById('start');
-    var input2 = document.getElementById('end');
+    var input1 = document.getElementById('start_route');
+    var input2 = document.getElementById('end_route');
     var autocomplete1 = new google.maps.places.Autocomplete(input1);
     var autocomplete2 = new google.maps.places.Autocomplete(input2);
   }
@@ -13,7 +13,7 @@ $(function(){
 })
 </script>
 
-<div id="trip_explorer_modal" class="modal fade" role="dialog">
+<div id="route_explorer_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -23,13 +23,11 @@ $(function(){
         <h4 class="modal-title">Chose Two Points</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag search_path, method: "get" do |f| %>
-          <%= label_tag :q, 'Name' %>
-          <%= text_field_tag :q, nil, :class => "form-control" %>
+        <%= form_tag routes_path, method: "get" do |f| %>
           <%= label_tag :start, 'Starting Place' %>
-          <%= text_field_tag :start, nil, :class => "form-control" %>
+          <%= text_field_tag :start_route, nil, :class => "form-control" %>
           <%= label_tag :end, 'Ending Place' %>
-          <%= text_field_tag :end, nil, :class => "form-control" %>
+          <%= text_field_tag :end_route, nil, :class => "form-control" %>
       </div>
       <div class="modal-footer">
           <%= submit_tag "Submit", :class => "btn btn-submit" %>

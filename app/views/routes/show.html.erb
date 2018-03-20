@@ -6,6 +6,12 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+      <% if @users_length == 1 %>
+        <h1>Route used <%= @users_length %> time</h1>
+      <% else %>
+        <h1>Route used <%= @users_length %> times</h1>
+      <% end %>
+      <%= link_to "Download GPS file", "#{route_export_gpx_file_path(@route)}.gpx", :class => "btn btn-primary" %>
       <div id="map-trip-planner">
 
       </div>

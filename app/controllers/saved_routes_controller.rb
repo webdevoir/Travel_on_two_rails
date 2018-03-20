@@ -7,6 +7,7 @@ class SavedRoutesController < ApplicationController
   def show
     @route = Route.find(params[:id])
     @trips = @current_user.trips
+    @point_of_interest = PointOfInterest.new()
   end
 
   def create

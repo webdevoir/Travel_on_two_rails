@@ -14,6 +14,12 @@ $(function(){
 </script>
 <div class="container search-container">
   <div class="row">
+    <div class="col-sm-12">
+      <h1>Full Trip Search</h1>
+      <%= link_to "Search One Day Routes", routes_path(:start_route => params[:start], :end_route => params[:end]), :class => "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="row">
     <%= form_for search_path, method: :get do |f| %>
     <div class="col-xs-12 search-column">
         <p>

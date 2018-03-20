@@ -15,6 +15,7 @@ class PostGroupsController < ApplicationController
     @min_post_group = min_post_group(@trip, @post_group)
     @claps = @post.claps.length
     @new_clap = Clap.new()
+    @already_clapped = already_clapped?(@post)
   end
 
   def update
@@ -34,6 +35,7 @@ class PostGroupsController < ApplicationController
     @route = @post.route
     @claps = @post.claps.length
     @new_clap = Clap.new()
+    @already_clapped = already_clapped?(@post)
     respond_to do |format|
       format.js
     end
@@ -46,6 +48,16 @@ class PostGroupsController < ApplicationController
 
   def post_group_params
     params.require(:post_group).permit(:month, :year, :image)
+  end
+
+  def already_clapped?(post)
+    check = false
+    @current_user.claps.each do |clap|
+      if clap.post_id == post.id
+        check = true
+      end
+    end
+    return check
   end
 
   def max_post_group(trip, post_group)

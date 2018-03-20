@@ -8,8 +8,8 @@ class RoutesController < ApplicationController
   end
 
   def index
-    if exists(params[:start]) && exists(params[:end])
-      @routes = distance_from_points(Route.all, params[:start], params[:end])
+    if exists(params[:start_route]) && exists(params[:end_route])
+      @routes = distance_from_points(Route.all, params[:start_route], params[:end_route])
     else
       @routes = []
     end
@@ -39,6 +39,7 @@ class RoutesController < ApplicationController
 
   def show
     @route = Route.find(params[:id])
+    @users_length = @route.users.length
     @saved_route = SavedRoute.new()
     @point_of_interest = PointOfInterest.new()
   end

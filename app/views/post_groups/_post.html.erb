@@ -22,6 +22,23 @@ $( document ).ready(function() {
          ]
   });
 
+
+  $("#new_clap").on("submit",function(e){
+    e.preventDefault()
+    $.ajax({
+      method: 'post',
+      url: '/claps',
+      data: $("#new_clap").serialize(),
+      dataType: 'json'
+    }).done(function(msg){
+      var count = parseInt($("#claps-count").html()) + 1
+      $("#claps-count").html(count.toString())
+    }).fail(function(msg){
+      alert('Sorry stuff went wrong')
+    });
+  })
+
+
 })
 </script>
 
@@ -85,11 +102,15 @@ $( document ).ready(function() {
   <% end %>
 <% end %>
 <div class="comments-claps row">
-  <div class="col-sm-12">
-    <p><%= @claps %></p>
-    <%= form_for @new_clap do |f| %>
-      <%= hidden_field_tag :post_id, @post.id %>
-      <%= f.submit "Add Clap", :class => "btn btn-primary" %>
-    <% end %>
-  </div>
+    <div class="col-sm-12 claps-col">
+      <p id="claps-count"><%= @claps %></p>
+      <% if @already_clapped %>
+        <button type="button" name="button" class="btn btn-primary" disabled>Add Clap</button>
+      <% else %>
+        <%= form_for @new_clap do |f| %>
+          <%= hidden_field_tag :post_id, @post.id %>
+          <%= f.submit "Add Clap", :class => "btn btn-primary", :id => "add-clap-button" %>
+        <% end %>
+      <% end %>
+    </div>
 </div>

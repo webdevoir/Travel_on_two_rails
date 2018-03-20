@@ -7,13 +7,26 @@ class ClapsController < ApplicationController
       post_id: @post.id,
       user_id: @current_user.id
     })
-    if @clap.save
-      flash[:success] = ""
-      redirect_to trip_post_group_path(@trip, @post.post_group)
+    if !(already_clapped?(@post))
+      if @clap.save
+        render(json: {:success => true}.to_json)
+      else
+        render(json: {:success => false}.to_json)
+      end
     else
-      flash[:error] = ""
-      redirect_to trip_post_group_path(@trip, @post.post_group)
+      render(json: {:success => false, :msg => "Already Clapped"}.to_json)
     end
+  end
+
+  private
+  def already_clapped?(post)
+    check = false
+    @current_user.claps.each do |clap|
+      if clap.post_id == post.id
+        check = true
+      end
+    end
+    return check
   end
 
 end

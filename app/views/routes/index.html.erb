@@ -13,32 +13,38 @@ $(function(){
 })
 </script>
 <div class="container search-container">
-  <div class="row">
-    <%= form_for search_path, method: :get do |f| %>
+  <!-- <div class="row">
     <div class="col-xs-12 search-column">
         <p>
-          <%= text_field_tag :q, params[:q], :class => "form-control search-text-input", placeholder: 'Search' %>
-          <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp search-page-button" %>
+          <%# text_field_tag :q, params[:q], :class => "form-control search-text-input", placeholder: 'Search' %>
+          <%# submit_tag "Search", name: nil, :class => "btn btn-primary sharp search-page-button" %>
         </p>
     </div>
+  </div> -->
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>One Day Route Search</h1>
+      <%= link_to "Search Full Trips", search_path(:start => params[:start_route], :end => params[:end_route]), :class => "btn btn-primary" %>
+    </div>
   </div>
-  <div class="row search-body-row">
-    <div class="col-sm-3 advance-search">
-      <div class="advance-search-box">
+  <%= form_for search_path, method: :get do |f| %>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="">
         <h3>Advance Search</h3>
           <p>
-            <%= text_field_tag :start, params[:start], :class => "form-control", placeholder: 'Start' %>
+            <%= text_field_tag :start_route, params[:start_route], :class => "form-control", placeholder: 'Start' %>
           </p>
           <p>
-            <%= text_field_tag :end, params[:end], :class => "form-control", placeholder: 'End' %>
+            <%= text_field_tag :end_route, params[:end_route], :class => "form-control", placeholder: 'End' %>
           </p>
           <%= submit_tag "Search", name: nil, :class => "btn btn-primary sharp" %>
       </div>
     </div>
     <% end %>
-    <div class="search-results">
+    <div class="">
       <% if @routes.length == 0 %>
-      <div class="col-sm-9 user-search-column no-float no-float">
+      <div class="col-sm-9">
         <h1>There are no search resutls for that query, plase try again</h1>
       </div>
       <% else %>

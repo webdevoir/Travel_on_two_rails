@@ -79,9 +79,15 @@ $(function(){
           marker.myname = label;
     } else {
       if (poi.category === "caution") {
-        var icon = "<%= asset_path('maps/caution in active pin.png') %>"
+        var icon ={
+          url: "<%= asset_path('maps/caution in active pin.png') %>",
+          scaledSize: new google.maps.Size(30, 30)
+        }
       } else {
-        var icon = "<%= asset_path('maps/inactive heart pin.png') %>"
+        var icon ={
+          url: "<%= asset_path('maps/inactive heart pin.png') %>",
+          scaledSize: new google.maps.Size(30, 30)
+        }
       }
       var marker = new google.maps.Marker({
           position: latlng,
