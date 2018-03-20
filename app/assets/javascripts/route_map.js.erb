@@ -68,20 +68,34 @@ $(function(){
   }
 
   function createMarker(map, latlng, label, html, poi) {
-    var marker = new google.maps.Marker({
-        position: latlng,
-        map: map,
-        title: label,
-        zIndex: Math.round(latlng.lat*-100000)<<5
-        });
-        marker.myname = label;
-
-    if (poi != null) {
+    if (poi == null) {
+      var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: label,
+          zIndex: Math.round(latlng.lat*-100000)<<5,
+          icon: icon
+          });
+          marker.myname = label;
+    } else {
+      if (poi.category === "caution") {
+        var icon = "<%= asset_path('maps/caution in active pin.png') %>"
+      } else {
+        var icon = "<%= asset_path('maps/inactive heart pin.png') %>"
+      }
+      var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: label,
+          zIndex: Math.round(latlng.lat*-100000)<<5,
+          icon: icon
+          });
+          marker.myname = label;
       var contentString = "<h3 class='info-title'>" +
-                            poi.category +
+                          poi.category +
                           "</h3>" +
                           "<p class='info-text'>" +
-                            poi.info +
+                          poi.info +
                           "</p>"
       var infowindow = new google.maps.InfoWindow({
         content: contentString
@@ -89,7 +103,9 @@ $(function(){
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map, marker);
       });
+
     }
+
     return marker;
   }
 
