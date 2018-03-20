@@ -40,13 +40,13 @@ $( document ).ready(function() {
   </div>
   <div class="col-sm-4">
     <p>
-      <%= @post.address1 %> to <%= @post.address2 %>
+      <%= @route.address1 %> to <%= @route.address2 %>
     </p>
   </div>
-  <% unless @post.distance == nil %>
+  <% unless @route.distance == nil %>
     <div class="col-sm-4">
       <p>
-        Total Distance: <%= @post.distance %> km
+        Total Distance: <%= @route.distance %> km
       </p>
     </div>
   <% end %>
@@ -84,3 +84,12 @@ $( document ).ready(function() {
     </div>
   <% end %>
 <% end %>
+<div class="comments-claps row">
+  <div class="col-sm-12">
+    <p><%= @claps %></p>
+    <%= form_for @new_clap do |f| %>
+      <%= hidden_field_tag :post_id, @post.id %>
+      <%= f.submit "Add Clap", :class => "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

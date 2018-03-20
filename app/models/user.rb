@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_one :stripe_account
   has_many :routes, through: :saved_routes
   has_many :saved_routes
+  has_many :claps
 
 
   def has_payment_info?

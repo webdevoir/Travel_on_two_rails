@@ -77,7 +77,7 @@ class SearchController < ApplicationController
         if distance["status"] == "ZERO_RESULTS"
           next
         elsif distance["distance"]["value"] <= 100000
-          if data_second["rows"][0]["elements"][index]["status"] == "ZERO_RESULTS"
+          if data_second["rows"][0]["elements"][index]["status"] == "ZERO_RESULTS" || data_second["rows"][0]["elements"][index]["status"] == "NOT_FOUND"
             next
           elsif data_second["rows"][0]["elements"][index]["distance"]["value"] <= 100000
             good_trips_id << trip_id_array[index]

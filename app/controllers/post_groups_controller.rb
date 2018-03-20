@@ -8,10 +8,13 @@ class PostGroupsController < ApplicationController
     @post_group = PostGroup.find(params[:id])
     @posts = @post_group.posts.sort_by {|obj| obj.day}
     @post = @posts.first
+    @route = @post.route
     @post_pictures = @post.post_pictures
     @user = @trip.user
     @max_post_group = max_post_group(@trip, @post_group)
     @min_post_group = min_post_group(@trip, @post_group)
+    @claps = @post.claps.length
+    @new_clap = Clap.new()
   end
 
   def update
@@ -28,6 +31,9 @@ class PostGroupsController < ApplicationController
     @post = Post.find(params[:id])
     @post_pictures = @post.post_pictures
     @user = current_user
+    @route = @post.route
+    @claps = @post.claps.length
+    @new_clap = Clap.new()
     respond_to do |format|
       format.js
     end

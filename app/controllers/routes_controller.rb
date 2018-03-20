@@ -17,11 +17,20 @@ class RoutesController < ApplicationController
 
   def create
     @route = Route.new(route_params)
-    @route.distance = params[:distance].to_i
-    @route = route.find(params[:route_id])
+    @route.distance = params[:distance].to_i/1000
+    @trip = Trip.find(params[:trip_id])
     if @route.save
-      flash[:success] = "route saved"
-      redirect_to new_route_post_path(@route, route_id: @route.id)
+      @saved_route = SavedRoute.new({
+        route_id: @route.id,
+        user_id: @current_user.id
+        })
+      if @saved_route.save
+        flash[:success] = "route saved"
+        redirect_to new_trip_post_path(@trip, route_id: @route.id)
+      else
+        flash[:error] = "something went wrong"
+        redirect_to user_path(@current_user)
+      end
     else
       flash[:error] = "something went wrong"
       redirect_to user_path(@current_user)

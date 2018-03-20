@@ -1,1 +1,1 @@
-$("#post-container").html('<%= escape_javascript(render :partial => "post", :locals => { :post => @post, :post_pictures => @post_pictures, :user => @user}) %>');
+$("#post-container").html('<%= escape_javascript(render :partial => "post", :locals => { :post => @post, :post_pictures => @post_pictures, :user => @user, :route => @route, :claps => @claps, :new_clap => @new_clap}) %>');

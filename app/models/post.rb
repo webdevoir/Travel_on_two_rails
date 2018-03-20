@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   belongs_to :trip
   belongs_to :route
   has_many :post_pictures
+  has_many :claps
 
   accepts_nested_attributes_for :post_pictures, allow_destroy: true
   validates :post_title, :post_content, :day, presence: true
