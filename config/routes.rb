@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   end
 
   resources :claps, only: [:create]
+  resources :comments, only: [:create, :update, :destroy]
 
   resources :routes do
     resources :point_of_interests, only: [:create, :destroy]
