@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     namespace :v1 do
+      resources :saved_routes, only: [:index, :create, :destroy]
+      resources :routes do
+        resources :point_of_interests, only: [:create, :destroy]
+      end
       get 'search', to: 'search#search'
       get 'location_search', to: 'search#location_search'
       resources :sessions, only: [:create, :destroy]

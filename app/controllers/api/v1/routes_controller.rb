@@ -1,22 +1,46 @@
-class RoutesController < ApplicationController
+class Api::V1::RoutesController < Api::V1::BaseController
 
-  # note params[:type] can be google, upload, or track
-  def new
-    raise 'hit'
-    @route = Route.new()
-    @trip = Trip.find(params[:trip_id])
-    @track_or_upload_or_google = params[:type]
-  end
-
+  api :get, "routes/"
+  param :start_route, String, :desc => "Start location of route"
+  param :end_route, String, :desc => "End location of route"
   def index
+    result_routes = []
     if exists(params[:start_route]) && exists(params[:end_route])
       @routes = distance_from_points(Route.all, params[:start_route], params[:end_route])
+      @routes.each do |route|
+        result_routes << RouteSerializer.new(route)
+      end
+      render(json: result_routes.to_json)
     else
       @routes = []
+      render(json: result_routes.to_json)
     end
   end
 
+  api :get, "routes/:route_id"
+  def show
+    route = Route.find(params[:id])
+    result = RouteSerializer.new(route)
+    render(json: { success: true, route: result}.to_json)
+  end
+
+  api :post, "/routes"
+  param :trip_id, Integer, :desc => "Current trip id"
+  param :user_id, Integer, :desc => "Current user"
+  param :route, Hash, :desc => "Params for details of a post" do
+    param :distance, Integer, :desc => "Distance in meters"
+    param :address1, String, :desc => "Start of the post"
+    param :address2, String, :desc => "End of the post"
+    param :address1_lat, String, :desc => "Lat of address 1"
+    param :address1_lng, String, :desc => "Lng of address 1"
+    param :address2_lat, String, :desc => "Lat of address 2"
+    param :address2_lng, String, :desc => "Lng of address 2"
+    param :center_lng, String, :desc => "Center lng of the two points"
+    param :center_lat, String, :desc => "Center lat of the two points"
+    param :poly_line, String, :desc => "Encoded polyline of the route taken"
+  end
   def create
+    @current_user = User.find(params[:user_id])
     @route = Route.new(route_params)
     @route.distance = params[:distance].to_i/1000
     @trip = Trip.find(params[:trip_id])
@@ -26,42 +50,26 @@ class RoutesController < ApplicationController
         user_id: @current_user.id
         })
       if @saved_route.save
-        flash[:success] = "route saved"
-        redirect_to new_trip_post_path(@trip, route_id: @route.id)
+        render(json: {:success => true, :route => @route, :trip => @trip}.to_json)
       else
-        flash[:error] = "something went wrong"
-        redirect_to user_path(@current_user)
+        render(json: {:success => "error"}.to_json)
       end
     else
-      flash[:error] = "something went wrong"
-      redirect_to user_path(@current_user)
-    end
-  end
-
-  def show
-    @route = Route.find(params[:id])
-    @users_length = @route.users.length
-    @saved_route = SavedRoute.new()
-    @point_of_interest = PointOfInterest.new()
-  end
-
-  def fetch_pois
-    @route = Route.find(params[:route_id])
-    @pois = @route.point_of_interests
-    render(json: { "pois" => @pois }.to_json)
-  end
-
-  def export_gpx_file
-    @route = Route.find(params[:route_id])
-    respond_to do |format|
-      format.html
-      format.gpx { send_data @route.to_gpx, filename: "#{@route.address1 = @route.address2}.gpx" }
+      render(json: {:success => "error"}.to_json)
     end
   end
 
   private
   def route_params
     params.require(:route).permit(:address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address2_lng, :poly_line, :distance)
+  end
+
+  def exists(param)
+    if param == nil || param == ""
+      return false
+    else
+      return true
+    end
   end
 
   def distance_from_points(routes, start, end_location)
@@ -116,44 +124,5 @@ class RoutesController < ApplicationController
     return @found_routes
   end
 
-  def exists(param)
-    if param == nil || param == ""
-      return false
-    else
-      return true
-    end
-  end
 
-  def decode(polyline)
-    points = []
-    index = lat = lng = 0
-
-    while index < polyline.length
-      result = 1
-      shift = 0
-      while true
-        b = polyline[index].ord - 63 - 1
-        index += 1
-        result += b << shift
-        shift += 5
-        break if b < 0x1f
-      end
-      lat += (result & 1) != 0 ? (~result >> 1) : (result >> 1)
-
-      result = 1
-      shift = 0
-      while true
-        b = polyline[index].ord - 63 - 1
-        index += 1
-        result += b << shift
-        shift += 5
-        break if b < 0x1f
-      end
-      lng += (result & 1) != 0 ? ~(result >> 1) : (result >> 1)
-
-      points << {lat: lat * 1e-5, lng: lng * 1e-5}
-    end
-
-    points
-  end
 end

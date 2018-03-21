@@ -4,19 +4,9 @@ class Api::V1::PostsController < Api::V1::BaseController
   api :post, "/trips/:trip_id/posts"
   param :trip_id, String, :desc => "Current trip id"
   param :post, Hash, :desc => "Params for details of a post" do
-    param :distance, Integer, :desc => "Distance in meters"
     param :post_title, String, :desc => "Name of trip"
     param :post_content, String, :desc => "Image file of photo"
-    param :address1, String, :desc => "Start of the post"
-    param :address2, String, :desc => "End of the post"
-    param :address1_lat, Float, :desc => "Lat of address 1"
-    param :address1_lng, Float, :desc => "Lng of address 1"
-    param :address2_lat, Float, :desc => "Lat of address 2"
-    param :address2_lng, Float, :desc => "Lng of address 2"
-    param :center_lng, String, :desc => "Center lng of the two points"
-    param :center_lat, String, :desc => "Center lat of the two points"
     param :post_date, String, :desc => "date of the post"
-    param :poly_line, String, :desc => "Encoded polyline of the route taken"
   end
   def create
     date = params[:post][:post_date].to_datetime

@@ -1,7 +1,9 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :post_title, :post_content, :address1, :address2, :trip_id, :created_at, :updated_at, :post_group_id, :day, :distance, :center_lat, :center_lng, :full_date, :post_pictures, :poly_line, :side_bar, :address1_lat, :address1_lng, :address2_lat, :address2_lng
+  attributes :id, :post_title, :post_content, :trip_id, :created_at, :updated_at, :post_group_id, :day, :full_date, :post_pictures, :side_bar
 
   has_many :post_pictures
+  has_many :claps
+  belongs_to :route
 
   def full_date
     post_group = object.post_group

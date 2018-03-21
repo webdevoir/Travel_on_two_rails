@@ -21,6 +21,6 @@ class PointOfInterestsController < ApplicationController
 
   private
   def point_of_interest_params
-    params.require(:point_of_interest).permit(:type, :category, :info)
+    params.require(:point_of_interest).permit(:category, :info)
   end
 end

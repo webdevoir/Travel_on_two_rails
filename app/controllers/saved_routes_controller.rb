@@ -1,5 +1,8 @@
 class SavedRoutesController < ApplicationController
 
+
+  api :get, "saved_routes/"
+  param :user_id, Integer, :desc => "Current user Id"
   def index
     @saved_routes = @current_user.routes
   end
