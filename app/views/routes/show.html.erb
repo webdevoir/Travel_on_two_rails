@@ -1,5 +1,5 @@
 <script
- src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=geometry">
+ src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places,geometry">
 </script>
 <%= javascript_include_tag "route_map" %>
 <%= hidden_field_tag "route_polyline", @route.poly_line %>
@@ -30,10 +30,10 @@
         <%= f.select :category, options_for_select(poi_categories), {}, { :class => "form-control" } %>
         <%= f.label "Info" %>
         <%= f.text_field :info, class: "form-control" %>
-        <%= f.label "Latitude" %>
-        <%= f.text_field :latitude, class: "form-control" %>
-        <%= f.label "Longitude" %>
-        <%= f.text_field :longitude, class: "form-control" %>
+        <%= f.label "Address" %>
+        <%= text_field_tag :address, nil, class: "form-control" %>
+        <%= hidden_field_tag :latitude %>
+        <%= hidden_field_tag :longitude %>
         <%= f.submit "Save POI", class: "btn btn-primary" %>
       <% end %>
     </div>

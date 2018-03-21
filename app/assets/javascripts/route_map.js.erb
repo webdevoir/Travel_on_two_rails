@@ -14,6 +14,18 @@ $(function(){
     map = new google.maps.Map(document.getElementById('map-trip-planner'), {
       zoom: 7
     });
+
+    var input1 = document.getElementById('address');
+    var autocomplete1 = new google.maps.places.Autocomplete(input1);
+    geocoder = new google.maps.Geocoder();
+    var timeout = null
+
+    input1.onkeyup = function(e) {
+      clearTimeout(timeout)
+      timeout = setTimeout(function(){
+        geocodeAddress()
+      }, 2000)
+    }
     // directionsDisplay.setMap(map);
     // directionsDisplay.setPanel(document.getElementById('right-panel'));
 
@@ -41,6 +53,18 @@ $(function(){
     var directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
     directionsRenderer.setDirections(result);
+  }
+
+  function geocodeAddress() {
+    var address = document.getElementById('address').value;
+    geocoder.geocode({'address': address}, function(results, status) {
+      if (status === 'OK') {
+        $("#latitude").val(results[0].geometry.location.lat())
+        $("#longitude").val(results[0].geometry.location.lng())
+      } else {
+        console.log("Nope");
+      }
+    });
   }
 
   function setPOI() {
