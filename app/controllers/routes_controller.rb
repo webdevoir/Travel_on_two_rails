@@ -2,7 +2,6 @@ class RoutesController < ApplicationController
 
   # note params[:type] can be google, upload, or track
   def new
-    raise 'hit'
     @route = Route.new()
     @trip = Trip.find(params[:trip_id])
     @track_or_upload_or_google = params[:type]

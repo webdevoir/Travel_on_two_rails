@@ -105,10 +105,12 @@ $( document ).ready(function() {
     <div class="col-sm-12 claps-col">
       <p id="claps-count"><%= @claps %></p>
       <% if @already_clapped %>
+        <%= image_tag asset_url("icons/clap-hands.png") %>
         <button type="button" name="button" class="btn btn-primary" disabled>Add Clap</button>
       <% else %>
         <%= form_for @new_clap do |f| %>
           <%= hidden_field_tag :post_id, @post.id %>
+          <%= image_tag asset_url("icons/clap-hands.png"), :id => "clap-hand-img-good" %>
           <%= f.submit "Add Clap", :class => "btn btn-primary", :id => "add-clap-button" %>
         <% end %>
       <% end %>

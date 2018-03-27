@@ -26,3 +26,4 @@
 //= require verify_card
 //= require home
 //= require saved_routes
+//= require posts
