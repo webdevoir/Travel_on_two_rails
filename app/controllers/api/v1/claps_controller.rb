@@ -1,10 +1,7 @@
-class ClapsController < ApplicationController
+class Api::V1::ClapsController < Api::V1::BaseController
 
-  api :post, "/claps"
-  param :post_id, Integer, :desc => "Current post id"
-  param :user_id, Integer, :desc => "Current user"
+  
   def create
-    @current_user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
     @trip = @post.trip
     @clap = Clap.new({

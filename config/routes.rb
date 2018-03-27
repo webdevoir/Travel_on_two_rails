@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     namespace :v1 do
+      resources :claps, only: [:create]
       resources :saved_routes, only: [:index, :create, :destroy]
       resources :routes do
         resources :point_of_interests, only: [:create, :destroy]
