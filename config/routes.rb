@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :saved_routes, only: [:index, :create, :destroy]
       resources :routes do
         resources :point_of_interests, only: [:create, :destroy]
+        get :export_gpx_file
       end
       get 'search', to: 'search#search'
       get 'location_search', to: 'search#location_search'

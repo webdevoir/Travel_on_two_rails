@@ -1,7 +1,7 @@
 class Api::V1::SavedRoutesController < Api::V1::BaseController
 
   api :get, "saved_routes/"
-  param :user_id, Integer, :desc => "Current user Id"
+  param :user_id, String, :desc => "Current user Id"
   def index
     @current_user = User.find(params[:user_id])
     @saved_routes = @current_user.routes

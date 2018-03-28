@@ -59,6 +59,14 @@ class Api::V1::RoutesController < Api::V1::BaseController
     end
   end
 
+  def export_gpx_file
+    @route = Route.find(params[:route_id])
+    respond_to do |format|
+      format.html
+      format.gpx { send_data @route.to_gpx, filename: "#{@route.address1 = @route.address2}.gpx" }
+    end
+  end
+
   private
   def route_params
     params.require(:route).permit(:address1, :address2, :center_lng, :center_lat, :address1_lat, :address1_lng, :address2_lat, :address2_lng, :poly_line, :distance)
