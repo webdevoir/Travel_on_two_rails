@@ -1,8 +1,8 @@
 class Api::V1::PointOfInterestsController < Api::V1::BaseController
 
   api :post, "/routes/:route_id/point_of_interests"
-  param :latitude, Integer, :desc => "Lat of spot"
-  param :longitude, Integer, :desc => "Lng of spot"
+  param :latitude, String, :desc => "Lat of spot"
+  param :longitude, String, :desc => "Lng of spot"
   param :point_of_interest, Hash, :desc => "Params for details of a post" do
     param :category, String, :desc => "Type of POI"
     param :info, String, :desc => "Info text of POI"

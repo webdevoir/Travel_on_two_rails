@@ -25,8 +25,8 @@ class Api::V1::RoutesController < Api::V1::BaseController
   end
 
   api :post, "/routes"
-  param :trip_id, Integer, :desc => "Current trip id"
-  param :user_id, Integer, :desc => "Current user"
+  param :trip_id, String, :desc => "Current trip id"
+  param :user_id, String, :desc => "Current user"
   param :route, Hash, :desc => "Params for details of a post" do
     param :distance, Integer, :desc => "Distance in meters"
     param :address1, String, :desc => "Start of the post"

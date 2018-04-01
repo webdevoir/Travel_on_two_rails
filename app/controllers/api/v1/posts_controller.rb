@@ -3,12 +3,14 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   api :post, "/trips/:trip_id/posts"
   param :trip_id, String, :desc => "Current trip id"
+  param :route_id, Integer, :desc => "Current route id"
   param :post, Hash, :desc => "Params for details of a post" do
     param :post_title, String, :desc => "Name of trip"
     param :post_content, String, :desc => "Image file of photo"
     param :post_date, String, :desc => "date of the post"
   end
   def create
+    @route = Route.find(params[:route_id])
     date = params[:post][:post_date].to_datetime
     year = date.year
     day = date.day
@@ -23,18 +25,13 @@ class Api::V1::PostsController < Api::V1::BaseController
     @post = @trip.posts.build(post_params)
     @post.post_group_id = @post_group.id
     @post.day = day.to_s
-    distance = (params[:post][:distance].to_f/1000).round
-    @post.distance = distance
-    if distance == false
-      render(json: {:success => "error"}.to_json)
+    @post.route_id = @route.id
+    if @post.save
+      @trip.total_distance += @route.distance
+      @trip.save
+      render(json: {:success => true, :post => @post}.to_json)
     else
-      if @post.save
-        @trip.total_distance += @post.distance
-        @trip.save
-        render(json: {:success => true, :post => @post}.to_json)
-      else
-        render(json: {:success => "error"}.to_json)
-      end
+      render(json: {:success => "error"}.to_json)
     end
   end
 
