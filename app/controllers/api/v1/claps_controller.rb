@@ -1,7 +1,8 @@
 class Api::V1::ClapsController < Api::V1::BaseController
 
-  
+
   def create
+    @current_user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
     @trip = @post.trip
     @clap = Clap.new({

@@ -29,4 +29,5 @@ class PostGroupSerializer < ActiveModel::Serializer
       return min_post_group
     end
   end
+
 end

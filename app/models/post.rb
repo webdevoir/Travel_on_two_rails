@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+
+  attr_accessor :already_clapped
+  
   include ActiveModel::Validations
 
   belongs_to :post_group

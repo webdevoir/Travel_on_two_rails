@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :post_title, :post_content, :trip_id, :created_at, :updated_at, :post_group_id, :day, :full_date, :post_pictures, :side_bar
+  attributes :id, :post_title, :post_content, :trip_id, :created_at, :updated_at, :post_group_id, :day, :full_date, :post_pictures, :side_bar, :clap_amount
 
   has_many :post_pictures
   has_many :claps
@@ -28,4 +28,9 @@ class PostSerializer < ActiveModel::Serializer
     end
     return post_pictures
   end
+
+  def clap_amount
+    return object.claps.length
+  end
+  
 end
