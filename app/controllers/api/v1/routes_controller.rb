@@ -19,9 +19,11 @@ class Api::V1::RoutesController < Api::V1::BaseController
 
   api :get, "routes/:route_id"
   def show
+    @current_user = User.find(params[:user_id])
+    trips = @current_user.trips
     route = Route.find(params[:id])
     result = RouteSerializer.new(route)
-    render(json: { success: true, route: result}.to_json)
+    render(json: { success: true, route: result, trips: trips}.to_json)
   end
 
   api :post, "/routes"
