@@ -49,11 +49,11 @@ Devise.setup do |config|
   config.case_insensitive_keys = [:email]
 
   # stripe oauth
-  config.omniauth :stripe_connect,
-    ENV['STRIPE_CLIENT_ID'],
-    ENV['STRIPE_SECRET_KEY'],
-    scope: 'read_write',
-    stripe_landing: 'login'
+  # config.omniauth :stripe_connect,
+  #   ENV['STRIPE_CLIENT_ID'],
+  #   ENV['STRIPE_SECRET_KEY'],
+  #   scope: 'read_write',
+  #   stripe_landing: 'login'
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or

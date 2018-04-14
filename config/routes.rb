@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   get "/about", to: "home#about", as: "about"
+  get "/terms", to: "home#terms", as: "terms"
 
   resources :feedbacks, only: [:create]
 

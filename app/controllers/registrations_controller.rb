@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(registration_params)
 
+    resource.terms_accepted_at = Time.now
     if resource.save
       SendRegistrationEmailJob.set(wait: 20.seconds).perform_later(resource)
       if resource.active_for_authentication?

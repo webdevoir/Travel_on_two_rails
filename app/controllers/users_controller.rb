@@ -6,7 +6,9 @@ class UsersController < ApplicationController
   end
 
   def create
+    raise 'hti'
     @user = User.new(user_params)
+    @user.terms_accepted_at = Time.now
     if @user.save
       session[:user_id] = @user.id
       redirect_to new_blog_url, notice: "Signed Up!"
