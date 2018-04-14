@@ -4,7 +4,7 @@ class SavedRoutesController < ApplicationController
   api :get, "saved_routes/"
   param :user_id, Integer, :desc => "Current user Id"
   def index
-    @saved_routes = @current_user.routes
+    @saved_routes = @current_user.saved_routes
   end
 
   def show
@@ -27,6 +27,14 @@ class SavedRoutesController < ApplicationController
   end
 
   def destroy
-    #code
+    @route = Route.find(params[:id])
+    @saved_route = @current_user.saved_routes.find_by(route_id: @route.id)
+    if @saved_route.destroy
+      flash[:success] = "Route Deleted"
+      redirect_to saved_routes_path
+    else
+      flash[:error] = "Route Deleted"
+      redirect_to saved_routes_path
+    end
   end
 end

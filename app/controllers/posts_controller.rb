@@ -73,6 +73,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @route = @post.route
     post_group = @post.post_group
     1.times { @post.post_pictures.build}
     @date_string = "#{post_group.month}, #{@post.day}, #{post_group.year}".to_date.strftime("%m/%d/%Y")

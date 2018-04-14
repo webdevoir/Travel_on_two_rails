@@ -37,5 +37,9 @@
         <button type="button" name="button" class="btn btn-primary" id="add-route-button">ADD ROUTE</button>
       </div>
     </div>
+    <div class="col-sm-12">
+      <%= button_to "Delete Route", { action: "destroy", id: @route.id},
+                              method: :delete, :class => "btn btn-danger", data: { confirm: "Are you sure?" } %>
+    </div>
   </div>
 </div>

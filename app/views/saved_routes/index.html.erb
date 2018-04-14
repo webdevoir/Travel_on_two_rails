@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
-    <% @saved_routes.each do |route| %>
+    <% @saved_routes.each do |saved_route| %>
+      <% route = saved_route.route %>
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-4">
