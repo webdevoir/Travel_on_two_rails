@@ -120,7 +120,7 @@ class Api::V1::RoutesController < Api::V1::BaseController
         if distance["status"] == "ZERO_RESULTS"
           next
         elsif distance["distance"]["value"] <= 100000
-          if data_second["rows"][0]["elements"][index]["status"] == "ZERO_RESULTS"
+          if data_second["rows"][0]["elements"][index]["status"] == "ZERO_RESULTS" || data_second["rows"][0]["elements"][index]["status"] == "NOT_FOUND"
             next
           elsif data_second["rows"][0]["elements"][index]["distance"]["value"] <= 100000
             good_routes_id << route_id_array[index]
