@@ -59,10 +59,10 @@ class Api::V1::PostsController < Api::V1::BaseController
     @post = Post.find(params[:id])
     @trip = @post.trip
     @post_group_old = @post.post_group
-    old_distance = @post.distance
-    date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
-    year = date.year
-    day = date.day
+    # old_distance = @post.distance
+    date = params[:post][:post_date].to_date
+    year = date.year.to_s
+    day = date.day.to_s
     month = date.strftime("%B")
     if @post_group_old.month != month || @post_group_old.year != year
       @post_group = PostGroup.find_by(:year => year, :month => month, :trip_id => @trip.id).first
@@ -75,19 +75,19 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
     @post.post_group_id = @post_group.id
     if @post.update(post_params)
-      distance = (params[:post][:distance].to_f/1000).round
-      polyline = params[:post][:poly_line]
-      @post.distance = distance
-      @post.poly_line = polyline
+      # distance = (params[:post][:distance].to_f/1000).round
+      # polyline = params[:post][:poly_line]
+      # @post.distance = distance
+      # @post.poly_line = polyline
       @post.save
       if @post_group_old.posts.length == 0
         @post_group_old.destroy
         @post_group_old.delete
       end
-      @trip.total_distance -= old_distance
-      @trip.total_distance += @post.distance
+      # @trip.total_distance -= old_distance
+      # @trip.total_distance += @post.distance
       if @trip.save
-        render(json: {:success => "success"}.to_json)
+        render(json: {:success => true}.to_json)
       else
         render(json: {:success => "error"}.to_json)
       end
