@@ -8,6 +8,19 @@ class Api::V1::TripsController < Api::V1::BaseController
     render(json: { success: true, trip: result }.to_json)
   end
 
+  api :get, "trips"
+  param :user_id, String, :desc => "Current User id"
+  def index
+    current_user = User.find(params[:user_id])
+    trips = current_user.trips
+    results = []
+    trips.each do |trip|
+      result = TripSerializer.new(trip)
+      results << result
+    end
+    render(json: { success: true, trips: results }.to_json)
+  end
+
   api :post, "trips"
   param :user_id, String, :desc => "Current User id"
   param :trip, Hash, :desc => "Params for details of a listing" do

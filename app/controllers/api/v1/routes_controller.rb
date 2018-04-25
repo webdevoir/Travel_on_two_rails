@@ -27,7 +27,6 @@ class Api::V1::RoutesController < Api::V1::BaseController
   end
 
   api :post, "/routes"
-  param :trip_id, String, :desc => "Current trip id"
   param :user_id, String, :desc => "Current user"
   param :route, Hash, :desc => "Params for details of a post" do
     param :distance, Integer, :desc => "Distance in meters"
@@ -45,14 +44,13 @@ class Api::V1::RoutesController < Api::V1::BaseController
     @current_user = User.find(params[:user_id])
     @route = Route.new(route_params)
     @route.distance = params[:distance].to_i/1000
-    @trip = Trip.find(params[:trip_id])
     if @route.save
       @saved_route = SavedRoute.new({
         route_id: @route.id,
         user_id: @current_user.id
         })
       if @saved_route.save
-        render(json: {:success => true, :route => @route, :trip => @trip}.to_json)
+        render(json: {:success => true, :route => @route}.to_json)
       else
         render(json: {:success => "error"}.to_json)
       end

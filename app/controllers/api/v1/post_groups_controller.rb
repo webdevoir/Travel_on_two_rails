@@ -12,8 +12,10 @@ class Api::V1::PostGroupsController < Api::V1::BaseController
     json_result = JSON.parse({ post_group: result }.to_json)
     json_result["post_group"]["posts"].each do |post_hash|
       post = Post.find(post_hash["id"])
+      route = post.route
       clapped = already_clapped?(post)
       post_hash["already_clapped"] = clapped
+      post_hash["route"] = route
     end
     render(json: json_result.to_json )
   end
