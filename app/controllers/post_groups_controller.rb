@@ -15,7 +15,9 @@ class PostGroupsController < ApplicationController
     @min_post_group = min_post_group(@trip, @post_group)
     @claps = @post.claps.length
     @new_clap = Clap.new()
-    @already_clapped = already_clapped?(@post)
+    if @current_user != nil
+      @already_clapped = already_clapped?(@post)
+    end
   end
 
   def update

@@ -20,32 +20,6 @@
           <%= f.label :description, "Give a short description of your trip" %>
           <%= f.text_area :description, class: "form-control" %>
           <%= f.label :start, "Starting location of your trip" %>
-          <div class="row">
-            <div class="col-xs-4">
-              <%= text_field_tag :start_country, @start_array.last, { :class => "form-control", :required => true, :placeholder => "Country"} %>
-            </div>
-            <div class="col-xs-4">
-              <%= text_field_tag :start_province, @start_array.second, { :class => "form-control", :required => true, :placeholder => "Province/State"} %>
-            </div>
-            <div class="col-xs-4">
-              <%= text_field_tag :start_city, @start_array.first,{ :class => "form-control", :required => true, :placeholder => "City" }%>
-            </div>
-          </div>
-          <%= f.label :end, "Ending location of your trip" %>
-          <div class="row">
-            <div class="col-xs-4">
-              <%= text_field_tag :end_country, @end_array.last, :class => "form-control", :required => true, :placeholder => "Country" %>
-            </div>
-            <div class="col-xs-4">
-              <%= text_field_tag :end_province, @end_array.second, :class => "form-control", :required => true, :placeholder => "Province/State" %>
-            </div>
-            <div class="col-xs-4">
-              <%= text_field_tag :end_city, @end_array.first, :class => "form-control", :required => true, :placeholder => "City" %>
-            </div>
-          </div>
-          <p>
-            (Note please try and keep start and end location as accurate as possible. It helps other users plan their trips better.)
-          </p>
           <%= f.label :photo, "Upload a cover image for your trip" %>
           <%= f.file_field :photo %>
       </div>

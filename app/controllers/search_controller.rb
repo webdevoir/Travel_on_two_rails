@@ -39,7 +39,7 @@ class SearchController < ApplicationController
 
   private
 
-  def distance_from_points(trips, start, end_location)
+  def distance_from_points(trips, start_location, end_location)
     @found_trips = []
     @trips.in_groups_of(24, false) do |group|
       trip_id_array = []
@@ -49,8 +49,13 @@ class SearchController < ApplicationController
       group.each do |trip|
         unless trip == nil
           trip_id_array << trip.id
-          start_points_string += trip.start.gsub(" ", "+").gsub(",","") + "|"
-          end_points_string += trip.end.gsub(" ", "+").gsub(",","") + "|"
+          start, last = get_first_and_last_post(trip)
+          if start == nil
+            next
+          else
+            start_points_string += start.gsub(" ", "+").gsub(",","") + "|"
+            end_points_string += last.gsub(" ", "+").gsub(",","") + "|"
+          end
         end
       end
       start_points_string = start_points_string[0..start_points_string.length - 2]
@@ -58,8 +63,8 @@ class SearchController < ApplicationController
 
       # search_start = "Richmond Hill, ON, Canada"
       # search_end = "Brossard, QC, Canada"
-      search_start = start
-      search_end = end_location
+      search_start = start_location.gsub(" ", "+").gsub(",","")
+      search_end = end_location.gsub(" ", "+").gsub(",","")
 
       # first check if start search is close to one of the starting points
       http_response = RestClient::Request.execute(
@@ -67,20 +72,23 @@ class SearchController < ApplicationController
          :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{search_start}&destinations=#{start_points_string}&key=#{ENV['GOOGLE_MAPS_API']}",
       )
       data = JSON.parse(http_response.body)
-
       http_response_second = RestClient::Request.execute(
          :method => :get,
          :url => "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{search_end}&destinations=#{end_points_string}&key=#{ENV['GOOGLE_MAPS_API']}",
       )
       data_second = JSON.parse(http_response_second.body)
-      data["rows"][0]["elements"].each_with_index do |distance, index|
-        if distance["status"] == "ZERO_RESULTS"
-          next
-        elsif distance["distance"]["value"] <= 100000
-          if data_second["rows"][0]["elements"][index]["status"] == "ZERO_RESULTS" || data_second["rows"][0]["elements"][index]["status"] == "NOT_FOUND"
+      if data["status"] == "INVALID_REQUEST"
+        next
+      else
+        data["rows"][0]["elements"].each_with_index do |distance, index|
+          if distance["status"] == "ZERO_RESULTS"
             next
-          elsif data_second["rows"][0]["elements"][index]["distance"]["value"] <= 100000
-            good_trips_id << trip_id_array[index]
+          elsif distance["distance"]["value"] <= 100000
+            if data_second["rows"][0]["elements"][index]["status"] == "ZERO_RESULTS" || data_second["rows"][0]["elements"][index]["status"] == "NOT_FOUND"
+              next
+            elsif data_second["rows"][0]["elements"][index]["distance"]["value"] <= 100000
+              good_trips_id << trip_id_array[index]
+            end
           end
         end
       end
@@ -115,6 +123,19 @@ class SearchController < ApplicationController
       return false
     else
       return true
+    end
+  end
+
+  def get_first_and_last_post(trip)
+    posts = trip.posts.sort_by{ |post| post.full_date }
+    if posts.length > 0
+      if posts.first.route == nil || posts.last.route == nil
+        return [nil, nil]
+      else
+        return [posts.first.route.address1, posts.last.route.address2]
+      end
+    else
+      return [nil, nil]
     end
   end
 

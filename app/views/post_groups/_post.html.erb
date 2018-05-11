@@ -104,7 +104,7 @@ $( document ).ready(function() {
 <div class="comments-claps row">
     <div class="col-sm-12 claps-col">
       <p id="claps-count"><%= @claps %></p>
-      <% if @already_clapped %>
+      <% if @already_clapped == true || @already_clapped == nil %>
         <%= image_tag asset_url("icons/clap-hands.png") %>
         <button type="button" name="button" class="btn btn-primary" disabled>Add Clap</button>
       <% else %>
