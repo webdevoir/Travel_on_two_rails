@@ -43,7 +43,7 @@ class Api::V1::RoutesController < Api::V1::BaseController
   def create
     @current_user = User.find(params[:user_id])
     @route = Route.new(route_params)
-    @route.distance = params[:distance].to_i/1000
+    @route.distance = params["route"]["distance"].to_i/1000
     if @route.save
       @saved_route = SavedRoute.new({
         route_id: @route.id,

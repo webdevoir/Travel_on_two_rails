@@ -40,7 +40,6 @@ class Api::V1::PointOfInterestsController < Api::V1::BaseController
         longitude: point_of_interest_array["point_of_interest"]["longitude"].to_s,
         route_id: @route.id
       })
-      binding.pry
       point_of_interest.save
     end
     render(json: {:success => true}.to_json)
