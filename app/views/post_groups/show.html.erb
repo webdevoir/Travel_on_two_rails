@@ -9,9 +9,17 @@
       <li class="sidebar-brand"><a href="<%= trip_path(@trip) %>">Back to trip</a></li>
       <% @posts.each_with_index do |post, index| %>
         <% if index == 0 %>
-        <li class="<%="#{post.id}" %> sidebar-active-item"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item trip-planner-sidebar-item" data-value="<%= post.id %>" data-lat="<%= post.route.center_lat %>" data-lng="<%= post.route.center_lng %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
+          <% if post.route %>
+            <li class="<%="#{post.id}" %> sidebar-active-item"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item trip-planner-sidebar-item" data-value="<%= post.id %>" data-lat="<%= post.route.center_lat %>" data-lng="<%= post.route.center_lng %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
+          <% else %>
+            <li class="<%="#{post.id}" %> sidebar-active-item"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item trip-planner-sidebar-item" data-value="<%= post.id %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
+          <% end %>
         <% else %>
-        <li class="<%= post.id %>"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item trip-planner-sidebar-item" data-value="<%= post.id %>" data-lat="<%= post.route.center_lat %>" data-lng="<%= post.route.center_lng %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
+          <% if post.route %>
+            <li class="<%= post.id %>"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item trip-planner-sidebar-item" data-value="<%= post.id %>" data-lat="<%= post.route.center_lat %>" data-lng="<%= post.route.center_lng %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
+          <% else %>
+            <li class="<%="#{post.id}" %> sidebar-active-item"><a href="<%= trip_fetch_post_url(@trip, post) %>" class="post-sidebar-item trip-planner-sidebar-item" data-value="<%= post.id %>"><%= "#{post.post_group.month} #{post.day}" %></a></li>
+          <% end %>
         <% end %>
       <% end %>
     </ul>

@@ -6,7 +6,9 @@ class PostsController < ApplicationController
     @post = Post.new
     1.times { @post.post_pictures.build}
     @date_string = ""
-    @route = Route.find(params[:route_id])
+    if params[:route_id]
+      @route = Route.find(params[:route_id])
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @article }
@@ -14,7 +16,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    @route = Route.find(params[:route_id])
     date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
     year = date.year
     day = date.day
@@ -37,9 +38,12 @@ class PostsController < ApplicationController
       @post = @trip.posts.build(post_params)
       @post.post_group_id = @post_group.id
       @post.day = day.to_s
-      @post.route_id = @route.id
-      if @post.save
+      if params[:route_id]
+        @route = Route.find(params[:route_id])
+        @post.route_id = @route.id
         @trip.total_distance += @route.distance
+      end
+      if @post.save
         @trip.save
         send_email_to_followers(@trip, @post)
         # unless params[:post_pictures] == nil

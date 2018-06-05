@@ -49,25 +49,35 @@ $( document ).ready(function() {
 <% if current_user == @user %>
   <%= link_to "Edit Post", edit_trip_post_url(@post.trip, @post) %>
 <% end %>
-<div class="post-details row">
-  <div class="col-sm-4">
-    <p>
-      <%= @post.trip.user.name %>
-    </p>
-  </div>
-  <div class="col-sm-4">
-    <p>
-      <%= @route.address1 %> to <%= @route.address2 %>
-    </p>
-  </div>
-  <% unless @route.distance == nil %>
+<% if @route %>
+  <div class="post-details row">
     <div class="col-sm-4">
       <p>
-        Total Distance: <%= @route.distance %> km
+        <%= @post.trip.user.name %>
       </p>
     </div>
-  <% end %>
-</div>
+    <div class="col-sm-4">
+      <p>
+        <%= @route.address1 %> to <%= @route.address2 %>
+      </p>
+    </div>
+    <% unless @route.distance == nil %>
+      <div class="col-sm-4">
+        <p>
+          Total Distance: <%= @route.distance %> km
+        </p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="post-details row">
+    <div class="col-sm-12">
+      <p>
+        <%= @post.trip.user.name %>
+      </p>
+    </div>
+  </div>
+<% end %>
 <div class="row post-text-row">
   <div class="col-sm-12">
     <p>

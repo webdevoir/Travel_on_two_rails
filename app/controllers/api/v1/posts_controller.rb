@@ -10,7 +10,6 @@ class Api::V1::PostsController < Api::V1::BaseController
     param :post_date, String, :desc => "date of the post"
   end
   def create
-    @route = Route.find(params[:route_id])
     date = params[:post][:post_date].to_datetime
     year = date.year
     day = date.day
@@ -25,9 +24,12 @@ class Api::V1::PostsController < Api::V1::BaseController
     @post = @trip.posts.build(post_params)
     @post.post_group_id = @post_group.id
     @post.day = day.to_s
-    @post.route_id = @route.id
-    if @post.save
+    if params[:route_id]
+      @route = Route.find(params[:route_id])
+      @post.route_id = @route.id
       @trip.total_distance += @route.distance
+    end
+    if @post.save
       @trip.save
       render(json: {:success => true, :post => @post}.to_json)
     else
