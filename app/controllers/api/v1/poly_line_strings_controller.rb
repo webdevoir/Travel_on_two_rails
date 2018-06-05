@@ -6,8 +6,10 @@ class Api::V1::PolyLineStringsController < Api::V1::BaseController
   def index
     poly_line_full = { "poly_lines" => [] }
     @trip.posts.each do |post|
-      route = { "poly_line" => post.route.poly_line, "route_id" => post.route.id, "center_lat" => post.route.center_lat, "center_lng" => post.route.center_lng, "poi" => post.route.point_of_interests }
-      poly_line_full["poly_lines"]<< route
+      if post.route
+        route = { "poly_line" => post.route.poly_line, "route_id" => post.route.id, "center_lat" => post.route.center_lat, "center_lng" => post.route.center_lng, "poi" => post.route.point_of_interests }
+        poly_line_full["poly_lines"]<< route
+      end
     end
     render(json: poly_line_full.to_json)
   end

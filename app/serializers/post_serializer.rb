@@ -34,11 +34,19 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def center_lat
-    return object.route.center_lat
+    if object.route
+      return object.route.center_lat
+    else
+      return nil
+    end
   end
 
   def center_lng
-    return object.route.center_lng
+    if object.route
+      return object.route.center_lng
+    else
+      return nil
+    end
   end
 
 end
