@@ -26,7 +26,7 @@ class Api::V1::ConversationsController < Api::V1::BaseController
   end
 
   api :post, "conversations"
-  param :sender_id, Integer, :desc => "Person creating the message id"
+  param :sender_id, String, :desc => "Person creating the message id"
   param :recipient_id, Integer, :desc => "Person recieving the message id"
   def create
 

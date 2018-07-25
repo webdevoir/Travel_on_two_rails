@@ -91,13 +91,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @trip = @post.trip
     @post_group_old = @post.post_group
-    old_distance = @post.distance
+    old_distance = @post.route.distance
     date = Date.strptime(params[:post][:post_date], '%m/%d/%Y')
     year = date.year
     day = date.day
     month = date.strftime("%B")
     if @post_group_old.month != month || @post_group_old.year != year
-      @post_group = PostGroup.find_by(:year => year, :month => month, :trip_id => @trip.id).first
+      @post_group = PostGroup.find_by(:year => year, :month => month, :trip_id => @trip.id)
       if @post_group == nil
         @post_group = PostGroup.new(:year => year, :month => month, :trip_id => @trip.id)
         if @post_group.save

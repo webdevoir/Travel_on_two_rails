@@ -23,11 +23,15 @@ class ConversationSerializer < ActiveModel::Serializer
   end
 
   def last_message
-    last_message = object.messages.last.body
-    if last_message.length >= 14
-      return "#{last_message[0..12]}..."
+    if object.messages.last == nil
+      return ""
     else
-      return last_message
+      last_message = object.messages.last.body
+      if last_message.length >= 14
+        return "#{last_message[0..12]}..."
+      else
+        return last_message
+      end
     end
   end
 end
