@@ -55,6 +55,11 @@ Devise.setup do |config|
   #   scope: 'read_write',
   #   stripe_landing: 'login'
 
+  # google oauth
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {
+    scope: "contacts.readonly,userinfo.email"
+  }
+
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.

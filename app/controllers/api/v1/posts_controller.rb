@@ -102,7 +102,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
-      render(json: {:success => "success"}.to_json)
+      render(json: {:success => true}.to_json)
     else
       render(json: {:success => "error"}.to_json)
     end
